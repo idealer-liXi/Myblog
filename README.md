@@ -1,19 +1,22 @@
-# myblog
+# myblog 个人博客项目
 
-## Project setup
+**用于创建我个人的博客项目**，将会承载我个人的所有学习内容
+
+
+## 项目启动
+1.环境安装
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+2.启动服务
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+3.打包应用
 ```
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
