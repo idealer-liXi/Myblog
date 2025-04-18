@@ -1,30 +1,30 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" >
     <div class="container-fluid">
-      <a class="navbar-brand ms-3" href="#">IdealBlog</a>
+      <router-link class="navbar-brand ms-3"  :to="{name: 'blog'}">IdealBlog</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">首页</a>
+            <router-link :class="route_value === 'blog'?'nav-link active':'nav-link'" aria-current="page" :to="{name: 'blog'}">首页</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">个人介绍</a>
+            <router-link :class="route_value === 'me'?'nav-link active':'nav-link'" :to="{name: 'me'}">个人介绍</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">后台管理</a>
+            <router-link :class="route_value === 'backend'?'nav-link active':'nav-link'" :to="{name: 'backend'}">后台管理</router-link>
           </li>
 
         </ul>
 
-        <ul class="navbar-nav ms-auto me-3">
-          <li class="nav-item ">
-            <a class="nav-link" href="#">登录</a>
+        <ul class="navbar-nav ms-auto me-4">
+          <li class="nav-item me-3">
+            <button class="btn btn-primary">登录</button>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="#">注册</a>
+            <button class="btn btn-primary">注册</button>
           </li>
         </ul>
       </div>
@@ -34,8 +34,21 @@
 
 <script>
 
+import {useRoute} from "vue-router";
+import {computed} from "vue";
+
 export default {
   setup(){
+    const route = useRoute()
+
+    let route_value = computed(()=>{
+      return route.name;
+    })
+
+
+    return {
+      route_value,
+    }
 
   }
 }

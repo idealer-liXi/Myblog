@@ -1,0 +1,12 @@
+body {
+    font-family: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    background-color: #F2F3F5;
+}
+
+.main{
+    margin: 15px;
+}
+
+.card{
+    border: none;
+}
