@@ -13,7 +13,7 @@
                 <label for="password" class="form-label">密码</label>
                 <input type="password" class="form-control" id="password" placeholder="请输入密码">
               </div>
-              <div class="error_message mb-1">错误信息</div>
+              <div v-if="error_message != null" class="error_message mb-1">{{error_message}}</div>
               <button type="submit" class="btn btn-primary">注册</button>
             </form>
 
@@ -29,7 +29,16 @@
 </template>
 
 <script>
-export default {}
+export default {
+  setup(){
+    let error_message = "";
+
+    return{
+      error_message,
+    }
+
+  }
+}
 </script>
 
 <style scoped>

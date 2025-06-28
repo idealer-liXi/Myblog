@@ -4,6 +4,7 @@ import MeView from '@/views/introduce/MeView.vue';
 import LoginView from "@/views/user/LoginView.vue";
 import RegisterView from "@/views/user/RegisterView.vue";
 import BackendView from "@/views/backend/BackendView.vue";
+import ArticlePerform from "@/components/ArticlePerform.vue";
 
 const routes = [
   {
@@ -15,11 +16,18 @@ const routes = [
     path: '/blog',
     name: 'blog',
     component: BlogView,
+    children: [
+      {
+        path:'/blog/article/:theme',
+        name: 'article',
+        component: ArticlePerform,
+      }
+    ]
   },
   {
     path: '/me',
     name: 'me',
-    component: MeView.vue,
+    component: MeView,
   },
   {
     path: '/user/login',
