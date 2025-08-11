@@ -1,16 +1,16 @@
 <template>
-  <div v-for="p in projects.detail" :key="p.id" class="card projects_card" style="margin-bottom: 10px;">
-    <img :src="p.image" class="card-img-top rounded-0" alt="..." style="width: 100%; height: 140px; object-fit: cover;">
-    <div class="card-body px-0">
-      <div class="container-fluid">
-        <div class="row align-items-center justify-content-center">
-          <div class="col-7 d-flex justify-content-center">
-            <span class="card-text">{{p.name}}</span>
-          </div>
-          <div class="col-5 d-flex justify-content-center">
-            <button type="button" class="btn btn-primary btn-sm">查看</button>
-          </div>
-        </div>
+  <div v-for="p in projects.detail" :key="p.id" class="card projects-card">
+    <div class="image-container">
+      <img :src="p.image" class="card-img" alt="项目图片">
+      <div class="image-overlay">
+        <button type="button" class="btn btn-light btn-sm view-btn">查看详情</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="project-name">{{p.name}}</h5>
+      <div class="project-tags">
+        <span class="tag">Vue.js</span>
+        <span class="tag">Bootstrap</span>
       </div>
     </div>
   </div>
@@ -48,6 +48,90 @@ export default {
 </script>
 
 <style scoped>
+.projects-card {
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  border: none;
+}
 
+.projects-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
 
+.image-container {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.projects-card:hover .card-img {
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.projects-card:hover .image-overlay {
+  opacity: 1;
+}
+
+.view-btn {
+  padding: 6px 14px;
+  font-weight: 500;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.projects-card:hover .view-btn {
+  transform: translateY(0);
+}
+
+.card-body {
+  padding: 15px;
+  background: white;
+}
+
+.project-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: #e9f5ff;
+  color: #74b9ff;
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
 </style>

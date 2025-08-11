@@ -28,17 +28,28 @@ import MusicCard from "@/components/MusicCard.vue";
   max-width: 1500px !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
+  min-height: 100vh;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.main {
+  margin-top: 10px;
 }
 
 .project-title-card {
   background: #fff;
-  border-radius: 0px;
+  border-radius: 8px;
   padding: 12px 0;
   margin-bottom: 12px;
   text-align: center;
   font-size: 1rem;
   font-weight: bold;
   letter-spacing: 2px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
+.left-projects, .main-blog, .right-message {
+  margin-bottom: 20px;
+}
 </style>

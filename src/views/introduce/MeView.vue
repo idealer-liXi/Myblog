@@ -9,6 +9,16 @@
         </div>
       </div>
       <div class="profile-body">
+
+        <section class="section">
+          <h3>联系方式</h3>
+          <ul class="contact-list">
+            <li><i class="bi bi-envelope"></i> 邮箱：2755027635@qq.com</li>
+            <li><i class="bi bi-github"></i> GitHub：<a href="https://github.com/zhangsan" target="_blank">**</a></li>
+            <li><i class="bi bi-geo-alt"></i> 地点：**</li>
+          </ul>
+        </section>
+
         <section class="section">
           <h3>教育经历</h3>
           <ul class="edu-list">
@@ -40,14 +50,7 @@
             <li>美食探索</li>
           </ul>
         </section>
-        <section class="section">
-          <h3>联系方式</h3>
-          <ul class="contact-list">
-            <li><i class="bi bi-envelope"></i> 邮箱：2755027635@qq.com</li>
-            <li><i class="bi bi-github"></i> GitHub：<a href="https://github.com/zhangsan" target="_blank">zhangsan</a></li>
-            <li><i class="bi bi-geo-alt"></i> 地点：沈阳</li>
-          </ul>
-        </section>
+
       </div>
     </div>
   </div>
@@ -61,14 +64,17 @@ export default {
 
 <style scoped>
 .me-container {
-  min-height: 100vh;
   height: 100vh;
-  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+
   display: flex;
   align-items: stretch;
   justify-content: flex-start;
   padding: 0;
+  margin: 0;
+  overflow-y: auto;
 }
+
+
 
 .profile-card {
   background: #fff;
@@ -82,8 +88,9 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0;
+  overflow-y: auto;
+  cursor: default;
 }
 
 .profile-header {
@@ -98,8 +105,8 @@ export default {
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #fda085;
-  box-shadow: 0 2px 8px rgba(253,160,133,0.15);
+  border: 4px solid #74b9ff;
+  box-shadow: 0 2px 8px rgba(116,185,255,0.15);
 }
 
 .profile-info {
@@ -127,7 +134,7 @@ export default {
 
 .section h3 {
   font-size: 1.1rem;
-  color: #fda085;
+  color: #74b9ff;
   margin-bottom: 8px;
   font-weight: 600;
 }
@@ -179,7 +186,7 @@ export default {
 }
 
 .contact-list a {
-  color: #fda085;
+  color: #74b9ff;
   text-decoration: none;
 }
 
@@ -197,12 +204,12 @@ export default {
 }
 
 .hobby-list li {
-  background: #f6d365;
+  background: #74b9ff;
   color: #fff;
   border-radius: 16px;
   padding: 4px 16px;
   font-size: 0.98rem;
-  box-shadow: 0 2px 8px rgba(253,160,133,0.08);
+  box-shadow: 0 2px 8px rgba(116,185,255,0.08);
   margin-bottom: 4px;
   white-space: nowrap;
 }
