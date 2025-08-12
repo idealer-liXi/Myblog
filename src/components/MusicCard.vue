@@ -10,7 +10,7 @@
         </div>
         <div class="music-details">
           <h4 class="music-title">{{ currentMusic.name || '未知歌曲' }}</h4>
-          <p class="music-artist">{{ currentMusic.artist || '未知艺术家' }}</p>
+          <p class="music-artist"><i class="bi bi-music-note"></i> {{ currentMusic.artist || '未知艺术家' }}</p>
         </div>
       </div>
     </div>
@@ -161,13 +161,21 @@ const formatTime = (seconds) => {
 
 <style scoped>
 .music-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 10px;
-  padding: 12px;
-  color: white;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 15px;
+  color: #333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: 0 auto;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.music-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .music-header {
@@ -178,21 +186,42 @@ const formatTime = (seconds) => {
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 5px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.music-card:hover .music-info {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-2px);
 }
 
 .music-cover {
   position: relative;
-  width: 65px;
-  height: 65px;
-  border-radius: 12px;
+  width: 70px;
+  height: 70px;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.music-card:hover .music-cover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .music-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.music-card:hover .music-cover img {
+  transform: scale(1.1);
 }
 
 .play-overlay {
@@ -201,21 +230,38 @@ const formatTime = (seconds) => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(168, 237, 234, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
   animation: pulse 2s infinite;
 }
 
+.music-card:hover .play-overlay,
+.play-overlay[v-if="isPlaying"] {
+  opacity: 1;
+}
+
 @keyframes pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 
 .music-details {
   flex: 1;
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.music-card:hover .music-details {
+  transform: translateX(5px);
 }
 
 .music-title {
@@ -225,15 +271,30 @@ const formatTime = (seconds) => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.music-card:hover .music-title {
+  color: #4a86e8;
 }
 
 .music-artist {
   font-size: 0.9rem;
+  color: #666;
   opacity: 0.8;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.music-artist i {
+  font-size: 0.8rem;
+  color: #fed6e3;
 }
 
 .music-progress {
@@ -247,24 +308,58 @@ const formatTime = (seconds) => {
 .progress-bar {
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
   overflow: hidden;
   margin-bottom: 8px;
+  transition: height 0.3s ease;
+  position: relative;
+}
+
+.music-card:hover .progress-bar {
+  height: 8px;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ff6b6b, #feca57);
-  border-radius: 3px;
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, #a8edea, #fed6e3);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.music-card:hover .progress-fill::after {
+  width: 12px;
+  height: 12px;
+  opacity: 1;
 }
 
 .time-info {
   display: flex;
   justify-content: space-between;
   font-size: 0.8rem;
+  color: #666;
   opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.music-card:hover .time-info {
+  opacity: 1;
 }
 
 .music-controls {
@@ -273,7 +368,7 @@ const formatTime = (seconds) => {
   align-items: center;
   gap: 22px;
   margin-bottom: 2px;
-  margin-top: 0;
+  margin-top: 8px;
   padding: 0;
   height: unset;
   min-height: unset;
@@ -283,7 +378,7 @@ const formatTime = (seconds) => {
 .control-btn {
   background: none;
   border: none;
-  color: white;
+  color: #4a86e8;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -303,25 +398,76 @@ const formatTime = (seconds) => {
 
 .prev-btn, .next-btn {
   font-size: 1.1rem;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(168, 237, 234, 0.2);
   padding: 0;
   margin: 0;
+  transition: all 0.3s ease;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background: rgba(168, 237, 234, 0.4);
+  transform: scale(1.1);
 }
 
 .play-btn {
   font-size: 1.7rem;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #a8edea, #fed6e3);
   padding: 0;
   margin: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.play-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* 响应式设计 */
+@media (max-width: 768px) {
+  .music-card {
+    padding: 12px;
+    max-width: 450px;
+  }
+  
+  .music-info {
+    padding: 3px;
+    margin-bottom: 10px;
+  }
+  
+  .music-title {
+    font-size: 1rem;
+  }
+  
+  .music-artist {
+    font-size: 0.8rem;
+  }
+  
+  .music-controls {
+    gap: 15px;
+    margin-top: 5px;
+  }
+  
+  .prev-btn, .next-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+  
+  .play-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 1.4rem;
+  }
+}
+
 @media (max-width: 480px) {
   .music-card {
     padding: 10px;
