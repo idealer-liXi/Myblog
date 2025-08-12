@@ -4,7 +4,7 @@
       <div class="profile-header">
         <img class="avatar" src="@/assets/images/avatar.jpg" alt="个人头像" />
         <div class="profile-info">
-          <h2 class="name">李想</h2>
+          <h2 class="name">Idealer</h2>
           <p class="bio">Java开发工程师 | 大模型应用开发工程师 | 大模型算法工程师</p>
         </div>
       </div>

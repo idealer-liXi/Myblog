@@ -3,7 +3,7 @@
     <div class="music-header">
       <div class="music-info">
         <div class="music-cover">
-          <img :src="currentMusic.image || '/src/assets/images/default-music.jpg'" :alt="currentMusic.name" />
+          <img :src="currentMusic.image || defaultImage" :alt="currentMusic.name" />
           <div class="play-overlay" v-if="isPlaying">
             <i class="bi bi-music-note-beamed"></i>
           </div>
@@ -46,6 +46,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import defaultImage from '@/assets/images/default-music.jpg'
 
 // 音乐列表数据
 const musicList = ref([
@@ -53,7 +54,7 @@ const musicList = ref([
     id: 1,
     name: '红色高跟鞋',
     artist: '蔡健雅',
-    image: '/src/assets/images/music1.jpg',
+    image: defaultImage,
     path: '/src/assets/music/song1.mp3',
     duration: 240
   },
@@ -61,7 +62,7 @@ const musicList = ref([
     id: 2,
     name: '夜曲',
     artist: '周杰伦',
-    image: '/src/assets/images/music2.jpg',
+    image: defaultImage,
     path: '/src/assets/music/song2.mp3',
     duration: 210
   },
@@ -69,7 +70,7 @@ const musicList = ref([
     id: 3,
     name: '青花瓷',
     artist: '周杰伦',
-    image: '/src/assets/images/music3.jpg',
+    image: defaultImage,
     path: '/src/assets/music/song3.mp3',
     duration: 235
   }
@@ -173,11 +174,6 @@ const formatTime = (seconds) => {
   transition: all 0.3s ease;
 }
 
-.music-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-}
-
 .music-header {
   margin-bottom: 15px;
 }
@@ -190,12 +186,6 @@ const formatTime = (seconds) => {
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.5);
   margin-bottom: 15px;
-  transition: all 0.3s ease;
-}
-
-.music-card:hover .music-info {
-  background: rgba(255, 255, 255, 0.7);
-  transform: translateY(-2px);
 }
 
 .music-cover {
@@ -208,21 +198,13 @@ const formatTime = (seconds) => {
   transition: all 0.3s ease;
 }
 
-.music-card:hover .music-cover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
 .music-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
 }
 
-.music-card:hover .music-cover img {
-  transform: scale(1.1);
-}
+
 
 .play-overlay {
   position: absolute;
@@ -260,23 +242,14 @@ const formatTime = (seconds) => {
   transition: all 0.3s ease;
 }
 
-.music-card:hover .music-details {
-  transform: translateX(5px);
-}
-
 .music-title {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: 600;
   margin: 0 0 5px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #333;
-  transition: color 0.3s ease;
-}
-
-.music-card:hover .music-title {
-  color: #4a86e8;
 }
 
 .music-artist {
@@ -312,41 +285,14 @@ const formatTime = (seconds) => {
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 8px;
-  transition: height 0.3s ease;
   position: relative;
-}
-
-.music-card:hover .progress-bar {
-  height: 8px;
 }
 
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #a8edea, #fed6e3);
   border-radius: 10px;
-  transition: all 0.3s ease;
   position: relative;
-}
-
-.progress-fill::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.music-card:hover .progress-fill::after {
-  width: 12px;
-  height: 12px;
-  opacity: 1;
 }
 
 .time-info {
@@ -355,11 +301,6 @@ const formatTime = (seconds) => {
   font-size: 0.8rem;
   color: #666;
   opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-
-.music-card:hover .time-info {
-  opacity: 1;
 }
 
 .music-controls {
