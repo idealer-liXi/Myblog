@@ -1,0 +1,17 @@
+# 服务端地址 https://github.com/fatedier/frp/blob/dev/conf/frpc_full_example.toml
+serverAddr = "117.72.186.124"
+# 服务端配置的bindPort
+serverPort = 7000
+# token =
+
+[[proxies]]
+# 代理应用名称，根据自己需要进行配置
+name = "weixin"
+# 代理类型 有tcp\udp\stcp\p2p
+type = "tcp"
+# 客户端代理应用IP
+localIP = "host.docker.internal"
+# 客户端代理应用端口
+localPort = 8080
+# 服务端反向代理端口；提供给外部访问
+remotePort = 80

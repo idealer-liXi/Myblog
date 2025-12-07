@@ -1,0 +1,49 @@
+package cn.idealer01.domain.auth.service;
+
+import cn.idealer01.domain.auth.adapter.port.ILoginPort;
+import cn.idealer01.domain.auth.adapter.repository.ILoginReposity;
+import org.springframework.stereotype.Service;
+
+
+import javax.annotation.Resource;
+import java.io.IOException;
+
+@Service
+public class WeixinLoginService implements ILoginService{
+    @Resource
+    private ILoginPort loginPort;
+    @Resource
+    private ILoginReposity loginReposity;
+
+    /**
+     * 创建二维码，要调用外部api，故交给基础设施层实现
+     * @return 二维码
+     */
+    @Override
+    public String createQrCodeTicket() throws IOException {
+        return loginPort.createQrCodeTicket();
+    }
+
+    /**
+     * 引入，查询redis是否缓存openId
+     * @param ticket
+     * @return redis查询结果
+     */
+    @Override
+    public String checkLogin(String ticket) {
+        return loginReposity.checkLogin(ticket);
+    }
+
+    /**
+     * 将ticket，openId作为k-v保存到数据库
+     * @param ticket
+     * @param openId
+     */
+    @Override
+    public void saveLoginState(String ticket, String openId) throws IOException {
+        //1.将k-v保存
+        loginReposity.saveLoginState(ticket, openId);
+        //2.在公众号给用户发送提示消息
+        loginPort.sendLoginTemplate(openId);
+    }
+}

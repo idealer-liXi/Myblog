@@ -1,21 +1,30 @@
-# 命令执行 docker-compose -f docker-compose-environment-aliyun.yml up -d
-# docker 代理和使用文档；https://bugstack.cn/md/road-map/docker.html
-version: '3.9'
+version: '3.8'
+
 services:
+  frpc:
+    image: fatedier/frpc:v0.60.0
+    hostname: frpc
+    container_name: myblog-frpc
+    volumes:
+      - "./frpc/config/frpc.toml:/frpc.toml"
+    command:
+      - "-c"
+      - "/frpc.toml"
+    network_mode: "host"
+
   mysql:
     image: mysql:8.0.32
-    container_name: mysql
+    container_name: myblog-mysql
     command: --default-authentication-plugin=mysql_native_password
-    restart: always
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: 123456
     ports:
-      - "13306:3306"
+      - "3306:3306"
     volumes:
       - ./mysql/sql:/docker-entrypoint-initdb.d
     healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 5s
       timeout: 10s
       retries: 10
@@ -23,32 +32,29 @@ services:
     networks:
       - my-network
 
-  # phpmyadmin https://hub.docker.com/_/phpmyadmin
   phpmyadmin:
     image: phpmyadmin:5.2.1
-    container_name: phpmyadmin
+    container_name: myblog-phpmyadmin
     hostname: phpmyadmin
     ports:
       - 8899:80
     environment:
       - PMA_HOST=mysql
       - PMA_PORT=3306
-      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123qwe!@#QWE
     depends_on:
       mysql:
         condition: service_healthy
     networks:
       - my-network
 
-  # Redis
   redis:
-    image: redis:6.2
-    container_name: redis
-    restart: always
+    image: redis:7.2
+    container_name: myblog-redis
     hostname: redis
     privileged: true
     ports:
-      - 16379:6379
+      - 6379:6379
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     command: redis-server /usr/local/etc/redis/redis.conf
@@ -65,12 +71,10 @@ services:
     image: spryker/redis-commander:0.8.0
     container_name: redis-admin
     hostname: redis-commander
-    restart: always
     ports:
       - 8081:8081
     environment:
-      - REDIS_HOSTS=local:redis:6379
-      - REDIS_PASSWORD=123456
+      - REDIS_HOSTS=local:redis:6379:0:123456
       - HTTP_USER=admin
       - HTTP_PASSWORD=admin
       - LANG=C.UTF-8
