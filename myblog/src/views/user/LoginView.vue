@@ -71,9 +71,12 @@
 <script>
 import {ref} from "vue";
 import axios from "axios";
+import router from "@/router";
+import {useStore} from "vuex";
 
 export default {
   setup(){
+    const store = useStore()
     let error_message = ref('')
     let showQRCode = ref(false)
     let qrCodeUrl = ref('')
@@ -114,17 +117,46 @@ export default {
           clearInterval(intervalId);
           // 保存登录 token 到 cookie，设置有效期为30天
           setCookie('openIdToken', response.data.data, 30);
+          // 获取用户昵称和头像
+          const response1 = await axios.get(`http://localhost:8080/api/v1/login/weixin_user_information?openid=${response.data.data}`)
+          if(response1.data.code === "0000"){
+            //成功获取用户昵称和头像
+            const name = response1.data.data.weixinName;
+            const image_url = response1.data.data.weixinImageUrl;
+            //1.将昵称和头像持久化
+            console.log(response1);
+            localStorage.setItem('weixinName',name)
+            localStorage.setItem('weixinImageUrl',image_url)
+            //2.缓存到vuex中 todo
+            store.dispatch('weixin_user/login',{
+              weixinName: name,
+              weixinImageUrl: image_url
+            });
+
+          }else{
+            console.error("获取微信用户头像昵称失败");
+          }
+
 
           //跳转页面
+          router.push({name: "home"})
         }else{
           console.log(response.data.info);
         }
 
       } catch (e) {
-        console.error('Error getting wechat QR code:', error)
+        console.error('Error getting wechat QR code:', e)
         error_message.value = '获取微信登录二维码失败'
         showQRCode.value = false
       }
+    }
+
+    //保存用户信息
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = name + "=" + value + ";" + expires + ";path=/";
     }
 
 
@@ -175,6 +207,7 @@ export default {
   --color: rgb(204, 125, 45);
   --color2: rgb(83, 56, 28);
   transform: scale(0.75);
+  margin: 0 auto; /* Added for centering */
 }
 .capybara {
   width: 100%;

@@ -8,18 +8,34 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
+import { useStore } from "vuex";
 
 export default {
-  name:'',
-  components:{
+  name: '',
+  components: {
     Navbar,
     Footer,
   },
-  setup(){
+  setup() {
+    const store = useStore();
 
+    const getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    };
+
+    const weixinName = getCookie("weixinName");
+    const weixinImageUrl = getCookie("weixinImageUrl");
+
+    if (weixinName && weixinImageUrl) {
+      store.dispatch("weixin_user/login", {
+        weixinName: decodeURIComponent(weixinName),
+        weixinImageUrl: weixinImageUrl,
+      });
+    }
   }
 }
-
 </script>
 
 

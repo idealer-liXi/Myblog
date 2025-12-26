@@ -25,12 +25,23 @@
           </li>
         </ul>
 
-        <ul class="navbar-nav ms-auto me-4">
+        <ul v-if="!isLoggedIn" class="navbar-nav ms-auto me-4">
           <li class="nav-item me-3">
             <button class="btn btn-primary" @click="login">登录</button>
           </li>
           <li class="nav-item ">
             <button class="btn btn-primary" @click="register">注册</button>
+          </li>
+        </ul>
+        <ul v-else class="navbar-nav ms-auto me-4 align-items-center">
+          <li class="nav-item">
+            <img :src="userInfo.weixinImageUrl" alt="User Avatar" class="avatar me-2">
+          </li>
+          <li class="nav-item me-3">
+            <span class="navbar-text">{{ userInfo.weixinName }}</span>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-secondary" @click="logout">登出</button>
           </li>
         </ul>
       </div>
@@ -39,37 +50,47 @@
 </template>
 
 <script>
-
-import {useRoute} from "vue-router";
-import {computed} from "vue";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 import router from "@/router";
+import { useStore } from "vuex";
 
 export default {
-  setup(){
-    const route = useRoute()
+  setup() {
+    const route = useRoute();
+    const store = useStore();
 
-    let route_value = computed(()=>{
-      return route.name;
-    })
+    const route_value = computed(() => route.name);
+    const isLoggedIn = computed(() => store.getters["weixin_user/getLoginStatus"]);
+    const userInfo = computed(() => store.getters["weixin_user/getUserInfo"]);
 
     const login = () => {
-      router.push({name: "login"})
-    }
+      router.push({ name: "login" });
+    };
 
     const register = () => {
-      router.push({name: "register"})
-    }
+      router.push({ name: "register" });
+    };
 
-
+    const logout = () => {
+      store.dispatch("weixin_user/logout");
+      // Clear cookies
+      document.cookie = "openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "weixinName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "weixinImageUrl=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      router.push({ name: "blog" });
+    };
 
     return {
       route_value,
+      isLoggedIn,
+      userInfo,
       login,
       register,
-    }
-
-  }
-}
+      logout,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -87,5 +108,11 @@ export default {
 .navbar-brand:hover {
   transform: scale(1.05);
   text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 </style>
