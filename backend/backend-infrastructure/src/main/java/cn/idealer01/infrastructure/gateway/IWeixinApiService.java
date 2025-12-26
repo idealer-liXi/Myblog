@@ -1,5 +1,6 @@
 package cn.idealer01.infrastructure.gateway;
 
+import cn.idealer01.infrastructure.dao.po.WeixinUser;
 import cn.idealer01.infrastructure.gateway.dto.WeixinQrCodeRequestDTO;
 import cn.idealer01.infrastructure.gateway.dto.WeixinQrCodeResponseDTO;
 import cn.idealer01.infrastructure.gateway.dto.WeixinTemplateMessageDTO;
@@ -43,4 +44,9 @@ public interface IWeixinApiService {
     Call<Void> sendMessage(@Query("access_token") String accessToken,
                            @Body WeixinTemplateMessageDTO weixinTemplateMessageDTO);
 
+    /**
+     * 获取微信用户昵称和头像
+     * @return
+     */
+    WeixinUser getUserInfo();
 }

@@ -76,8 +76,8 @@ export default {
       store.dispatch("weixin_user/logout");
       // Clear cookies
       document.cookie = "openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "weixinName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "weixinImageUrl=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      localStorage.removeItem('weixinName');
+      localStorage.removeItem('weixinImageUrl');
       router.push({ name: "blog" });
     };
 

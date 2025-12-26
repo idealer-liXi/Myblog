@@ -14,4 +14,4 @@ localIP = "host.docker.internal"
 # 客户端代理应用端口
 localPort = 8080
 # 服务端反向代理端口；提供给外部访问
-remotePort = 80
+remotePort = 8081

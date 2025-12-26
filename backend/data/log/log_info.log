@@ -1,114 +1,69 @@
-25-10-23.22:58:33.140 [main            ] INFO  Application            - Starting Application using Java 1.8.0_462 on LAPTOP-433PN6OP with PID 28036 (D:\MyBlog\backend\backend-app\target\classes started by idealer in D:\MyBlog\backend)
-25-10-23.22:58:33.142 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-25-10-23.22:58:33.543 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-25-10-23.22:58:33.545 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-25-10-23.22:58:33.563 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
-25-10-23.22:58:33.623 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[cn.idealer01]' package. Please check your configuration.
-25-10-23.22:58:33.877 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-25-10-23.22:58:33.883 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-25-10-23.22:58:33.883 [main            ] INFO  StandardService        - Starting service [Tomcat]
-25-10-23.22:58:33.883 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-25-10-23.22:58:33.948 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-25-10-23.22:58:33.948 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 785 ms
-25-10-23.22:58:34.453 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
-25-10-23.22:58:34.462 [main            ] INFO  StandardService        - Stopping service [Tomcat]
-25-10-23.22:58:34.471 [main            ] INFO  ConditionEvaluationReportLoggingListener - 
-
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-25-10-23.22:58:34.482 [main            ] ERROR LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
-
-Reason: Failed to determine a suitable driver class
-
-
-Action:
-
-Consider the following:
-	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
-	If you have database settings to be loaded from a particular profile you may need to activate it (the profiles dev are currently active).
-
-25-10-23.23:01:04.930 [main            ] INFO  Application            - Starting Application using Java 1.8.0_462 on LAPTOP-433PN6OP with PID 27504 (D:\MyBlog\backend\backend-app\target\classes started by idealer in D:\MyBlog\backend)
-25-10-23.23:01:04.931 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-25-10-23.23:01:05.251 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-25-10-23.23:01:05.252 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-25-10-23.23:01:05.266 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
-25-10-23.23:01:05.313 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[cn.idealer01]' package. Please check your configuration.
-25-10-23.23:01:05.515 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-25-10-23.23:01:05.519 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-25-10-23.23:01:05.520 [main            ] INFO  StandardService        - Starting service [Tomcat]
-25-10-23.23:01:05.520 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-25-10-23.23:01:05.573 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-25-10-23.23:01:05.573 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 624 ms
-25-10-23.23:01:06.029 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
-25-10-23.23:01:06.039 [main            ] INFO  StandardService        - Stopping service [Tomcat]
-25-10-23.23:01:06.046 [main            ] INFO  ConditionEvaluationReportLoggingListener - 
-
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-25-10-23.23:01:06.055 [main            ] ERROR LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
-
-Reason: Failed to determine a suitable driver class
-
-
-Action:
-
-Consider the following:
-	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
-	If you have database settings to be loaded from a particular profile you may need to activate it (the profiles dev are currently active).
-
-25-10-23.23:04:00.213 [main            ] INFO  Application            - Starting Application using Java 1.8.0_462 on LAPTOP-433PN6OP with PID 29536 (D:\MyBlog\backend\backend-app\target\classes started by idealer in D:\MyBlog\backend)
-25-10-23.23:04:00.214 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-25-10-23.23:04:00.487 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-25-10-23.23:04:00.488 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-25-10-23.23:04:00.505 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
-25-10-23.23:04:00.705 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-25-10-23.23:04:00.709 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-25-10-23.23:04:00.709 [main            ] INFO  StandardService        - Starting service [Tomcat]
-25-10-23.23:04:00.709 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-25-10-23.23:04:00.767 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-25-10-23.23:04:00.767 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 533 ms
-25-10-23.23:04:01.262 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-25-10-23.23:04:01.272 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-25-10-23.23:04:01.278 [main            ] INFO  Application            - Started Application in 1.294 seconds (JVM running for 1.867)
-25-10-23.23:04:07.692 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-25-10-23.23:04:07.692 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-25-10-23.23:04:07.692 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-25-10-23.23:04:07.711 [http-nio-8080-exec-1] INFO  WeixinPortalController - 微信公众号验签信息开始 [1b948b5dca87b6cb31707af82c4f84ddc4254256, 1761231847, 1594118139, 2187842126052485119]
-25-10-23.23:04:07.715 [http-nio-8080-exec-1] INFO  WeixinPortalController - 微信公众号验签信息完成 check：true
-25-10-23.23:06:40.913 [http-nio-8080-exec-5] ERROR LoginController        - 微信二维码生成失败
-com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "errcode" (class cn.idealer01.infrastructure.gateway.dto.WeixinQrCodeResponseDTO), not marked as ignorable (3 known properties: "ticket", "expire_seconds", "url"])
- at [Source: (okhttp3.ResponseBody$BomAwareReader); line: 1, column: 17] (through reference chain: cn.idealer01.infrastructure.gateway.dto.WeixinQrCodeResponseDTO["errcode"])
-	at com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException.from(UnrecognizedPropertyException.java:61)
-	at com.fasterxml.jackson.databind.DeserializationContext.handleUnknownProperty(DeserializationContext.java:1127)
-	at com.fasterxml.jackson.databind.deser.std.StdDeserializer.handleUnknownProperty(StdDeserializer.java:2036)
-	at com.fasterxml.jackson.databind.deser.BeanDeserializerBase.handleUnknownProperty(BeanDeserializerBase.java:1700)
-	at com.fasterxml.jackson.databind.deser.BeanDeserializerBase.handleUnknownVanilla(BeanDeserializerBase.java:1678)
-	at com.fasterxml.jackson.databind.deser.BeanDeserializer.vanillaDeserialize(BeanDeserializer.java:320)
-	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserialize(BeanDeserializer.java:177)
-	at com.fasterxml.jackson.databind.deser.DefaultDeserializationContext.readRootValue(DefaultDeserializationContext.java:323)
-	at com.fasterxml.jackson.databind.ObjectReader._bindAndClose(ObjectReader.java:2051)
-	at com.fasterxml.jackson.databind.ObjectReader.readValue(ObjectReader.java:1459)
-	at retrofit2.converter.jackson.JacksonResponseBodyConverter.convert(JacksonResponseBodyConverter.java:33)
-	at retrofit2.converter.jackson.JacksonResponseBodyConverter.convert(JacksonResponseBodyConverter.java:23)
-	at retrofit2.OkHttpCall.parseResponse(OkHttpCall.java:243)
+25-12-26.16:41:54.984 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 16972 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
+25-12-26.16:41:54.986 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+25-12-26.16:41:55.560 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+25-12-26.16:41:55.561 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+25-12-26.16:41:55.587 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+25-12-26.16:41:55.991 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+25-12-26.16:41:56.000 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+25-12-26.16:41:56.000 [main            ] INFO  StandardService        - Starting service [Tomcat]
+25-12-26.16:41:56.000 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+25-12-26.16:41:56.103 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+25-12-26.16:41:56.103 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1078 ms
+25-12-26.16:41:56.993 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+25-12-26.16:41:57.008 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+25-12-26.16:41:57.015 [main            ] INFO  Application            - Started Application in 2.458 seconds (JVM running for 3.716)
+25-12-26.16:42:21.248 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+25-12-26.16:42:21.251 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+25-12-26.16:42:21.251 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
+25-12-26.16:42:23.051 [http-nio-8080-exec-1] INFO  LoginController        - 微信二维码生成，ticket:gQF17zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyZE1tcHBadjBhRi0xdEtuUk5GMUoAAgRuSk5pAwQAjScA
+25-12-26.16:42:26.094 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQF17zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyZE1tcHBadjBhRi0xdEtuUk5GMUoAAgRuSk5pAwQAjScA openId:null
+25-12-26.16:42:29.095 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQF17zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyZE1tcHBadjBhRi0xdEtuUk5GMUoAAgRuSk5pAwQAjScA openId:null
+25-12-26.16:42:30.508 [http-nio-8080-exec-3] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766738550</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQF17zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyZE1tcHBadjBhRi0xdEtuUk5GMUoAAgRuSk5pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.16:42:31.185 [http-nio-8080-exec-3] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.16:42:31.198 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Starting...
+25-12-26.16:42:31.335 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+25-12-26.16:42:31.367 [http-nio-8080-exec-3] INFO  LoginReposity          - 将用户on0CpvnvDLfnecgKYuTWUnqe-W7c信息保存至数据库
+25-12-26.16:42:32.097 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQF17zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyZE1tcHBadjBhRi0xdEtuUk5GMUoAAgRuSk5pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.16:42:32.104 [http-nio-8080-exec-9] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.16:42:32.110 [http-nio-8080-exec-9] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：image_url
+25-12-26.16:56:26.871 [http-nio-8080-exec-5] ERROR LoginController        - 微信二维码生成失败
+javax.net.ssl.SSLException: Read timed out
+	at sun.security.ssl.Alert.createSSLException(Alert.java:127)
+	at sun.security.ssl.TransportContext.fatal(TransportContext.java:331)
+	at sun.security.ssl.TransportContext.fatal(TransportContext.java:274)
+	at sun.security.ssl.TransportContext.fatal(TransportContext.java:269)
+	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:138)
+	at sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1401)
+	at sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1309)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:440)
+	at okhttp3.internal.connection.RealConnection.connectTls(RealConnection.kt:379)
+	at okhttp3.internal.connection.RealConnection.establishProtocol(RealConnection.kt:337)
+	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:209)
+	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
 	at retrofit2.OkHttpCall.execute(OkHttpCall.java:204)
 	at cn.idealer01.infrastructure.adapter.port.LoginPort.createQrCodeTicket(LoginPort.java:59)
-	at cn.idealer01.domain.auth.service.WeixinLoginService.createQrCodeTicket(WeixinLoginService.java:24)
-	at cn.idealer01.trigger.http.LoginController.weixinQrCodeTicket(LoginController.java:26)
+	at cn.idealer01.domain.auth.service.WeixinLoginService.createQrCodeTicket(WeixinLoginService.java:25)
+	at cn.idealer01.trigger.http.LoginController.weixinQrCodeTicket(LoginController.java:29)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -159,3 +114,762 @@ com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized f
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
+	Suppressed: javax.net.ssl.SSLException: Read timed out
+		... 79 common frames omitted
+	Caused by: java.net.SocketTimeoutException: Read timed out
+		at java.net.SocketInputStream.socketRead0(Native Method)
+		at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+		at java.net.SocketInputStream.read(SocketInputStream.java:171)
+		at java.net.SocketInputStream.read(SocketInputStream.java:141)
+		at sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:464)
+		at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:165)
+		at sun.security.ssl.SSLTransport.decode(SSLTransport.java:109)
+		... 74 common frames omitted
+	Suppressed: javax.net.ssl.SSLException: Read timed out
+		... 79 common frames omitted
+	Caused by: java.net.SocketTimeoutException: Read timed out
+		at java.net.SocketInputStream.socketRead0(Native Method)
+		at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+		at java.net.SocketInputStream.read(SocketInputStream.java:171)
+		at java.net.SocketInputStream.read(SocketInputStream.java:141)
+		at sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:464)
+		at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:165)
+		at sun.security.ssl.SSLTransport.decode(SSLTransport.java:109)
+		... 74 common frames omitted
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:464)
+	at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:165)
+	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:109)
+	... 74 common frames omitted
+25-12-26.16:58:01.981 [http-nio-8080-exec-1] INFO  LoginController        - 微信二维码生成，ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA
+25-12-26.16:58:04.996 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:08.006 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:11.003 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:14.003 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:16.996 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:19.994 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:22.993 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:25.997 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:28.991 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:32.006 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:34.997 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:37.994 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:41.005 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:43.990 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:46.998 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:50.000 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:52.991 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:55.996 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:58:58.994 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:01.996 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:04.992 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:08.012 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:10.997 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:13.992 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:17.001 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:19.997 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:22.989 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:25.994 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:28.984 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:32.005 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:34.997 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:37.993 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:40.995 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:43.995 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:46.996 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:50.005 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:52.999 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:56.003 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.16:59:59.003 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:01.991 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:04.999 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:07.994 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:10.995 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:14.005 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:17.001 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:19.995 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:23.000 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:25.998 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:28.993 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:32.004 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:34.991 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:38.000 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:40.997 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:44.004 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:47.002 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:49.997 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:53.004 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:55.999 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:00:59.002 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:02.001 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:04.994 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:07.994 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:10.996 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:14.003 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:17.000 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:20.004 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:23.001 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:25.998 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:29.001 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:31.997 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:34.993 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:37.998 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:40.997 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:43.994 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:46.991 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:50.001 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:52.996 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:55.999 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:01:59.003 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:01.994 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:05.001 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:07.994 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:10.999 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:13.998 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:16.991 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:20.006 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:22.990 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:25.995 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:28.994 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:32.004 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:34.995 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:37.996 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:41.001 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:43.989 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:46.999 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:49.741 [http-nio-8080-exec-4] INFO  LoginController        - 微信二维码生成，ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA
+25-12-26.17:02:49.999 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:52.750 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:02:52.992 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:55.754 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:02:55.998 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:02:58.752 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:02:59.004 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:01.838 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:02.834 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:04.842 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:05.624 [http-nio-8080-exec-8] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is java.io.IOException: org.apache.tomcat.util.http.fileupload.FileUploadException: Stream ended unexpectedly] with root cause
+org.apache.tomcat.util.http.fileupload.MultipartStream$MalformedStreamException: Stream ended unexpectedly
+	at org.apache.tomcat.util.http.fileupload.MultipartStream.readHeaders(MultipartStream.java:520)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.findNextItem(FileItemIteratorImpl.java:243)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.hasNext(FileItemIteratorImpl.java:312)
+	at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:305)
+	at org.apache.catalina.connector.Request.parseParts(Request.java:2849)
+	at org.apache.catalina.connector.Request.getParts(Request.java:2750)
+	at org.apache.catalina.connector.RequestFacade.getParts(RequestFacade.java:796)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.parseRequest(StandardMultipartHttpServletRequest.java:95)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.<init>(StandardMultipartHttpServletRequest.java:88)
+	at org.springframework.web.multipart.support.StandardServletMultipartResolver.resolveMultipart(StandardServletMultipartResolver.java:122)
+	at org.springframework.web.servlet.DispatcherServlet.checkMultipart(DispatcherServlet.java:1210)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1044)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+25-12-26.17:03:05.848 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:06.239 [http-nio-8080-exec-1] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is java.io.IOException: org.apache.tomcat.util.http.fileupload.FileUploadException: Stream ended unexpectedly] with root cause
+org.apache.tomcat.util.http.fileupload.MultipartStream$MalformedStreamException: Stream ended unexpectedly
+	at org.apache.tomcat.util.http.fileupload.MultipartStream.readHeaders(MultipartStream.java:520)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.findNextItem(FileItemIteratorImpl.java:243)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.hasNext(FileItemIteratorImpl.java:312)
+	at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:305)
+	at org.apache.catalina.connector.Request.parseParts(Request.java:2849)
+	at org.apache.catalina.connector.Request.getParts(Request.java:2750)
+	at org.apache.catalina.connector.RequestFacade.getParts(RequestFacade.java:796)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.parseRequest(StandardMultipartHttpServletRequest.java:95)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.<init>(StandardMultipartHttpServletRequest.java:88)
+	at org.springframework.web.multipart.support.StandardServletMultipartResolver.resolveMultipart(StandardServletMultipartResolver.java:122)
+	at org.springframework.web.servlet.DispatcherServlet.checkMultipart(DispatcherServlet.java:1210)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1044)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+25-12-26.17:03:06.841 [http-nio-8080-exec-6] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is java.io.IOException: org.apache.tomcat.util.http.fileupload.FileUploadException: Stream ended unexpectedly] with root cause
+org.apache.tomcat.util.http.fileupload.MultipartStream$MalformedStreamException: Stream ended unexpectedly
+	at org.apache.tomcat.util.http.fileupload.MultipartStream.readHeaders(MultipartStream.java:520)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.findNextItem(FileItemIteratorImpl.java:243)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.hasNext(FileItemIteratorImpl.java:312)
+	at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:305)
+	at org.apache.catalina.connector.Request.parseParts(Request.java:2849)
+	at org.apache.catalina.connector.Request.getParts(Request.java:2750)
+	at org.apache.catalina.connector.RequestFacade.getParts(RequestFacade.java:796)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.parseRequest(StandardMultipartHttpServletRequest.java:95)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.<init>(StandardMultipartHttpServletRequest.java:88)
+	at org.springframework.web.multipart.support.StandardServletMultipartResolver.resolveMultipart(StandardServletMultipartResolver.java:122)
+	at org.springframework.web.servlet.DispatcherServlet.checkMultipart(DispatcherServlet.java:1210)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1044)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+25-12-26.17:03:07.435 [http-nio-8080-exec-10] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is java.io.IOException: org.apache.tomcat.util.http.fileupload.FileUploadException: Stream ended unexpectedly] with root cause
+org.apache.tomcat.util.http.fileupload.MultipartStream$MalformedStreamException: Stream ended unexpectedly
+	at org.apache.tomcat.util.http.fileupload.MultipartStream.readHeaders(MultipartStream.java:520)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.findNextItem(FileItemIteratorImpl.java:243)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.hasNext(FileItemIteratorImpl.java:312)
+	at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:305)
+	at org.apache.catalina.connector.Request.parseParts(Request.java:2849)
+	at org.apache.catalina.connector.Request.getParts(Request.java:2750)
+	at org.apache.catalina.connector.RequestFacade.getParts(RequestFacade.java:796)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.parseRequest(StandardMultipartHttpServletRequest.java:95)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.<init>(StandardMultipartHttpServletRequest.java:88)
+	at org.springframework.web.multipart.support.StandardServletMultipartResolver.resolveMultipart(StandardServletMultipartResolver.java:122)
+	at org.springframework.web.servlet.DispatcherServlet.checkMultipart(DispatcherServlet.java:1210)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1044)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+25-12-26.17:03:07.850 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:08.043 [http-nio-8080-exec-3] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is java.io.IOException: org.apache.tomcat.util.http.fileupload.FileUploadException: Stream ended unexpectedly] with root cause
+org.apache.tomcat.util.http.fileupload.MultipartStream$MalformedStreamException: Stream ended unexpectedly
+	at org.apache.tomcat.util.http.fileupload.MultipartStream.readHeaders(MultipartStream.java:520)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.findNextItem(FileItemIteratorImpl.java:243)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.hasNext(FileItemIteratorImpl.java:312)
+	at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:305)
+	at org.apache.catalina.connector.Request.parseParts(Request.java:2849)
+	at org.apache.catalina.connector.Request.getParts(Request.java:2750)
+	at org.apache.catalina.connector.RequestFacade.getParts(RequestFacade.java:796)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.parseRequest(StandardMultipartHttpServletRequest.java:95)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.<init>(StandardMultipartHttpServletRequest.java:88)
+	at org.springframework.web.multipart.support.StandardServletMultipartResolver.resolveMultipart(StandardServletMultipartResolver.java:122)
+	at org.springframework.web.servlet.DispatcherServlet.checkMultipart(DispatcherServlet.java:1210)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1044)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+25-12-26.17:03:08.660 [http-nio-8080-exec-7] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is java.io.IOException: org.apache.tomcat.util.http.fileupload.FileUploadException: Stream ended unexpectedly] with root cause
+org.apache.tomcat.util.http.fileupload.MultipartStream$MalformedStreamException: Stream ended unexpectedly
+	at org.apache.tomcat.util.http.fileupload.MultipartStream.readHeaders(MultipartStream.java:520)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.findNextItem(FileItemIteratorImpl.java:243)
+	at org.apache.tomcat.util.http.fileupload.impl.FileItemIteratorImpl.hasNext(FileItemIteratorImpl.java:312)
+	at org.apache.tomcat.util.http.fileupload.FileUploadBase.parseRequest(FileUploadBase.java:305)
+	at org.apache.catalina.connector.Request.parseParts(Request.java:2849)
+	at org.apache.catalina.connector.Request.getParts(Request.java:2750)
+	at org.apache.catalina.connector.RequestFacade.getParts(RequestFacade.java:796)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.parseRequest(StandardMultipartHttpServletRequest.java:95)
+	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest.<init>(StandardMultipartHttpServletRequest.java:88)
+	at org.springframework.web.multipart.support.StandardServletMultipartResolver.resolveMultipart(StandardServletMultipartResolver.java:122)
+	at org.springframework.web.servlet.DispatcherServlet.checkMultipart(DispatcherServlet.java:1210)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1044)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+25-12-26.17:03:08.853 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:10.844 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:11.839 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:13.843 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:14.837 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:16.843 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:17.851 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:19.847 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:20.846 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:22.848 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:23.845 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:25.842 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:26.840 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:28.753 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:29.002 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:31.745 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:31.992 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:34.758 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:34.996 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:37.763 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:37.992 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:40.846 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:41.843 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:43.846 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:44.847 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:46.851 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:47.848 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:49.841 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:50.839 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:52.852 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:53.850 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:55.841 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:56.847 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:03:58.845 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:03:59.833 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:01.845 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:02.843 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:04.845 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:05.838 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:07.854 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:08.849 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:10.854 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:11.844 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:13.835 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:14.843 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:16.846 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:17.846 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:19.839 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:20.845 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:22.843 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:23.845 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:25.848 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:26.847 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:28.839 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:29.843 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:31.845 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:32.840 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:34.839 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:35.847 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:37.842 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:38.849 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:04:59.846 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:04:59.846 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:05:59.852 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:05:59.852 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:06:59.842 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:06:59.842 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:07:59.849 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:07:59.849 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:08:59.843 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:08:59.843 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:09:59.850 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:09:59.850 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:10:59.838 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:10:59.838 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:11:59.836 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:11:59.836 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:12:59.843 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:12:59.843 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:13:59.846 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:13:59.846 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:14:59.838 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:14:59.838 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:15:59.843 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:15:59.843 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:16:59.845 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:16:59.845 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:17:59.837 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:17:59.837 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:18:59.841 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:18:59.841 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:19:59.852 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:19:59.852 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:20:59.837 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:20:59.837 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:21:59.850 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:21:59.850 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:22:59.849 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:22:59.849 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:23:59.847 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:23:59.847 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:24:59.839 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.17:24:59.839 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.17:25:53.201 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+25-12-26.17:25:53.338 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+25-12-26.18:27:09.743 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 24148 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
+25-12-26.18:27:09.746 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+25-12-26.18:27:10.286 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+25-12-26.18:27:10.288 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+25-12-26.18:27:10.314 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+25-12-26.18:27:10.854 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+25-12-26.18:27:10.861 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+25-12-26.18:27:10.862 [main            ] INFO  StandardService        - Starting service [Tomcat]
+25-12-26.18:27:10.862 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+25-12-26.18:27:10.978 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+25-12-26.18:27:10.978 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1193 ms
+25-12-26.18:27:11.874 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+25-12-26.18:27:11.893 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+25-12-26.18:27:11.902 [main            ] INFO  Application            - Started Application in 2.598 seconds (JVM running for 3.602)
+25-12-26.18:27:12.196 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+25-12-26.18:27:12.196 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+25-12-26.18:27:12.197 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 1 ms
+25-12-26.18:27:12.887 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.18:27:13.848 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.18:27:14.840 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.18:27:16.841 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.18:27:17.853 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.18:27:19.847 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.18:27:20.842 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.18:27:22.852 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.18:27:23.853 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.18:27:25.839 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.18:27:26.839 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.18:27:28.840 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyY0dibW9QdjBhRi0xc1ZzUnhGMUcAAgQ5T05pAwQAjScA openId:null
+25-12-26.18:27:29.388 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQHU7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYkRWRG9KdjBhRi0xc3ByUk5GMXMAAgQZTk5pAwQAjScA openId:null
+25-12-26.18:30:45.839 [http-nio-8080-exec-10] INFO  LoginController        - 微信二维码生成，ticket:gQFB8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYk53SHAzdjBhRi0xdmxNUjFGMV8AAgTVY05pAwQAjScA
+25-12-26.18:30:48.864 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQFB8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYk53SHAzdjBhRi0xdmxNUjFGMV8AAgTVY05pAwQAjScA openId:null
+25-12-26.18:30:51.861 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQFB8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYk53SHAzdjBhRi0xdmxNUjFGMV8AAgTVY05pAwQAjScA openId:null
+25-12-26.18:30:54.870 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQFB8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYk53SHAzdjBhRi0xdmxNUjFGMV8AAgTVY05pAwQAjScA openId:null
+25-12-26.18:30:56.240 [http-nio-8080-exec-3] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766745055</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQFB8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYk53SHAzdjBhRi0xdmxNUjFGMV8AAgTVY05pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.18:30:56.914 [http-nio-8080-exec-3] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:30:56.929 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Starting...
+25-12-26.18:30:57.058 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+25-12-26.18:30:57.860 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQFB8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyYk53SHAzdjBhRi0xdmxNUjFGMV8AAgTVY05pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.18:30:57.866 [http-nio-8080-exec-6] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:30:57.870 [http-nio-8080-exec-6] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：image_url
+25-12-26.18:40:22.755 [http-nio-8080-exec-9] INFO  LoginController        - 微信二维码生成，ticket:gQGo7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyU3Fmdm9LdjBhRi0xc21QUjFGMWsAAgQWZk5pAwQAjScA
+25-12-26.18:40:25.770 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQGo7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyU3Fmdm9LdjBhRi0xc21QUjFGMWsAAgQWZk5pAwQAjScA openId:null
+25-12-26.18:40:28.776 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQGo7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyU3Fmdm9LdjBhRi0xc21QUjFGMWsAAgQWZk5pAwQAjScA openId:null
+25-12-26.18:40:31.782 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQGo7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyU3Fmdm9LdjBhRi0xc21QUjFGMWsAAgQWZk5pAwQAjScA openId:null
+25-12-26.18:40:33.488 [http-nio-8080-exec-5] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766745633</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQGo7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyU3Fmdm9LdjBhRi0xc21QUjFGMWsAAgQWZk5pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.18:40:33.855 [http-nio-8080-exec-5] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:40:34.770 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQGo7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyU3Fmdm9LdjBhRi0xc21QUjFGMWsAAgQWZk5pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.18:40:34.774 [http-nio-8080-exec-2] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:40:34.778 [http-nio-8080-exec-2] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：image_url
+25-12-26.18:43:23.540 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+25-12-26.18:43:23.565 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+25-12-26.18:43:30.819 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 24336 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
+25-12-26.18:43:30.822 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+25-12-26.18:43:31.692 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+25-12-26.18:43:31.694 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+25-12-26.18:43:31.737 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
+25-12-26.18:43:32.349 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+25-12-26.18:43:32.358 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+25-12-26.18:43:32.360 [main            ] INFO  StandardService        - Starting service [Tomcat]
+25-12-26.18:43:32.360 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+25-12-26.18:43:32.491 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+25-12-26.18:43:32.491 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1610 ms
+25-12-26.18:43:33.444 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+25-12-26.18:43:33.459 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+25-12-26.18:43:33.467 [main            ] INFO  Application            - Started Application in 3.303 seconds (JVM running for 4.789)
+25-12-26.18:43:45.792 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+25-12-26.18:43:45.792 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+25-12-26.18:43:45.792 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
+25-12-26.18:43:46.924 [http-nio-8080-exec-1] INFO  LoginController        - 微信二维码生成，ticket:gQEv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyQ1MxenBldjBhRi0xdnlQUk5GMTAAAgTiZk5pAwQAjScA
+25-12-26.18:43:49.971 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQEv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyQ1MxenBldjBhRi0xdnlQUk5GMTAAAgTiZk5pAwQAjScA openId:null
+25-12-26.18:43:52.963 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQEv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyQ1MxenBldjBhRi0xdnlQUk5GMTAAAgTiZk5pAwQAjScA openId:null
+25-12-26.18:43:55.956 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQEv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyQ1MxenBldjBhRi0xdnlQUk5GMTAAAgTiZk5pAwQAjScA openId:null
+25-12-26.18:43:58.943 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQEv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyQ1MxenBldjBhRi0xdnlQUk5GMTAAAgTiZk5pAwQAjScA openId:null
+25-12-26.18:44:00.048 [http-nio-8080-exec-6] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766745839</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQEv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyQ1MxenBldjBhRi0xdnlQUk5GMTAAAgTiZk5pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.18:44:00.680 [http-nio-8080-exec-6] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:44:00.697 [http-nio-8080-exec-6] INFO  HikariDataSource       - HikariPool-1 - Starting...
+25-12-26.18:44:00.860 [http-nio-8080-exec-6] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+25-12-26.18:44:01.958 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQEv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyQ1MxenBldjBhRi0xdnlQUk5GMTAAAgTiZk5pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.18:44:01.965 [http-nio-8080-exec-9] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:44:01.969 [http-nio-8080-exec-9] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：https://i1.hdslb.com/bfs/face/d3a9fa7b57d61470b32c29b9a113958dd078b3c7.jpg@150w_150h.jpg
+25-12-26.18:47:06.213 [http-nio-8080-exec-1] INFO  LoginController        - 微信二维码生成，ticket:gQFv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAybXExOHB0djBhRi0xdUdRUjFGMWEAAgSqZ05pAwQAjScA
+25-12-26.18:47:09.222 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQFv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAybXExOHB0djBhRi0xdUdRUjFGMWEAAgSqZ05pAwQAjScA openId:null
+25-12-26.18:47:12.233 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQFv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAybXExOHB0djBhRi0xdUdRUjFGMWEAAgSqZ05pAwQAjScA openId:null
+25-12-26.18:47:13.128 [http-nio-8080-exec-4] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766746032</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQFv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAybXExOHB0djBhRi0xdUdRUjFGMWEAAgSqZ05pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.18:47:13.459 [http-nio-8080-exec-4] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:47:15.232 [http-nio-8080-exec-6] INFO  LoginController        - 扫码检测登录结果 ticket:gQFv8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAybXExOHB0djBhRi0xdUdRUjFGMWEAAgSqZ05pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.18:47:15.239 [http-nio-8080-exec-7] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:47:15.242 [http-nio-8080-exec-7] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：https://ac.nowcoder.com/acm/contest/profile/685127029
+25-12-26.18:53:05.437 [http-nio-8080-exec-9] INFO  LoginController        - 微信二维码生成，ticket:gQFD8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAySjZ2NG9JdjBhRi0xc2hTUjFGMUwAAgQRaU5pAwQAjScA
+25-12-26.18:53:08.458 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQFD8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAySjZ2NG9JdjBhRi0xc2hTUjFGMUwAAgQRaU5pAwQAjScA openId:null
+25-12-26.18:53:11.451 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQFD8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAySjZ2NG9JdjBhRi0xc2hTUjFGMUwAAgQRaU5pAwQAjScA openId:null
+25-12-26.18:53:14.449 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQFD8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAySjZ2NG9JdjBhRi0xc2hTUjFGMUwAAgQRaU5pAwQAjScA openId:null
+25-12-26.18:53:16.184 [http-nio-8080-exec-2] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766746395</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQFD8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAySjZ2NG9JdjBhRi0xc2hTUjFGMUwAAgQRaU5pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.18:53:16.591 [http-nio-8080-exec-2] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:53:17.454 [http-nio-8080-exec-5] INFO  LoginController        - 扫码检测登录结果 ticket:gQFD8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAySjZ2NG9JdjBhRi0xc2hTUjFGMUwAAgQRaU5pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.18:53:17.460 [http-nio-8080-exec-6] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:53:17.463 [http-nio-8080-exec-6] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：https://ac.nowcoder.com/acm/contest/profile/685127029
+25-12-26.18:55:59.368 [http-nio-8080-exec-8] INFO  LoginController        - 微信二维码生成，ticket:gQGF8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyLUxZNm9SdjBhRi0xdV9TUnhGMTUAAgS-aU5pAwQAjScA
+25-12-26.18:56:02.378 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQGF8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyLUxZNm9SdjBhRi0xdV9TUnhGMTUAAgS-aU5pAwQAjScA openId:null
+25-12-26.18:56:05.380 [http-nio-8080-exec-10] INFO  LoginController        - 扫码检测登录结果 ticket:gQGF8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyLUxZNm9SdjBhRi0xdV9TUnhGMTUAAgS-aU5pAwQAjScA openId:null
+25-12-26.18:56:07.393 [http-nio-8080-exec-1] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766746567</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQGF8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyLUxZNm9SdjBhRi0xdV9TUnhGMTUAAgS-aU5pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.18:56:07.832 [http-nio-8080-exec-1] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:56:08.382 [http-nio-8080-exec-2] INFO  LoginController        - 扫码检测登录结果 ticket:gQGF8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyLUxZNm9SdjBhRi0xdV9TUnhGMTUAAgS-aU5pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.18:56:08.386 [http-nio-8080-exec-4] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.18:56:08.391 [http-nio-8080-exec-4] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：https://images.nowcoder.com/images/20220710/685127029_1657445949330/FBA446D64D0BF05868498E13065C987C?x-oss-process=image/resize,m_mfit,h_200,w_200
+25-12-26.19:09:40.800 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m9s468ms978µs).
+25-12-26.19:34:12.278 [http-nio-8080-exec-6] INFO  LoginController        - 微信二维码生成，ticket:gQFQ8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyUTZNbm9RdjBhRi0xdVFfUk5GMV8AAgS0ck5pAwQAjScA
+25-12-26.19:34:15.307 [http-nio-8080-exec-7] INFO  LoginController        - 扫码检测登录结果 ticket:gQFQ8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyUTZNbm9RdjBhRi0xdVFfUk5GMV8AAgS0ck5pAwQAjScA openId:null
+25-12-26.19:34:18.312 [http-nio-8080-exec-8] INFO  LoginController        - 扫码检测登录结果 ticket:gQFQ8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyUTZNbm9RdjBhRi0xdVFfUk5GMV8AAgS0ck5pAwQAjScA openId:null
+25-12-26.19:34:21.304 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQFQ8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyUTZNbm9RdjBhRi0xdVFfUk5GMV8AAgS0ck5pAwQAjScA openId:null
+25-12-26.19:34:23.722 [http-nio-8080-exec-10] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766748863</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQFQ8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyUTZNbm9RdjBhRi0xdVFfUk5GMV8AAgS0ck5pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.19:34:24.311 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQFQ8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyUTZNbm9RdjBhRi0xdVFfUk5GMV8AAgS0ck5pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.19:34:24.312 [http-nio-8080-exec-3] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.19:34:24.321 [http-nio-8080-exec-3] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：https://images.nowcoder.com/images/20220710/685127029_1657445949330/FBA446D64D0BF05868498E13065C987C?x-oss-process=image/resize,m_mfit,h_200,w_200
+25-12-26.19:34:24.345 [http-nio-8080-exec-10] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.19:38:29.494 [http-nio-8080-exec-7] INFO  Http11Processor        - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name [0x050x010x00...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:263)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+25-12-26.19:40:16.894 [http-nio-8080-exec-8] INFO  LoginController        - 微信二维码生成，ticket:gQFn7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAydnB0Y28wdjBhRi0xZ3cxU3hGMWsAAgQgdE5pAwQAjScA
+25-12-26.19:40:19.914 [http-nio-8080-exec-9] INFO  LoginController        - 扫码检测登录结果 ticket:gQFn7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAydnB0Y28wdjBhRi0xZ3cxU3hGMWsAAgQgdE5pAwQAjScA openId:null
+25-12-26.19:40:22.905 [http-nio-8080-exec-1] INFO  LoginController        - 扫码检测登录结果 ticket:gQFn7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAydnB0Y28wdjBhRi0xZ3cxU3hGMWsAAgQgdE5pAwQAjScA openId:null
+25-12-26.19:40:25.912 [http-nio-8080-exec-3] INFO  LoginController        - 扫码检测登录结果 ticket:gQFn7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAydnB0Y28wdjBhRi0xZ3cxU3hGMWsAAgQgdE5pAwQAjScA openId:null
+25-12-26.19:40:27.880 [http-nio-8080-exec-10] INFO  WeixinPortalController - 接收微信公众号信息请求on0CpvnvDLfnecgKYuTWUnqe-W7c开始 <xml><ToUserName><![CDATA[gh_1873209b264d]]></ToUserName>
+<FromUserName><![CDATA[on0CpvnvDLfnecgKYuTWUnqe-W7c]]></FromUserName>
+<CreateTime>1766749227</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[SCAN]]></Event>
+<EventKey><![CDATA[100601]]></EventKey>
+<Ticket><![CDATA[gQFn7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAydnB0Y28wdjBhRi0xZ3cxU3hGMWsAAgQgdE5pAwQAjScA]]></Ticket>
+</xml>
+25-12-26.19:40:28.318 [http-nio-8080-exec-10] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.19:40:28.912 [http-nio-8080-exec-4] INFO  LoginController        - 扫码检测登录结果 ticket:gQFn7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAydnB0Y28wdjBhRi0xZ3cxU3hGMWsAAgQgdE5pAwQAjScA openId:on0CpvnvDLfnecgKYuTWUnqe-W7c
+25-12-26.19:40:28.919 [http-nio-8080-exec-5] INFO  LoginReposity          - 查询用户on0CpvnvDLfnecgKYuTWUnqe-W7c是否存在
+25-12-26.19:40:28.924 [http-nio-8080-exec-5] INFO  LoginController        - 成功获取微信用户昵称：weixin-on0C,头像：https://images.nowcoder.com/images/20220710/685127029_1657445949330/FBA446D64D0BF05868498E13065C987C?x-oss-process=image/resize,m_mfit,h_200,w_200
+25-12-26.19:41:21.479 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+25-12-26.19:41:21.502 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.

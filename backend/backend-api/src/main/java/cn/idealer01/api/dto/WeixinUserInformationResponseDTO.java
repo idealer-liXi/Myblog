@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WeixinMessageResponseDTO {
+public class WeixinUserInformationResponseDTO {
 
-    private String openId;
     private String weixinName;
     private String weixinImageUrl;
 

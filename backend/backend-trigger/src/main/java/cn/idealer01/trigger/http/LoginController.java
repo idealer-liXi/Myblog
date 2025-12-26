@@ -1,10 +1,13 @@
 package cn.idealer01.trigger.http;
 
-import cn.idealer01.api.IAuthService;
+import cn.idealer01.api.IWeixinLoginService;
+import cn.idealer01.api.dto.WeixinUserInformationResponseDTO;
 import cn.idealer01.api.response.Response;
+import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
 import cn.idealer01.domain.auth.service.ILoginService;
 import cn.idealer01.types.common.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +18,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/v1/login/")
 @CrossOrigin("*")
-public class LoginController implements IAuthService {
+public class LoginController implements IWeixinLoginService {
     @Resource
     private ILoginService loginService;
     
@@ -67,6 +70,39 @@ public class LoginController implements IAuthService {
                     .info(Constants.ResponseCode.UN_ERROR.getInfo())
                     .build();
         }
+    }
+
+    @GetMapping("weixin_user_information")
+    public Response<WeixinUserInformationResponseDTO> getWeixinUserInformation(String openid){
+        try{
+            WeixinUserEntity weixinUser = loginService.getWeixinUser(openid);
+            log.info("成功获取微信用户昵称：{},头像：{}", weixinUser.getWeixinName(), weixinUser.getWeixinImageUrl());
+
+            if(ObjectUtils.isNotEmpty(weixinUser)){
+                return Response.<WeixinUserInformationResponseDTO>builder()
+                        .code(Constants.ResponseCode.SUCCESS.getCode())
+                        .info(Constants.ResponseCode.SUCCESS.getInfo())
+                        .data(WeixinUserInformationResponseDTO.builder()
+                                .weixinName(weixinUser.getWeixinName())
+                                .weixinImageUrl(weixinUser.getWeixinImageUrl())
+                                .build())
+                        .build();
+            }else{
+                return Response.<WeixinUserInformationResponseDTO>builder()
+                        .code(Constants.ResponseCode.NO_LOGIN.getCode())
+                        .info(Constants.ResponseCode.NO_LOGIN.getInfo())
+                        .build();
+            }
+
+
+        }catch (Exception e){
+            log.error("获取微信用户信息失败 openId:{}", openid, e);
+            return Response.<WeixinUserInformationResponseDTO>builder()
+                    .code(Constants.ResponseCode.UN_ERROR.getCode())
+                    .info(Constants.ResponseCode.UN_ERROR.getInfo())
+                    .build();
+        }
 
     }
+
 }

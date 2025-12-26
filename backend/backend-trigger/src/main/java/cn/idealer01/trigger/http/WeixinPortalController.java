@@ -61,7 +61,10 @@ public class WeixinPortalController {
             MessageTextEntity message = XmlUtil.xmlToBean(requestBody, MessageTextEntity.class);
 
             if ("event".equals(message.getMsgType()) && "SCAN".equals(message.getEvent())) {
+                //保存用户登录状态
                 loginService.saveLoginState(message.getTicket(), openid);
+                //用户数据持久化
+                loginService.saveUserMessgae(openid);
                 return buildMessageTextEntity(openid, "登录成功");
             }
 

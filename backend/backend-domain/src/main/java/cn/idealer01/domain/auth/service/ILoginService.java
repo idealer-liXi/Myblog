@@ -1,5 +1,7 @@
 package cn.idealer01.domain.auth.service;
 
+import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
+
 import java.io.IOException;
 
 public interface ILoginService {
@@ -13,4 +15,8 @@ public interface ILoginService {
     //保存用户登录状态
     void saveLoginState(String ticket, String openId) throws IOException;
 
+    //持久化用户基本信息：昵称，头像.....
+    void saveUserMessgae(String openid);
+
+    WeixinUserEntity getWeixinUser(String openid);
 }

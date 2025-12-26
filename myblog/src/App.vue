@@ -19,18 +19,24 @@ export default {
   setup() {
     const store = useStore();
 
-    const getCookie = (name) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-    };
+    function getCookie(name) {
+      let cookieArr = document.cookie.split(";");
+      for(let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        if(name == cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]);
+        }
+      }
+      return null;
+    }
 
-    const weixinName = getCookie("weixinName");
-    const weixinImageUrl = getCookie("weixinImageUrl");
+    const weixinName = localStorage.getItem("weixinName");
+    const weixinImageUrl = localStorage.getItem("weixinImageUrl")
+    const openid = getCookie("openIdToken");
 
-    if (weixinName && weixinImageUrl) {
+    if (openid && weixinName && weixinImageUrl) {
       store.dispatch("weixin_user/login", {
-        weixinName: decodeURIComponent(weixinName),
+        weixinName: weixinName,
         weixinImageUrl: weixinImageUrl,
       });
     }

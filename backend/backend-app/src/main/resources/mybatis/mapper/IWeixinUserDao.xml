@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.idealer01.infrastructure.dao.IWeixinUserDao" >
+<mapper namespace="cn.idealer01.infrastructure.dao.IWeixinUserDao">
+    
+    <resultMap id="dataMap" type="cn.idealer01.infrastructure.dao.po.WeixinUser">
+        <id column="id" property="id"/>
+        <result column="openid" property="openId"/>
+        <result column="weixin_name" property="weixinName"/>
+        <result column="weixin_image_url" property="weixinImageUrl"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+    <insert id="addWeixinUser" parameterType="cn.idealer01.infrastructure.dao.po.WeixinUser">
+        insert into weixin_user(openid, weixin_name, weixin_image_url)
+        values (#{openId}, #{weixinName}, #{weixinImageUrl});
+    </insert>
+    <select id="queryWeixinUserByOpenId" parameterType="string" resultMap="dataMap">
+        select * from weixin_user where openid = #{openid};
+    </select>
+
+
 </mapper>

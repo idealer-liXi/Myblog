@@ -21,7 +21,7 @@
               <div class="mb-1">使用其他方式登录</div>
               <button type="submit" class="btn btn-outline-secondary mb-1">使用QQ登录</button>
               <button type="button" class="btn btn-outline-secondary mb-1" @click="getWechatQRCode">使用微信登录</button>
-              <button type="submit" class="btn btn-outline-secondary mb-1">仅游客登录</button>
+              <button type="submit" class="btn btn-outline-secondary mb-1" @click="onlyGuestLogin">仅游客登录</button>
             </form>
 
             <div v-else class="text-center p-4">
@@ -124,7 +124,6 @@ export default {
             const name = response1.data.data.weixinName;
             const image_url = response1.data.data.weixinImageUrl;
             //1.将昵称和头像持久化
-            console.log(response1);
             localStorage.setItem('weixinName',name)
             localStorage.setItem('weixinImageUrl',image_url)
             //2.缓存到vuex中 todo
@@ -160,19 +159,21 @@ export default {
     }
 
 
-
     const cancelWechatLogin = () => {
       showQRCode.value = false
       qrCodeUrl.value = ''
       error_message.value = ''
     }
 
+    const onlyGuestLogin = () => router.push({name: 'home'})
+
     return {
       error_message,
       showQRCode,
       qrCodeUrl,
       getWechatQRCode,
-      cancelWechatLogin
+      cancelWechatLogin,
+      onlyGuestLogin
     }
   }
 }

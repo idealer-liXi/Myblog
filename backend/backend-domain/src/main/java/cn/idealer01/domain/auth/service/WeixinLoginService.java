@@ -2,6 +2,7 @@ package cn.idealer01.domain.auth.service;
 
 import cn.idealer01.domain.auth.adapter.port.ILoginPort;
 import cn.idealer01.domain.auth.adapter.repository.ILoginReposity;
+import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -45,5 +46,20 @@ public class WeixinLoginService implements ILoginService{
         loginReposity.saveLoginState(ticket, openId);
         //2.在公众号给用户发送提示消息
         loginPort.sendLoginTemplate(openId);
+    }
+
+    @Override
+    public void saveUserMessgae(String openid) {
+        //1.查询数据库中用户信息是否存在
+        WeixinUserEntity user = loginReposity.queryWeixinUserByOpenId(openid);
+        //2.不存在，则新添加用户信息
+        if(null == user){
+            loginReposity.addWeixinUser(openid);
+        }
+    }
+
+    @Override
+    public WeixinUserEntity getWeixinUser(String openid) {
+        return loginReposity.queryWeixinUserByOpenId(openid);
     }
 }
