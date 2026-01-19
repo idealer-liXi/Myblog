@@ -1,26 +1,34 @@
 package cn.idealer01.infrastructure.adapter.repository;
 
-import cn.idealer01.domain.auth.adapter.repository.ILoginReposity;
+import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
+import cn.idealer01.domain.auth.model.aggregate.LoginUserAggregate;
+import cn.idealer01.domain.auth.model.entity.UserEntity;
 import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
+import cn.idealer01.infrastructure.dao.IUserDao;
+import cn.idealer01.infrastructure.dao.IUserLevelDao;
 import cn.idealer01.infrastructure.dao.IWeixinUserDao;
+import cn.idealer01.infrastructure.dao.po.User;
 import cn.idealer01.infrastructure.dao.po.WeixinUser;
-import cn.idealer01.infrastructure.gateway.IWeixinApiService;
 import cn.idealer01.infrastructure.redis.IRedisService;
+import cn.idealer01.types.enums.ResponseCode;
+import cn.idealer01.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 
 @Service
 @Slf4j
-public class LoginReposity implements ILoginReposity {
+public class LoginReposity implements ILoginRepository {
     @Resource
     private IRedisService redisService;
     @Resource
     private IWeixinUserDao weixinUserDao;
     @Resource
-    private IWeixinApiService weixinApiService;
+    private IUserDao userDao;
+    @Resource
+    private IUserLevelDao userLevelDao;
 
     @Override
     public String checkLogin(String ticket) {
@@ -55,4 +63,33 @@ public class LoginReposity implements ILoginReposity {
         //2.保存微信用户信息
         weixinUserDao.addWeixinUser(weixinUser);
     }
+
+    @Override
+    public LoginUserAggregate getRegularUserByUserName(String username) {
+
+        User user = userDao.getUserByUserName(username);
+
+        if(null == user){
+            throw new AppException(ResponseCode.USER_NOT_EXIST);
+        }
+
+        String levelname = userLevelDao.queryLevelNameById(user.getLevelId());
+        if(StringUtils.isBlank(levelname)){
+            throw new AppException(ResponseCode.LEVEL_NOT_EXIST);
+        }
+
+
+        return LoginUserAggregate.builder()
+                .userEntity(
+                        UserEntity.builder()
+                                .username(user.getUsername())
+                                .password(user.getPassword())
+                                .levelName(levelname)
+                                .build()
+
+                )
+                .build();
+    }
+
+
 }

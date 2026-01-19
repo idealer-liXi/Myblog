@@ -8,14 +8,14 @@
             <form @submit.prevent="" v-if="!showQRCode">
               <div class="mb-3">
                 <label for="username" class="form-label">用户名</label>
-                <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+                <input type="text" class="form-control" id="username" placeholder="请输入用户名" v-model="username">
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">密码</label>
-                <input type="password" class="form-control" id="password" placeholder="请输入密码">
+                <input type="password" class="form-control" id="password" placeholder="请输入密码" v-model="password">
               </div>
               <div class="error_message mb-1">{{error_message}}</div>
-              <button type="submit" class="btn btn-primary">登录</button>
+              <button type="submit" class="btn btn-primary" @click="getToken">登录</button>
               <hr>
 
               <div class="mb-1">使用其他方式登录</div>
@@ -77,9 +77,45 @@ import {useStore} from "vuex";
 export default {
   setup(){
     const store = useStore()
+    let username = ref('')
+    let password = ref('')
     let error_message = ref('')
     let showQRCode = ref(false)
     let qrCodeUrl = ref('')
+
+
+    const getToken = async () => {
+      error_message.value = ''
+
+      if (!username.value.trim()) {
+        error_message.value = '请输入用户名'
+        return
+      }
+      if (!password.value.trim()) {
+        error_message.value = '请输入密码'
+        return
+      }
+
+      try {
+        const response = await axios.post('http://localhost:8080/api/r1/login/token', {
+          username: username.value,
+          password: password.value
+        })
+
+        if (response.data.code === '0000') {
+          const token = response.data.data
+          // 存储JWT到localStorage，24小时有效期
+          localStorage.setItem('jwtToken', token)
+          localStorage.setItem('jwtTokenExpiry', Date.now() + 24 * 60 * 60 * 1000)
+          router.push({ name: 'home' })
+        } else {
+          error_message.value = response.data.info || '登录失败'
+        }
+      } catch (error) {
+        error_message.value = '登录请求失败，请稍后重试'
+      }
+    }
+
 
     const getWechatQRCode = async () => {
       try {
@@ -168,12 +204,15 @@ export default {
     const onlyGuestLogin = () => router.push({name: 'home'})
 
     return {
+      username,
+      password,
       error_message,
       showQRCode,
       qrCodeUrl,
       getWechatQRCode,
       cancelWechatLogin,
-      onlyGuestLogin
+      onlyGuestLogin,
+      getToken
     }
   }
 }

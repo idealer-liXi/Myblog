@@ -1,6 +1,6 @@
 package cn.idealer01.trigger.http;
 
-import cn.idealer01.domain.auth.service.ILoginService;
+import cn.idealer01.domain.auth.service.IWeixinLoginService;
 import cn.idealer01.types.sdk.weixin.MessageTextEntity;
 import cn.idealer01.types.sdk.weixin.SignatureUtil;
 import cn.idealer01.types.sdk.weixin.XmlUtil;
@@ -23,7 +23,7 @@ public class WeixinPortalController {
     private String token;
 
     @Resource
-    private ILoginService loginService;
+    private IWeixinLoginService loginService;
 
     @GetMapping(value = "receive", produces = "text/plain;charset=utf-8")
     public String validate(@RequestParam(value = "signature", required = false) String signature,

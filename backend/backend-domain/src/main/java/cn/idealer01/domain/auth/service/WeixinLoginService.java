@@ -1,7 +1,7 @@
 package cn.idealer01.domain.auth.service;
 
 import cn.idealer01.domain.auth.adapter.port.ILoginPort;
-import cn.idealer01.domain.auth.adapter.repository.ILoginReposity;
+import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
 import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
 import org.springframework.stereotype.Service;
 
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 
-@Service
-public class WeixinLoginService implements ILoginService{
+@Service("WeixinLoginService")
+public class WeixinLoginService implements IWeixinLoginService {
     @Resource
     private ILoginPort loginPort;
     @Resource
-    private ILoginReposity loginReposity;
+    private ILoginRepository loginReposity;
 
     /**
      * 创建二维码，要调用外部api，故交给基础设施层实现

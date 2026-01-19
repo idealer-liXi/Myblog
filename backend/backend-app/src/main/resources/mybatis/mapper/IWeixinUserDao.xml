@@ -8,6 +8,7 @@
         <result column="weixin_name" property="weixinName"/>
         <result column="weixin_image_url" property="weixinImageUrl"/>
         <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
     <insert id="addWeixinUser" parameterType="cn.idealer01.infrastructure.dao.po.WeixinUser">
         insert into weixin_user(openid, weixin_name, weixin_image_url)
