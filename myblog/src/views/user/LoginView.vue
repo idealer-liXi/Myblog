@@ -14,7 +14,12 @@
                 <label for="password" class="form-label">密码</label>
                 <input type="password" class="form-control" id="password" placeholder="请输入密码" v-model="password">
               </div>
-              <div class="error_message mb-1">{{error_message}}</div>
+              <transition name="error-fade">
+                <div class="error_message mb-3" v-if="error_message">
+                  <i class="bi bi-exclamation-circle-fill"></i>
+                  <span>{{error_message}}</span>
+                </div>
+              </transition>
               <button type="submit" class="btn btn-primary" @click="getToken">登录</button>
               <hr>
 
@@ -222,6 +227,14 @@ export default {
 .btn{
   width: 100%;
 }
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:disabled {
+  color: #fff !important;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
 .qr-container {
   display: flex;
@@ -236,7 +249,35 @@ export default {
 }
 
 .error_message {
-  color: red;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.08);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.error_message i {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.error-fade-enter-active {
+  transition: all 0.3s ease;
+}
+
+.error-fade-leave-active {
+  transition: all 0.2s ease;
+}
+
+.error-fade-enter-from,
+.error-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
 }
 
 .capybaraloader {

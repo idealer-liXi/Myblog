@@ -1,9 +1,8 @@
-package cn.idealer01.domain.auth.service;
+package cn.idealer01.domain.auth.service.register;
 
-import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
 import cn.idealer01.domain.auth.adapter.repository.IRegisterRepository;
+import cn.idealer01.domain.auth.service.IRegularUserRegisterService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -66,6 +66,7 @@ export default {
   position: relative;
   height: 160px;
   overflow: hidden;
+  background: rgba(71, 85, 105, 0.06);
 }
 
 .card-img {
@@ -73,6 +74,7 @@ export default {
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
+  background: rgba(71, 85, 105, 0.08);
 }
 
 .projects-card:hover .card-img {
@@ -127,8 +129,8 @@ export default {
 }
 
 .tag {
-  background: #e9f5ff;
-  color: #74b9ff;
+  background: rgba(71, 85, 105, 0.08);
+  color: #475569;
   font-size: 0.8rem;
   padding: 3px 8px;
   border-radius: 4px;

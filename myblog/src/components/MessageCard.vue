@@ -61,7 +61,7 @@ const addMessage = () => {
 
 .message-header i {
   margin-right: 6px;
-  color: #00f2fe;
+  color: #007bff;
   font-size: 0.9em;
 }
 
@@ -127,10 +127,10 @@ const addMessage = () => {
 
 .submit-btn {
   align-self: flex-end;
-  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+  background: #007bff;
   color: white;
   border: none;
-  padding: 6px 12px; /* Reduced size */
+  padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
   transition: opacity 0.3s;

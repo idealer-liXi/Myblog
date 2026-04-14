@@ -1,6 +1,7 @@
-package cn.idealer01.domain.auth.service;
+package cn.idealer01.domain.auth.service.login;
 
 import cn.idealer01.domain.auth.model.aggregate.LoginUserAggregate;
+import cn.idealer01.domain.auth.service.IRegularUserLoginService;
 import cn.idealer01.types.enums.ResponseCode;
 import cn.idealer01.types.exception.AppException;
 import cn.idealer01.types.utils.JwtUtil;
@@ -13,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.Objects;
 
 @Service
-public class RegularUserLoginService implements IRegularUserLoginService{
+public class RegularUserLoginService implements IRegularUserLoginService {
     /**
      * 已在SecurityConfig中完成了对AuthenticationManager的配置，即配置了UserDetailService以及PasswordEncoder
      */

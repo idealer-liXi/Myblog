@@ -6,7 +6,6 @@ import RegisterView from "@/views/user/RegisterView.vue";
 import BackendView from "@/views/backend/BackendView.vue";
 import ArticlePerform from "@/components/ArticlePerform.vue";
 import GitHubStarView from "@/views/github/GitHubStarView.vue";
-import PaperView from "@/views/paper/PaperView.vue";
 
 const routes = [
   {
@@ -51,11 +50,6 @@ const routes = [
     name: 'githubstar',
     component: GitHubStarView
   },
-  {
-    path: '/deepLearning/paper',
-    name: 'dlpaper',
-    component: PaperView,
-  }
 
 
 ]

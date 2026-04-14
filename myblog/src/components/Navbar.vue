@@ -1,47 +1,74 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" >
+  <nav class="navbar navbar-expand-lg glass-nav">
     <div class="container-fluid">
-      <router-link class="navbar-brand ms-3"  :to="{name: 'blog'}">IdealBlog</router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <router-link class="navbar-brand" :to="{name: 'blog'}">
+        <span class="brand-icon">
+          <i class="bi bi-code-square"></i>
+        </span>
+        <span class="brand-text">IdealBlog</span>
+      </router-link>
+      
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="toggler-icon">
+          <i class="bi bi-list"></i>
+        </span>
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav nav-links">
           <li class="nav-item">
-            <router-link :class="route_value === 'blog'?'nav-link active':'nav-link'" aria-current="page" :to="{name: 'blog'}">首页</router-link>
+            <router-link :class="$route.path.startsWith('/blog')?'nav-link active':'nav-link'" aria-current="page" :to="{name: 'blog'}">
+              <i class="bi bi-house-door"></i>
+              <span>首页</span>
+            </router-link>
           </li>
           <li class="nav-item">
-            <router-link :class="route_value === 'me'?'nav-link active':'nav-link'" :to="{name: 'me'}">个人介绍</router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link :class="route_value === 'githubstar'?'nav-link active':'nav-link'" :to="{name: 'githubstar'}">Github项目收集</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link :class="route_value === 'dlpaper'?'nav-link active':'nav-link'" :to="{name: 'dlpaper'}">深度学习论文收集</router-link>
+            <router-link :class="route_value === 'me'?'nav-link active':'nav-link'" :to="{name: 'me'}">
+              <i class="bi bi-person"></i>
+              <span>个人介绍</span>
+            </router-link>
           </li>
           <li class="nav-item">
-            <router-link :class="route_value === 'backend'?'nav-link active':'nav-link'" :to="{name: 'backend'}">后台管理</router-link>
+            <router-link :class="route_value === 'githubstar'?'nav-link active':'nav-link'" :to="{name: 'githubstar'}">
+              <i class="bi bi-github"></i>
+              <span>GitHub项目</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :class="route_value === 'backend'?'nav-link active':'nav-link'" :to="{name: 'backend'}">
+              <i class="bi bi-gear"></i>
+              <span>后台管理</span>
+            </router-link>
           </li>
         </ul>
 
-        <ul v-if="!isLoggedIn" class="navbar-nav ms-auto me-4">
-          <li class="nav-item me-3">
-            <button class="btn btn-primary" @click="login">登录</button>
+        <ul v-if="!isLoggedIn" class="navbar-nav auth-section ms-auto">
+          <li class="nav-item">
+            <button class="btn btn-login" @click="login">
+              <i class="bi bi-box-arrow-in-right"></i>
+              <span>登录</span>
+            </button>
           </li>
-          <li class="nav-item ">
-            <button class="btn btn-primary" @click="register">注册</button>
+          <li class="nav-item">
+            <button class="btn btn-register" @click="register">
+              <i class="bi bi-person-plus"></i>
+              <span>注册</span>
+            </button>
           </li>
         </ul>
-        <ul v-else class="navbar-nav ms-auto me-4 align-items-center">
-          <li class="nav-item">
-            <img :src="userInfo.weixinImageUrl" alt="User Avatar" class="avatar me-2">
+        
+        <ul v-else class="navbar-nav user-section ms-auto">
+          <li class="nav-item user-info">
+            <div class="user-avatar-wrapper">
+              <img :src="userInfo.weixinImageUrl" alt="User Avatar" class="user-avatar">
+              <span class="online-status"></span>
+            </div>
+            <span class="user-name">{{ userInfo.weixinName }}</span>
           </li>
-          <li class="nav-item me-3">
-            <span class="navbar-text">{{ userInfo.weixinName }}</span>
-          </li>
           <li class="nav-item">
-            <button class="btn btn-outline-secondary" @click="logout">登出</button>
+            <button class="btn btn-logout" @click="logout" title="退出登录">
+              <i class="bi bi-box-arrow-right"></i>
+            </button>
           </li>
         </ul>
       </div>
@@ -74,7 +101,6 @@ export default {
 
     const logout = () => {
       store.dispatch("weixin_user/logout");
-      // Clear cookies
       document.cookie = "openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       localStorage.removeItem('weixinName');
       localStorage.removeItem('weixinImageUrl');
@@ -94,25 +120,376 @@ export default {
 </script>
 
 <style scoped>
+.glass-nav {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  padding: 0.55rem 1.2rem;
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
 .navbar-brand {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 1.5rem;
-  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
   transition: all 0.3s ease;
+  text-decoration: none !important;
 }
 
 .navbar-brand:hover {
-  transform: scale(1.05);
-  text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: rgba(0, 123, 255, 0.08);
 }
 
-.avatar {
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: #007bff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.navbar-brand:hover .brand-icon {
+  transform: rotate(-10deg) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.brand-text {
+  font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #007bff;
+}
+
+.nav-links {
+  gap: 0.5rem;
+  margin-left: 1.5rem;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.6rem 1rem !important;
+  color: #555 !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 123, 255, 0.08);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  opacity: 1;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #007bff !important;
+}
+
+.nav-link:hover {
+  transform: none;
+}
+
+.nav-link i {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover i,
+.nav-link.active i {
+  transform: scale(1.2);
+}
+
+.nav-link.active {
+  font-weight: 500;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background: #007bff;
+  border-radius: 2px;
+}
+
+.custom-toggler {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background: rgba(0, 123, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.custom-toggler:hover {
+  background: rgba(0, 123, 255, 0.15);
+}
+
+.toggler-icon {
+  color: #007bff;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.auth-section {
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.btn-login,
+.btn-register,
+.btn-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-login {
+  background: rgba(0, 123, 255, 0.08);
+  color: #007bff;
+  border: 1.5px solid rgba(0, 123, 255, 0.25);
+}
+
+.btn-login:hover {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-login:focus,
+.btn-login:active {
+  background: #0062cc;
+  color: white;
+  border-color: #0062cc;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+  transform: translateY(0);
+}
+
+.btn-register {
+  background: #007bff;
+  color: white;
+  box-shadow: 0 2px 12px rgba(0, 123, 255, 0.25);
+}
+
+.btn-register:hover {
+  background: #0062cc;
+  color: white;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-register:focus,
+.btn-register:active {
+  background: #0056b3;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+  transform: translateY(0);
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.user-avatar-wrapper {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+.online-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: #4cd964;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.btn-logout {
   width: 40px;
   height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 59, 48, 0.1);
+  color: #ff3b30;
   border-radius: 50%;
+}
+
+.btn-logout:hover {
+  background: #ff3b30;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.btn-logout:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 991px) {
+  .glass-nav {
+    left: 10px;
+    right: 10px;
+    padding: 0.5rem;
+  }
+
+  .nav-links {
+    margin-left: 0;
+    margin-top: 1rem;
+    gap: 0.3rem;
+  }
+
+  .navbar-collapse {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .auth-section,
+  .user-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .glass-nav {
+    left: 6px;
+    right: 6px;
+    border-radius: 12px;
+    top: 8px;
+  }
+
+  .brand-text {
+    font-size: 1.2rem;
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.8rem !important;
+    font-size: 0.9rem;
+  }
+
+  .btn-login,
+  .btn-register {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .user-info {
+    padding: 0.3rem 0.8rem;
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-avatar-wrapper {
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-name {
+    font-size: 0.85rem;
+  }
 }
 </style>

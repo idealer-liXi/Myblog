@@ -113,7 +113,7 @@ const nextMonth = () => {
 
 .calendar-title i {
   margin-right: 6px;
-  color: #4facfe;
+  color: #007bff;
   font-size: 0.9em;
 }
 
@@ -164,7 +164,7 @@ const nextMonth = () => {
 }
 
 .day-cell.today {
-  background-color: #4facfe;
+  background-color: #007bff;
   color: #fff;
   font-weight: 500;
 }

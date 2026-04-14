@@ -47,13 +47,28 @@ export default {
 
 <style>
 
-body{
+html {
+  min-height: 100%;
+  overscroll-behavior: none;
+  background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%) no-repeat center center fixed !important;
+  background-size: cover !important;
+}
+
+body {
   margin: 0;
   padding: 0;
+  min-height: 100%;
   overflow-x: hidden;
+  overscroll-behavior: none;
+  background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%) no-repeat center center fixed !important;
+  background-size: cover !important;
+}
+
+#app {
   min-height: 100vh;
-  background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
-  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  padding-top: 76px;
 }
 
 /* 全局滚动条样式 */

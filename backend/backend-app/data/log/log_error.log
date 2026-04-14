@@ -216,7 +216,7 @@ java.sql.SQLNonTransientConnectionException: Could not create connection to data
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:85)
 	at com.sun.proxy.$Proxy82.queryWeixinUserByOpenId(Unknown Source)
 	at cn.idealer01.infrastructure.adapter.repository.LoginReposity.queryWeixinUserByOpenId(LoginReposity.java:38)
-	at cn.idealer01.domain.auth.service.WeixinLoginService.getWeixinUser(WeixinLoginService.java:63)
+	at cn.idealer01.domain.auth.service.login.WeixinLoginService.getWeixinUser(WeixinLoginService.java:63)
 	at cn.idealer01.domain.ILoginControllerTest.test_getWeixinUser(ILoginServiceTest.java:29)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)

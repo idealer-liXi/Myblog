@@ -1,8 +1,9 @@
-package cn.idealer01.domain.auth.service;
+package cn.idealer01.domain.auth.service.login;
 
 import cn.idealer01.domain.auth.adapter.port.ILoginPort;
 import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
 import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
+import cn.idealer01.domain.auth.service.IWeixinLoginService;
 import org.springframework.stereotype.Service;
 
 

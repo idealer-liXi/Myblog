@@ -14,8 +14,8 @@
           <h3>联系方式</h3>
           <ul class="contact-list">
             <li><i class="bi bi-envelope"></i> 邮箱：2755027635@qq.com</li>
-            <li><i class="bi bi-github"></i> GitHub：<a href="https://github.com/zhangsan" target="_blank">**</a></li>
-            <li><i class="bi bi-geo-alt"></i> 地点：**</li>
+            <li><i class="bi bi-github"></i> GitHub：<a href="https://github.com/idealer-liXi" target="_blank">idealer-liXi</a></li>
+            <li><i class="bi bi-geo-alt"></i> 地点：辽宁-沈阳</li>
           </ul>
         </section>
         <section class="section">
@@ -38,7 +38,7 @@
     </div>
     <div class="schools-container">
       <SchoolCard>
-        <template #image><img src="@/assets/images/school1.svg" alt="本科院校"></template>
+        <template #image><img src="@/assets/images/school1.jpeg" alt="本科院校"></template>
         <template #name>安徽理工大学</template>
         <template #tags><span class="tag">省部共建</span> <span class="tag">中西部高校基础能力建设工程</span></template>
         <template #description>坐落于安徽省淮南市，是安徽省高等教育振兴计划‘地方特色高水平大学建设’项目立项建设高校。</template>
@@ -50,7 +50,7 @@
         </template>
       </SchoolCard>
       <SchoolCard>
-        <template #image><img src="@/assets/images/school2.svg" alt="研究生院校"></template>
+        <template #image><img src="@/assets/images/school2.jpeg" alt="研究生院校"></template>
         <template #name>东北大学</template>
         <template #tags><span class="tag">985</span> <span class="tag">211</span> <span class="tag">双一流</span></template>
         <template #description>坐落于辽宁省沈阳市，是教育部直属的全国重点大学，由教育部、国防科工局、辽宁省、沈阳市共建。</template>
@@ -104,7 +104,11 @@ import SchoolCard from '@/components/SchoolCard.vue';
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #74b9ff;
+  border: 4px solid #007bff;
+  display: block;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+  background: rgba(0, 123, 255, 0.08);
 }
 
 .name {
@@ -120,7 +124,7 @@ import SchoolCard from '@/components/SchoolCard.vue';
 
 .section h3 {
   font-size: 1.1rem;
-  color: #74b9ff;
+  color: #007bff;
   margin-bottom: 8px;
 }
 
@@ -140,7 +144,7 @@ import SchoolCard from '@/components/SchoolCard.vue';
 }
 
 .hobby-list li {
-  background: #74b9ff;
+  background: #007bff;
   color: #fff;
   border-radius: 16px;
   padding: 4px 16px;
