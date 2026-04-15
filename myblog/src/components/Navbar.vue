@@ -35,7 +35,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link :class="route_value === 'backend'?'nav-link active':'nav-link'" :to="{name: 'backend'}">
+            <router-link :class="$route.path.startsWith('/backend')?'nav-link active':'nav-link'" :to="{name: 'backend'}">
               <i class="bi bi-gear"></i>
               <span>后台管理</span>
             </router-link>
