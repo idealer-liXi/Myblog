@@ -925,7 +925,277 @@ DELETE /images/1
 
 ---
 
-## 六、API 服务函数
+## 六、项目管理相关 API
+
+> **注意**: 以下项目管理 API 需要管理员权限，请求头须携带 JWT Token：`Authorization: Bearer <token>`
+
+### 1. 获取项目列表
+
+- **URL**: `GET /projects`
+- **描述**: 获取所有项目列表
+- **基础URL**: `http://localhost:3000/api`
+- **请求头**:
+```
+Authorization: Bearer <jwtToken>
+```
+- **请求参数**: 无
+
+- **响应示例 (成功)**:
+```json
+{
+  "code": "0000",
+  "data": [
+    {
+      "id": 1,
+      "name": "个人博客系统",
+      "description": "基于 Vue 3 + Node.js 的全栈博客系统",
+      "techStack": "Vue 3, Node.js, Express, MongoDB",
+      "projectUrl": "https://myblog.example.com",
+      "githubUrl": "https://github.com/username/myblog",
+      "previewUrl": "https://demo.myblog.example.com",
+      "coverImage": "https://example.com/cover.jpg",
+      "status": "已完成",
+      "sortOrder": 1,
+      "startDate": "2024-01-15",
+      "endDate": "2024-03-20",
+      "isPublic": true
+    }
+  ]
+}
+```
+
+- **响应示例 (失败)**:
+```json
+{
+  "code": "0001",
+  "info": "未授权，请先登录"
+}
+```
+
+---
+
+### 2. 根据 ID 获取项目详情
+
+- **URL**: `GET /projects/{projectId}`
+- **描述**: 获取单个项目详情
+- **基础URL**: `http://localhost:3000/api`
+- **请求头**:
+```
+Authorization: Bearer <jwtToken>
+```
+- **请求参数**:
+
+| 参数名    | 类型   | 必填 | 描述   |
+| --------- | ------ | ---- | ------ |
+| projectId | number | 是   | 项目ID |
+
+- **请求示例**:
+```
+GET /projects/1
+```
+
+- **响应示例 (成功)**:
+```json
+{
+  "code": "0000",
+  "data": {
+    "id": 1,
+    "name": "个人博客系统",
+    "description": "基于 Vue 3 + Node.js 的全栈博客系统",
+    "techStack": "Vue 3, Node.js, Express, MongoDB",
+    "projectUrl": "https://myblog.example.com",
+    "githubUrl": "https://github.com/username/myblog",
+    "previewUrl": "https://demo.myblog.example.com",
+    "coverImage": "https://example.com/cover.jpg",
+    "status": "已完成",
+    "sortOrder": 1,
+    "startDate": "2024-01-15",
+    "endDate": "2024-03-20",
+    "isPublic": true
+  }
+}
+```
+
+- **响应示例 (失败)**:
+```json
+{
+  "code": "0001",
+  "info": "项目不存在"
+}
+```
+
+---
+
+### 3. 创建项目
+
+- **URL**: `POST /projects`
+- **描述**: 创建新项目
+- **基础URL**: `http://localhost:3000/api`
+- **请求头**:
+```
+Authorization: Bearer <jwtToken>
+Content-Type: application/json
+```
+- **请求参数**:
+
+| 参数名      | 类型    | 必填 | 描述                    |
+| ----------- | ------- | ---- | ----------------------- |
+| name        | string  | 是   | 项目名称                |
+| description | string  | 否   | 项目描述                |
+| techStack   | string  | 否   | 技术栈（逗号分隔）      |
+| projectUrl  | string  | 否   | 项目链接                |
+| githubUrl   | string  | 否   | GitHub 仓库地址         |
+| previewUrl  | string  | 否   | 在线预览地址            |
+| coverImage  | string  | 否   | 封面图片 URL            |
+| status      | string  | 否   | 状态（进行中/已完成/暂停）|
+| sortOrder   | number  | 否   | 排序权重，默认 0        |
+| startDate   | string  | 否   | 开始日期（ISO格式）     |
+| endDate     | string  | 否   | 结束日期（ISO格式）     |
+| isPublic    | boolean | 否   | 是否公开，默认 true     |
+
+- **请求示例**:
+```json
+{
+  "name": "个人博客系统",
+  "description": "基于 Vue 3 的全栈博客系统",
+  "techStack": "Vue 3, Node.js, MongoDB",
+  "status": "进行中",
+  "isPublic": true
+}
+```
+
+- **响应示例 (成功)**:
+```json
+{
+  "code": "0000",
+  "data": {
+    "id": 5,
+    "name": "个人博客系统",
+    "description": "基于 Vue 3 的全栈博客系统",
+    "techStack": "Vue 3, Node.js, MongoDB",
+    "projectUrl": "",
+    "githubUrl": "",
+    "previewUrl": "",
+    "coverImage": "",
+    "status": "进行中",
+    "sortOrder": 0,
+    "startDate": "",
+    "endDate": "",
+    "isPublic": true
+  }
+}
+```
+
+- **响应示例 (失败)**:
+```json
+{
+  "code": "0001",
+  "info": "项目名称不能为空"
+}
+```
+
+---
+
+### 4. 更新项目
+
+- **URL**: `PUT /projects/{projectId}`
+- **描述**: 更新项目信息
+- **基础URL**: `http://localhost:3000/api`
+- **请求头**:
+```
+Authorization: Bearer <jwtToken>
+Content-Type: application/json
+```
+- **请求参数**:
+
+| 参数名      | 类型    | 必填 | 描述                    |
+| ----------- | ------- | ---- | ----------------------- |
+| projectId   | number  | 是   | 项目ID（路径参数）      |
+| name        | string  | 否   | 项目名称                |
+| description | string  | 否   | 项目描述                |
+| techStack   | string  | 否   | 技术栈                  |
+| projectUrl  | string  | 否   | 项目链接                |
+| githubUrl   | string  | 否   | GitHub 仓库地址         |
+| previewUrl  | string  | 否   | 在线预览地址            |
+| coverImage  | string  | 否   | 封面图片 URL            |
+| status      | string  | 否   | 状态                    |
+| sortOrder   | number  | 否   | 排序权重                |
+| startDate   | string  | 否   | 开始日期                |
+| endDate     | string  | 否   | 结束日期                |
+| isPublic    | boolean | 否   | 是否公开                |
+
+- **请求示例**:
+```
+PUT /projects/1
+```
+```json
+{
+  "name": "个人博客系统 V2",
+  "status": "已完成"
+}
+```
+
+- **响应示例 (成功)**:
+```json
+{
+  "code": "0000",
+  "data": {
+    "id": 1,
+    "name": "个人博客系统 V2",
+    "status": "已完成"
+  }
+}
+```
+
+- **响应示例 (失败)**:
+```json
+{
+  "code": "0001",
+  "info": "项目不存在"
+}
+```
+
+---
+
+### 5. 删除项目
+
+- **URL**: `DELETE /projects/{projectId}`
+- **描述**: 删除指定项目
+- **基础URL**: `http://localhost:3000/api`
+- **请求头**:
+```
+Authorization: Bearer <jwtToken>
+```
+- **请求参数**:
+
+| 参数名    | 类型   | 必填 | 描述   |
+| --------- | ------ | ---- | ------ |
+| projectId | number | 是   | 项目ID |
+
+- **请求示例**:
+```
+DELETE /projects/1
+```
+
+- **响应示例 (成功)**:
+```json
+{
+  "code": "0000",
+  "info": "删除成功"
+}
+```
+
+- **响应示例 (失败)**:
+```json
+{
+  "code": "0001",
+  "info": "项目不存在"
+}
+```
+
+---
+
+## 七、API 服务函数
 
 ### articleService.js
 
@@ -973,9 +1243,21 @@ DELETE /images/1
 | getImages         | 无             | Promise<Array>  | 获取图片列表   |
 | deleteImage       | imageId (number) | Promise<boolean> | 删除图片   |
 
+### projectService.js
+
+位置: `src/services/projectService.js`
+
+| 函数名            | 参数           | 返回值  | 描述           |
+| ----------------- | -------------- | ------- | -------------- |
+| getProjects       | 无             | Promise<Array>  | 获取项目列表   |
+| getProjectById    | projectId (number) | Promise<Object> | 获取项目详情   |
+| createProject     | projectData (Object) | Promise<Object> | 创建项目   |
+| updateProject     | projectId (number), projectData (Object) | Promise<Object> | 更新项目 |
+| deleteProject     | projectId (number) | Promise<boolean> | 删除项目   |
+
 ---
 
-## 七、错误码说明
+## 八、错误码说明
 
 | 错误码 | 描述           |
 | ------ | -------------- |
@@ -984,7 +1266,7 @@ DELETE /images/1
 
 ---
 
-## 八、本地存储说明
+## 九、本地存储说明
 
 ### localStorage
 
@@ -1028,6 +1310,7 @@ DELETE /images/1
 | backend-article-new   | /backend/articles/new         | 新建文章       | 是       |
 | backend-article-edit  | /backend/articles/:id/edit   | 编辑文章       | 是       |
 | backend-categories    | /backend/categories           | 分类管理       | 是       |
+| backend-projects      | /backend/projects            | 项目管理       | 是       |
 | backend-images        | /backend/images              | 图片管理       | 是       |
 | backend-users         | /backend/users              | 用户管理       | 是       |
 

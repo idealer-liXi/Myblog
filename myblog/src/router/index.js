@@ -10,6 +10,7 @@ import DashboardPanel from "@/components/backend/DashboardPanel.vue";
 import ArticleList from "@/components/backend/ArticleList.vue";
 import ArticleForm from "@/components/backend/ArticleForm.vue";
 import CategoryManagement from "@/components/backend/CategoryManagement.vue";
+import ProjectManagement from "@/components/backend/ProjectManagement.vue";
 import ImageManagement from "@/components/backend/ImageManagement.vue";
 import UserManagement from "@/components/backend/UserManagement.vue";
 
@@ -77,6 +78,11 @@ const routes = [
         path: 'categories',
         name: 'backend-categories',
         component: CategoryManagement,
+      },
+      {
+        path: 'projects',
+        name: 'backend-projects',
+        component: ProjectManagement,
       },
       {
         path: 'images',

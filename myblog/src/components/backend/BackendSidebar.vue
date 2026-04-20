@@ -36,6 +36,21 @@
           </div>
         </transition>
       </div>
+      <div class="sidebar-group">
+        <div class="sidebar-item sidebar-parent" :class="{ active: isProjectActive }" @click="projectExpanded = !projectExpanded">
+          <i class="bi bi-kanban"></i>
+          <span>项目管理</span>
+          <i class="bi sidebar-arrow" :class="projectExpanded ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
+        </div>
+        <transition name="expand">
+          <div v-show="projectExpanded" class="sidebar-children">
+            <router-link :to="{ name: 'backend-projects' }" class="sidebar-child" :class="{ active: $route.name === 'backend-projects' }">
+              <i class="bi bi-list-ul"></i>
+              <span>项目列表</span>
+            </router-link>
+          </div>
+        </transition>
+      </div>
       <router-link :to="{ name: 'backend-images' }" class="sidebar-item" :class="{ active: $route.name === 'backend-images' }">
         <i class="bi bi-image"></i>
         <span>图片管理</span>
@@ -67,12 +82,17 @@ const userInfo = computed(() => store.getters['weixin_user/getUserInfo'])
 const username = computed(() => localStorage.getItem('weixinName'))
 
 const articleExpanded = ref(true)
+const projectExpanded = ref(true)
 
 const isArticleActive = computed(() => [
   'backend-articles',
   'backend-article-new',
   'backend-article-edit',
   'backend-categories'
+].includes(route.name))
+
+const isProjectActive = computed(() => [
+  'backend-projects'
 ].includes(route.name))
 
 const handleLogout = () => {
