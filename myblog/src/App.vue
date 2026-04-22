@@ -32,13 +32,30 @@ export default {
 
     const weixinName = localStorage.getItem("weixinName");
     const weixinImageUrl = localStorage.getItem("weixinImageUrl")
+    const loginUsername = localStorage.getItem("loginUsername")
+    const jwtToken = localStorage.getItem("jwtToken")
+    const jwtTokenExpiry = localStorage.getItem("jwtTokenExpiry")
     const openid = getCookie("openIdToken");
+    const isJwtValid = jwtToken && jwtTokenExpiry && Date.now() < Number(jwtTokenExpiry)
 
     if (openid && weixinName && weixinImageUrl) {
       store.dispatch("weixin_user/login", {
+        displayName: weixinName,
+        username: '',
         weixinName: weixinName,
         weixinImageUrl: weixinImageUrl,
+        loginType: 'weixin',
+        openid,
       });
+    } else if (isJwtValid && loginUsername) {
+      store.dispatch("weixin_user/login", {
+        displayName: loginUsername,
+        username: loginUsername,
+        weixinName: '',
+        weixinImageUrl: '',
+        loginType: 'password',
+        openid: '',
+      })
     }
   }
 }

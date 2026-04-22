@@ -58,12 +58,16 @@
         </ul>
         
         <ul v-else class="navbar-nav user-section ms-auto">
-          <li class="nav-item user-info">
-            <div class="user-avatar-wrapper">
-              <img :src="userInfo.weixinImageUrl" alt="User Avatar" class="user-avatar">
-              <span class="online-status"></span>
-            </div>
-            <span class="user-name">{{ userInfo.weixinName }}</span>
+          <li class="nav-item user-entry">
+            <button class="user-profile-button" type="button" @click="openProfile">
+              <div class="user-avatar-wrapper">
+                <img v-if="avatarSrc" :src="avatarSrc" alt="User Avatar" class="user-avatar">
+                <div v-else class="user-avatar-fallback">{{ userInitial }}</div>
+                <span class="online-status"></span>
+              </div>
+              <span class="user-name">{{ displayName }}</span>
+              <i class="bi bi-chevron-right user-entry-arrow"></i>
+            </button>
           </li>
           <li class="nav-item">
             <button class="btn btn-logout" @click="logout" title="退出登录">
@@ -88,8 +92,17 @@ export default {
     const store = useStore();
 
     const route_value = computed(() => route.name);
-    const isLoggedIn = computed(() => store.getters["weixin_user/getLoginStatus"]);
-    const userInfo = computed(() => store.getters["weixin_user/getUserInfo"]);
+    const hasJwt = computed(() => {
+      const jwtToken = localStorage.getItem('jwtToken')
+      const jwtTokenExpiry = localStorage.getItem('jwtTokenExpiry')
+      return jwtToken && jwtTokenExpiry && Date.now() < Number(jwtTokenExpiry)
+    })
+    const hasOpenid = computed(() => document.cookie.split(';').some(c => c.trim().startsWith('openIdToken=')))
+    const userInfo = computed(() => store.getters["weixin_user/getUserInfo"] || {});
+    const isLoggedIn = computed(() => store.getters["weixin_user/getLoginStatus"] || hasJwt.value || hasOpenid.value);
+    const displayName = computed(() => userInfo.value.displayName || userInfo.value.weixinName || userInfo.value.username || localStorage.getItem('weixinName') || localStorage.getItem('loginUsername') || '用户')
+    const avatarSrc = computed(() => userInfo.value.weixinImageUrl || localStorage.getItem('weixinImageUrl') || '')
+    const userInitial = computed(() => displayName.value.slice(0, 1).toUpperCase())
 
     const login = () => {
       router.push({ name: "login" });
@@ -102,18 +115,29 @@ export default {
     const logout = () => {
       store.dispatch("weixin_user/logout");
       document.cookie = "openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('jwtTokenExpiry');
+      localStorage.removeItem('loginUsername');
       localStorage.removeItem('weixinName');
       localStorage.removeItem('weixinImageUrl');
       router.push({ name: "blog" });
     };
 
+    const openProfile = () => {
+      router.push({ name: 'user-profile' })
+    }
+
     return {
       route_value,
       isLoggedIn,
       userInfo,
+      displayName,
+      avatarSrc,
+      userInitial,
       login,
       register,
       logout,
+      openProfile,
     };
   },
 };
@@ -345,6 +369,31 @@ export default {
   gap: 1rem;
 }
 
+.user-entry {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.35rem 0.55rem 0.35rem 0.4rem;
+  border: 1px solid rgba(0, 123, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 10px 22px rgba(125, 142, 182, 0.12);
+  color: #3f5ea8;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+.user-profile-button:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 28px rgba(125, 142, 182, 0.18);
+}
+
 .user-info {
   display: flex;
   align-items: center;
@@ -372,6 +421,20 @@ export default {
   display: block;
 }
 
+.user-avatar-fallback {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6090f3, #4c6fcb);
+  color: white;
+  font-weight: 700;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .online-status {
   position: absolute;
   bottom: 0;
@@ -387,6 +450,15 @@ export default {
   font-weight: 600;
   color: #333;
   font-size: 0.95rem;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-entry-arrow {
+  color: rgba(63, 94, 168, 0.7);
+  font-size: 0.8rem;
 }
 
 .btn-logout {
@@ -478,7 +550,13 @@ export default {
     padding: 0.3rem 0.8rem;
   }
 
-  .user-avatar {
+  .user-profile-button {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .user-avatar,
+  .user-avatar-fallback {
     width: 32px;
     height: 32px;
   }

@@ -69,7 +69,7 @@ import SchoolCard from '@/components/SchoolCard.vue';
 <style scoped>
 .me-container {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 76px);
   overflow: hidden;
   gap: 20px;
   padding: 20px;
@@ -88,10 +88,9 @@ import SchoolCard from '@/components/SchoolCard.vue';
 .schools-container {
   flex-grow: 1;
   overflow-y: auto;
-  padding-right: 15px; /* space for scrollbar */
+  padding-right: 15px;
 }
 
-/* Profile Card Styles (some adjustments might be needed) */
 .profile-header {
   display: flex;
   align-items: center;
@@ -148,5 +147,24 @@ import SchoolCard from '@/components/SchoolCard.vue';
   color: #fff;
   border-radius: 16px;
   padding: 4px 16px;
+}
+
+@media (max-width: 900px) {
+  .me-container {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 76px);
+    overflow-y: auto;
+  }
+
+  .profile-card {
+    width: 100%;
+    overflow-y: visible;
+  }
+
+  .schools-container {
+    overflow-y: visible;
+    padding-right: 0;
+  }
 }
 </style>

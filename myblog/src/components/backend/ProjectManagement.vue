@@ -843,4 +843,90 @@ loadProjects()
     gap: 0;
   }
 }
+.project-management {
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 255, 255, 0.93);
+  --line: rgba(128, 145, 184, 0.16);
+  --line-strong: rgba(87, 116, 184, 0.26);
+  --text: #25324d;
+  --muted: #6f7b93;
+  --soft: #97a2b7;
+  --accent: #5378d6;
+  --danger: #d46b6b;
+  --success: #5c9b74;
+  font-family: 'Avenir Next', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+.list-title,
+.form-label,
+.modal-header h3,
+.project-table td,
+.search-input,
+.form-input,
+.form-checkbox-label {
+  color: var(--text);
+}
+
+.btn-create,
+.table-wrapper,
+.empty-state,
+.modal-content,
+.form-input,
+.btn-cancel {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.btn-create {
+  border: 1px solid rgba(83, 120, 214, 0.18);
+  color: var(--accent);
+  border-radius: 14px;
+  box-shadow: 0 12px 26px rgba(120, 136, 170, 0.12);
+}
+
+.search-input,
+.form-input,
+.table-wrapper,
+.modal-content,
+.btn-cancel {
+  border-color: var(--line);
+}
+
+.search-input:focus,
+.form-input:focus {
+  border-color: var(--line-strong);
+  box-shadow: 0 0 0 4px rgba(83, 120, 214, 0.08);
+}
+
+.project-table th {
+  color: var(--muted);
+  background: rgba(246, 248, 252, 0.94);
+  border-bottom-color: var(--line);
+}
+
+.project-table tr:hover td {
+  background: rgba(244, 247, 255, 0.9);
+}
+
+.status-progress,
+.btn-edit {
+  background: rgba(83, 120, 214, 0.1);
+  color: var(--accent);
+}
+
+.status-completed {
+  background: rgba(92, 155, 116, 0.12);
+  color: var(--success);
+}
+
+.btn-delete,
+.submit-error,
+.btn-confirm-delete {
+  background: rgba(212, 107, 107, 0.1);
+  color: var(--danger);
+}
+
+.modal-overlay {
+  background: rgba(226, 231, 240, 0.44);
+  backdrop-filter: blur(10px);
+}
 </style>

@@ -100,6 +100,7 @@ const handleLogout = () => {
   document.cookie = 'openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
   localStorage.removeItem('jwtToken')
   localStorage.removeItem('jwtTokenExpiry')
+  localStorage.removeItem('loginUsername')
   localStorage.removeItem('weixinName')
   localStorage.removeItem('weixinImageUrl')
   router.push({ name: 'blog' })
@@ -359,5 +360,63 @@ const handleLogout = () => {
   .sidebar-arrow {
     display: none;
   }
+}
+.sidebar {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(120, 136, 170, 0.12);
+}
+
+.sidebar-user {
+  background: rgba(244, 247, 255, 0.82);
+}
+
+.sidebar-avatar {
+  border-color: rgba(83, 120, 214, 0.8);
+}
+
+.sidebar-avatar-placeholder {
+  background: linear-gradient(135deg, #5a82db, #466dcc);
+}
+
+.sidebar-username {
+  color: #25324d;
+}
+
+.sidebar-divider {
+  background: linear-gradient(90deg, transparent 0%, rgba(83, 120, 214, 0.18) 50%, transparent 100%);
+}
+
+.sidebar-item,
+.sidebar-child {
+  color: #66748f;
+  border-radius: 12px;
+}
+
+.sidebar-item:hover,
+.sidebar-child:hover {
+  background: rgba(83, 120, 214, 0.08);
+  color: #5378d6;
+}
+
+.sidebar-item.active {
+  background: rgba(83, 120, 214, 0.1);
+  color: #5378d6;
+  box-shadow: inset 3px 0 0 #5378d6;
+}
+
+.sidebar-child.active {
+  background: rgba(83, 120, 214, 0.08);
+  color: #5378d6;
+}
+
+.sidebar-logout {
+  color: #d46b6b !important;
+}
+
+.sidebar-logout:hover {
+  background: rgba(212, 107, 107, 0.08) !important;
+  color: #d46b6b !important;
 }
 </style>

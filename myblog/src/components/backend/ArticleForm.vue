@@ -431,4 +431,109 @@ select.form-input {
     gap: 0;
   }
 }
+.article-form {
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 255, 255, 0.93);
+  --line: rgba(128, 145, 184, 0.16);
+  --line-strong: rgba(87, 116, 184, 0.26);
+  --text: #25324d;
+  --muted: #6f7b93;
+  --soft: #97a2b7;
+  --accent: #5378d6;
+  --danger: #d46b6b;
+  padding: 8px;
+  color: var(--text);
+  font-family: 'Avenir Next', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+.form-title {
+  color: var(--text);
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.btn-back:hover {
+  background: white;
+  color: var(--text);
+}
+
+.form-body {
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(120, 136, 170, 0.12);
+}
+
+.form-label {
+  color: var(--text);
+}
+
+.form-input {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text);
+}
+
+.form-input:focus {
+  border-color: var(--line-strong);
+  box-shadow: 0 0 0 4px rgba(83, 120, 214, 0.08);
+}
+
+.form-input.is-error,
+.editor-wrapper.is-error {
+  border-color: rgba(212, 107, 107, 0.4);
+  box-shadow: 0 0 0 4px rgba(212, 107, 107, 0.08);
+}
+
+.editor-wrapper {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.submit-error {
+  background: rgba(212, 107, 107, 0.08);
+  border: 1px solid rgba(212, 107, 107, 0.18);
+  color: var(--danger);
+}
+
+.btn-cancel {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--muted);
+}
+
+.btn-cancel:hover {
+  background: white;
+}
+
+.btn-submit {
+  border: 1px solid rgba(83, 120, 214, 0.16);
+  border-radius: 10px;
+  background: var(--accent);
+  box-shadow: 0 12px 24px rgba(95, 122, 183, 0.2);
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #406bcf;
+  box-shadow: 0 16px 28px rgba(95, 122, 183, 0.24);
+}
+
+.loading-state {
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.loading-spinner {
+  border: 3px solid rgba(83, 120, 214, 0.15);
+  border-top-color: var(--accent);
+}
 </style>

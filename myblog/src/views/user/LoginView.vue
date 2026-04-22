@@ -79,6 +79,11 @@ import axios from "axios";
 import router from "@/router";
 import {useStore} from "vuex";
 
+const LOCAL_TEST_USER = {
+  username: 'testuser',
+  password: '123456',
+}
+
 export default {
   setup(){
     const store = useStore()
@@ -87,6 +92,23 @@ export default {
     let error_message = ref('')
     let showQRCode = ref(false)
     let qrCodeUrl = ref('')
+
+    const applyLocalPasswordLogin = (name) => {
+      document.cookie = 'openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+      localStorage.removeItem('weixinName')
+      localStorage.removeItem('weixinImageUrl')
+      localStorage.setItem('jwtToken', 'local-test-jwt-token')
+      localStorage.setItem('jwtTokenExpiry', Date.now() + 24 * 60 * 60 * 1000)
+      localStorage.setItem('loginUsername', name)
+      store.dispatch('weixin_user/login', {
+        displayName: name,
+        username: name,
+        weixinName: '',
+        weixinImageUrl: '',
+        loginType: 'password',
+        openid: ''
+      })
+    }
 
 
     const getToken = async () => {
@@ -101,6 +123,12 @@ export default {
         return
       }
 
+      if (username.value === LOCAL_TEST_USER.username && password.value === LOCAL_TEST_USER.password) {
+        applyLocalPasswordLogin(username.value)
+        router.push({ name: 'home' })
+        return
+      }
+
       try {
         const response = await axios.post('http://localhost:8080/api/r1/login/token', {
           username: username.value,
@@ -110,8 +138,8 @@ export default {
         if (response.data.code === '0000') {
           const token = response.data.data
           // 存储JWT到localStorage，24小时有效期
+          applyLocalPasswordLogin(username.value)
           localStorage.setItem('jwtToken', token)
-          localStorage.setItem('jwtTokenExpiry', Date.now() + 24 * 60 * 60 * 1000)
           router.push({ name: 'home' })
         } else {
           error_message.value = response.data.info || '登录失败'
@@ -157,6 +185,9 @@ export default {
           // 停止轮询
           clearInterval(intervalId);
           // 保存登录 token 到 cookie，设置有效期为30天
+          localStorage.removeItem('jwtToken')
+          localStorage.removeItem('jwtTokenExpiry')
+          localStorage.removeItem('loginUsername')
           setCookie('openIdToken', response.data.data, 30);
           // 获取用户昵称和头像
           const response1 = await axios.get(`http://localhost:8080/api/v1/login/weixin_user_information?openid=${response.data.data}`)
@@ -169,8 +200,12 @@ export default {
             localStorage.setItem('weixinImageUrl',image_url)
             //2.缓存到vuex中 todo
             store.dispatch('weixin_user/login',{
+              displayName: name,
+              username: '',
               weixinName: name,
-              weixinImageUrl: image_url
+              weixinImageUrl: image_url,
+              loginType: 'weixin',
+              openid: response.data.data,
             });
 
           }else{

@@ -2,7 +2,11 @@
 
 ## 基础信息
 
-- **基础URL**: `http://localhost:8080/api` (用户相关) / `http://localhost:3000/api` (文章相关)
+- **基础URL**:
+  - 用户认证相关: `http://localhost:8080/api`
+  - 用户管理相关: `http://localhost:8080/api/v1`
+  - 博客内容/分类/图片/项目相关: `http://localhost:3000/api`
+  - 第三方 GitHub API: `https://api.github.com`
 - **请求格式**: JSON
 - **响应格式**: JSON
 - **认证方式**: JWT Token / Cookie
@@ -1257,7 +1261,154 @@ DELETE /projects/1
 
 ---
 
-## 八、错误码说明
+## 八、GitHub 页面使用的第三方 API
+
+> **说明**: 以下接口用于 `src/views/github/GitHubStarView.vue`，属于第三方 GitHub 接口，不是本项目后端提供的 API。
+
+### 1. 获取 GitHub 用户资料
+
+- **URL**: `GET https://api.github.com/users/{username}`
+- **描述**: 获取 GitHub 用户公开资料
+- **请求参数**:
+
+| 参数名   | 类型   | 必填 | 描述        |
+| -------- | ------ | ---- | ----------- |
+| username | string | 是   | GitHub 用户名 |
+
+- **请求示例**:
+```
+GET https://api.github.com/users/your-github-name
+```
+
+- **前端用途**:
+  - 读取头像、昵称、简介、位置、博客、公司
+  - 读取公开仓库数、关注数、被关注数
+
+---
+
+### 2. 获取 GitHub Star 列表
+
+- **URL**: `GET https://api.github.com/users/{username}/starred`
+- **描述**: 获取用户公开 Star 的仓库列表
+- **查询参数**:
+
+| 参数名    | 类型   | 必填 | 描述 |
+| --------- | ------ | ---- | ---- |
+| per_page  | number | 否   | 每页数量，项目中使用 `30` |
+| sort      | string | 否   | 排序字段，项目中使用 `stars` |
+| direction | string | 否   | 排序方向，项目中使用 `desc` |
+
+- **请求示例**:
+```
+GET https://api.github.com/users/your-github-name/starred?per_page=30&sort=stars&direction=desc
+```
+
+- **前端用途**:
+  - 展示 Star 仓库名称、描述、语言、Star 数、Fork 数
+
+---
+
+### 3. 获取 GitHub 仓库列表
+
+- **URL**: `GET https://api.github.com/users/{username}/repos`
+- **描述**: 获取用户公开仓库列表
+- **查询参数**:
+
+| 参数名    | 类型   | 必填 | 描述 |
+| --------- | ------ | ---- | ---- |
+| per_page  | number | 否   | 每页数量，项目中使用 `30` |
+| sort      | string | 否   | 排序字段，项目中使用 `updated` |
+| direction | string | 否   | 排序方向，项目中使用 `desc` |
+
+- **请求示例**:
+```
+GET https://api.github.com/users/your-github-name/repos?per_page=30&sort=updated&direction=desc
+```
+
+- **前端用途**:
+  - 展示自己的仓库列表
+  - 汇总所有仓库 `stargazers_count` 计算 `totalStars`
+
+---
+
+### 4. 获取 GitHub Contributions HTML
+
+- **目标 URL**: `GET https://github.com/users/{username}/contributions?from={year}-01-01&to={year}-12-31`
+- **描述**: 获取 GitHub 年度 contributions 热力图 HTML
+- **说明**: 由于浏览器跨域限制，项目中不会直接请求该 URL，而是通过代理获取 HTML 再解析。
+
+- **请求示例**:
+```
+GET https://github.com/users/your-github-name/contributions?from=2024-01-01&to=2024-12-31
+```
+
+- **前端用途**:
+  - 解析返回的 HTML
+  - 生成年度 contributions 热力图数据
+
+---
+
+### 5. Contributions 代理接口
+
+项目中按顺序尝试以下两个公开代理：
+
+#### 5.1 CodeTabs Proxy
+
+- **URL**: `GET https://api.codetabs.com/v1/proxy?quest={encodedUrl}`
+- **描述**: 代理请求 GitHub contributions 页面 HTML
+
+- **请求示例**:
+```
+GET https://api.codetabs.com/v1/proxy?quest=https%3A%2F%2Fgithub.com%2Fusers%2Fyour-github-name%2Fcontributions%3Ffrom%3D2024-01-01%26to%3D2024-12-31
+```
+
+#### 5.2 AllOrigins Proxy
+
+- **URL**: `GET https://api.allorigins.win/raw?url={encodedUrl}`
+- **描述**: 作为备用代理请求 GitHub contributions 页面 HTML
+
+- **请求示例**:
+```
+GET https://api.allorigins.win/raw?url=https%3A%2F%2Fgithub.com%2Fusers%2Fyour-github-name%2Fcontributions%3Ffrom%3D2024-01-01%26to%3D2024-12-31
+```
+
+---
+
+## 九、API 服务函数与直接调用补充
+
+### LoginView.vue 中的直接 API 调用
+
+位置: `src/views/user/LoginView.vue`
+
+| 调用位置 | 方法 | URL | 描述 |
+| -------- | ---- | --- | ---- |
+| 用户名密码登录 | POST | `http://localhost:8080/api/r1/login/token` | 获取 JWT Token |
+| 获取微信二维码 ticket | GET | `http://localhost:8080/api/v1/login/weixin_qrcode_ticket` | 获取二维码票据 |
+| 轮询微信登录状态 | GET | `http://localhost:8080/api/v1/login/check_login?ticket=...` | 检查扫码登录状态 |
+| 获取微信用户信息 | GET | `http://localhost:8080/api/v1/login/weixin_user_information?openid=...` | 获取微信昵称和头像 |
+
+### RegisterView.vue 中的直接 API 调用
+
+位置: `src/views/user/RegisterView.vue`
+
+| 调用位置 | 方法 | URL | 描述 |
+| -------- | ---- | --- | ---- |
+| 用户注册 | POST | `http://localhost:8080/api/r1/register` | 注册账号 |
+
+### GitHubStarView.vue 中的直接 API 调用
+
+位置: `src/views/github/GitHubStarView.vue`
+
+| 调用位置 | 方法 | URL | 描述 |
+| -------- | ---- | --- | ---- |
+| 获取用户资料 | GET | `https://api.github.com/users/{username}` | 获取 GitHub 用户资料 |
+| 获取 Star 列表 | GET | `https://api.github.com/users/{username}/starred?per_page=30&sort=stars&direction=desc` | 获取用户 Star 仓库 |
+| 获取仓库列表 | GET | `https://api.github.com/users/{username}/repos?per_page=30&sort=updated&direction=desc` | 获取用户仓库 |
+| 获取 Contributions HTML | GET | `https://api.codetabs.com/v1/proxy?quest={encodedUrl}` / `https://api.allorigins.win/raw?url={encodedUrl}` | 通过代理抓取 contributions 页面 |
+
+---
+
+## 十、错误码说明
 
 | 错误码 | 描述           |
 | ------ | -------------- |
@@ -1266,7 +1417,7 @@ DELETE /projects/1
 
 ---
 
-## 九、本地存储说明
+## 十一、本地存储说明
 
 ### localStorage
 
@@ -1285,7 +1436,7 @@ DELETE /projects/1
 
 ---
 
-## 九、前端路由
+## 十二、前端路由
 
 ### 主要路由
 

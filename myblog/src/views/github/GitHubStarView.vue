@@ -459,14 +459,21 @@ onMounted(() => {
 
 <style scoped>
 .github-view {
+  height: calc(100vh - 76px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   padding: 20px 0;
-  min-height: 100vh;
 }
 
 .github-container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 20px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .glass-card {
@@ -872,6 +879,16 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+  .github-view {
+    height: auto;
+    min-height: calc(100vh - 76px);
+    overflow-y: auto;
+  }
+
+  .github-container {
+    overflow-y: visible;
+  }
+
   .profile-card {
     flex-direction: column;
     align-items: flex-start;

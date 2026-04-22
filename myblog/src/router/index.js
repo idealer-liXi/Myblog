@@ -3,6 +3,7 @@ import BlogView from '@/views/blog/BlogView.vue';
 import MeView from '@/views/introduce/MeView.vue';
 import LoginView from "@/views/user/LoginView.vue";
 import RegisterView from "@/views/user/RegisterView.vue";
+import UserProfileView from "@/views/user/UserProfileView.vue";
 import BackendView from "@/views/backend/BackendView.vue";
 import ArticlePerform from "@/components/ArticlePerform.vue";
 import GitHubStarView from "@/views/github/GitHubStarView.vue";
@@ -46,6 +47,12 @@ const routes = [
     path: '/user/register',
     name: 'register',
     component: RegisterView,
+  },
+  {
+    path: '/user/profile',
+    name: 'user-profile',
+    component: UserProfileView,
+    meta: { requiresAuth: true },
   },
   {
     path: '/backend',

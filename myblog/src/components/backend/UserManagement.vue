@@ -736,4 +736,96 @@ onMounted(() => {
     font-size: 0.75rem;
   }
 }
+.user-management {
+  --surface: rgba(255, 255, 255, 0.76);
+  --line: rgba(128, 145, 184, 0.16);
+  --line-strong: rgba(87, 116, 184, 0.26);
+  --text: #25324d;
+  --muted: #6f7b93;
+  --soft: #97a2b7;
+  --accent: #5378d6;
+  --danger: #d46b6b;
+  --success: #5c9b74;
+  --warning: #d4a152;
+  font-family: 'Avenir Next', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+.list-title,
+.user-name,
+.user-table td,
+.search-input,
+.filter-select,
+.modal-header h3 {
+  color: var(--text);
+}
+
+.search-box i,
+.select-arrow,
+.user-login-name,
+.modal-body {
+  color: var(--muted);
+}
+
+.search-input,
+.filter-select,
+.table-wrapper,
+.modal-content,
+.btn-cancel,
+.page-btn {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--line);
+}
+
+.search-input:focus,
+.filter-select:focus {
+  border-color: var(--line-strong);
+  box-shadow: 0 0 0 4px rgba(83, 120, 214, 0.08);
+}
+
+.user-table th {
+  color: var(--muted);
+  background: rgba(246, 248, 252, 0.94);
+  border-bottom-color: var(--line);
+}
+
+.user-table tr:hover td {
+  background: rgba(244, 247, 255, 0.9);
+}
+
+.user-avatar-placeholder,
+.page-btn.active {
+  background: linear-gradient(135deg, #5a82db, #466dcc);
+}
+
+.type-tag.password,
+.stat-badge.total {
+  background: rgba(83, 120, 214, 0.1);
+  color: var(--accent);
+}
+
+.type-tag.weixin,
+.status-dot.active,
+.stat-badge.active,
+.btn-enable {
+  background: rgba(92, 155, 116, 0.12);
+  color: var(--success);
+}
+
+.btn-disable {
+  background: rgba(212, 161, 82, 0.12);
+  color: var(--warning);
+}
+
+.status-dot.disabled,
+.stat-badge.disabled,
+.btn-delete,
+.btn-confirm-delete {
+  background: rgba(212, 107, 107, 0.1);
+  color: var(--danger);
+}
+
+.modal-overlay {
+  background: rgba(226, 231, 240, 0.44);
+  backdrop-filter: blur(10px);
+}
 </style>

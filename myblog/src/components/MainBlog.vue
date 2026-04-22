@@ -1,22 +1,25 @@
 <template>
-  <div class="blog-card">
-    <div class="blog-card-body">
-      <div class="tab-nav">
+  <section class="blog-stage">
+    <div class="blog-card">
+      <nav class="tab-bar">
         <router-link
-          v-for="theme in themes"
+          v-for="(theme, i) in themes"
           :key="theme"
           :to="{ path: '/blog/article/' + theme }"
-          class="tab-item"
+          class="tab-pill"
           :class="{ active: $route.path === '/blog/article/' + theme }"
+          :style="{ '--i': i }"
         >
           <i :class="themeIcon(theme)"></i>
           <span>{{ theme }}</span>
         </router-link>
+      </nav>
+
+      <div class="content-area">
+        <router-view></router-view>
       </div>
-      <div class="tab-divider"></div>
-      <router-view></router-view>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
@@ -36,92 +39,79 @@ const themeIcon = (theme) => {
 </script>
 
 <style scoped>
-.blog-card {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.blog-card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-}
-
-.blog-card-body {
-  padding: 20px 24px;
-}
-
-.tab-nav {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.tab-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 18px;
-  border-radius: 10px;
-  color: #666;
-  font-weight: 500;
-  font-size: 0.92rem;
-  text-decoration: none;
-  transition: color 0.3s ease;
+.blog-stage {
   position: relative;
 }
 
-.tab-item:hover {
-  color: #475569;
+.blog-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  box-shadow: 0 14px 36px rgba(120, 138, 180, 0.1);
+  overflow: hidden;
+}
+
+/* ── tab bar ── */
+.tab-bar {
+  display: flex;
+  gap: 6px;
+  padding: 14px 16px 0;
+}
+
+.tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 10px 10px 0 0;
+  color: #7e8da6;
+  font-weight: 600;
+  font-size: 0.84rem;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+
+.tab-pill i {
+  font-size: 0.88rem;
+}
+
+.tab-pill:hover {
+  color: #4a5d7a;
+  background: rgba(255, 255, 255, 0.5);
   text-decoration: none;
 }
 
-.tab-item.active {
-  color: #334155;
-  font-weight: 500;
+.tab-pill.active {
+  color: #1f2e4a;
+  background: rgba(255, 255, 255, 0.72);
 }
 
-.tab-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 3px;
-  background: linear-gradient(135deg, #475569 0%, #334155 100%);
-  border-radius: 2px;
+/* ── content ── */
+.content-area {
+  border-top: 1px solid rgba(140, 158, 196, 0.12);
+  padding: 20px 20px 14px;
+  background: rgba(255, 255, 255, 0.38);
+  min-height: 200px;
 }
 
-.tab-item i {
-  font-size: 1rem;
-}
-
-.tab-item span {
-}
-
-.tab-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(71, 85, 105, 0.15) 50%, transparent 100%);
-  margin: 16px 0;
-}
-
-@media (max-width: 576px) {
-  .blog-card-body {
-    padding: 14px 16px;
-  }
-
-  .tab-item {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-
-  .tab-nav {
+@media (max-width: 720px) {
+  .tab-bar {
+    padding: 12px 12px 0;
     gap: 4px;
+  }
+
+  .tab-pill {
+    height: 34px;
+    padding: 0 12px;
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+
+  .content-area {
+    padding: 16px 14px 10px;
   }
 }
 </style>
