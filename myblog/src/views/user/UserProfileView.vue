@@ -55,9 +55,9 @@
               <label class="field-label">登录方式</label>
               <span class="field-body">{{ profile.loginTypeLabel }}</span>
             </div>
-            <div class="field-cell span-2">
-              <label class="field-label">OpenID</label>
-              <span class="field-body mono">{{ profile.openid || '—' }}</span>
+            <div class="field-cell">
+              <label class="field-label">角色</label>
+              <span class="field-body">{{ profile.roles }}</span>
             </div>
             <div class="field-cell">
               <label class="field-label">JWT 状态</label>
@@ -70,6 +70,44 @@
               <label class="field-label">头像地址</label>
               <span class="field-body mono">{{ profile.avatar || '—' }}</span>
             </div>
+            <div class="field-cell span-2">
+              <label class="field-label">微信绑定</label>
+              <span class="field-body">{{ profile.weixinBound ? '已绑定' : '未绑定' }}</span>
+            </div>
+            <div class="field-cell span-2">
+              <label class="field-label">绑定操作</label>
+              <div class="bind-actions">
+                <button
+                  v-if="!profile.weixinBound"
+                  class="bind-btn solid"
+                  type="button"
+                  @click="startWechatBind"
+                  :disabled="bindBusy"
+                >
+                  {{ bindBusy ? '正在生成二维码...' : '绑定微信' }}
+                </button>
+                <button
+                  v-else
+                  class="bind-btn ghost"
+                  type="button"
+                  @click="handleUnbindWechat"
+                  :disabled="bindBusy"
+                >
+                  解除绑定
+                </button>
+              </div>
+            </div>
+            <div v-if="bindPanelVisible" class="field-cell span-2">
+              <label class="field-label">扫码绑定</label>
+              <div class="bind-panel">
+                <img v-if="bindQrCodeUrl" :src="bindQrCodeUrl" alt="微信绑定二维码" class="bind-qr-image" />
+                <span v-else class="field-body">二维码生成中...</span>
+              </div>
+            </div>
+            <div v-if="bindError" class="field-cell span-2">
+              <label class="field-label">错误信息</label>
+              <span class="field-body bind-error">{{ bindError }}</span>
+            </div>
           </div>
         </main>
       </div>
@@ -78,48 +116,106 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 import { useStore } from 'vuex'
+import { checkWechatBind, fetchCurrentUser, fetchWechatBindTicket, unbindWechat } from '@/services/authService'
+import { hasValidSession } from '@/utils/authSession'
 
 const store = useStore()
 
-const getCookie = (name) => {
-  const cookieArr = document.cookie.split(';')
-  for (const part of cookieArr) {
-    const cookiePair = part.split('=')
-    if (name === cookiePair[0].trim()) {
-      return decodeURIComponent(cookiePair[1])
-    }
-  }
-  return ''
-}
+const bindError = ref('')
+const bindQrCodeUrl = ref('')
+const bindPanelVisible = ref(false)
+const bindBusy = ref(false)
+let bindPollTimer = null
 
 const storeUser = computed(() => store.getters['weixin_user/getUserInfo'] || {})
 
 const profile = computed(() => {
-  const username = storeUser.value.username || localStorage.getItem('loginUsername') || ''
-  const weixinName = storeUser.value.weixinName || localStorage.getItem('weixinName') || ''
-  const avatar = storeUser.value.weixinImageUrl || localStorage.getItem('weixinImageUrl') || ''
-  const openid = storeUser.value.openid || getCookie('openIdToken') || ''
-  const loginType = storeUser.value.loginType || (openid ? 'weixin' : 'password')
+  const username = storeUser.value.username || ''
+  const weixinName = storeUser.value.weixinName || ''
+  const avatar = storeUser.value.avatar || ''
+  const loginType = storeUser.value.loginType || 'password'
   const displayName = storeUser.value.displayName || weixinName || username || '未命名用户'
-  const jwtToken = localStorage.getItem('jwtToken')
-  const jwtTokenExpiry = localStorage.getItem('jwtTokenExpiry')
-  const isJwtValid = jwtToken && jwtTokenExpiry && Date.now() < Number(jwtTokenExpiry)
+  const roles = Array.isArray(storeUser.value.roles) && storeUser.value.roles.length > 0
+    ? storeUser.value.roles.join(', ')
+    : '—'
 
   return {
     username,
     weixinName,
     avatar,
-    openid,
+    roles,
     displayName,
     initial: displayName.slice(0, 1).toUpperCase(),
     loginType,
     loginTypeLabel: loginType === 'weixin' ? '微信登录' : '账号登录',
-    handle: username ? `@${username}` : (openid ? `openid: ${openid.slice(0, 10)}...` : '站点会话用户'),
-    description: loginType === 'weixin' ? '已通过微信授权登录' : '已通过用户名密码登录',
-    jwtStatus: isJwtValid ? '有效' : '未检测到或已过期',
+    handle: username ? `@${username}` : '站点会话用户',
+    description: loginType === 'weixin' ? '已通过微信扫码登录到统一账户' : '已通过用户名密码登录到统一账户',
+    jwtStatus: hasValidSession() ? '有效' : '未检测到或已过期',
+    weixinBound: Boolean(storeUser.value.weixinBound),
   }
+})
+
+const stopBindPolling = () => {
+  if (bindPollTimer) {
+    clearInterval(bindPollTimer)
+    bindPollTimer = null
+  }
+}
+
+const refreshProfile = async () => {
+  const currentUser = await fetchCurrentUser()
+  store.dispatch('weixin_user/updateProfile', currentUser)
+}
+
+const startWechatBind = async () => {
+  bindError.value = ''
+  bindPanelVisible.value = true
+  bindQrCodeUrl.value = ''
+  bindBusy.value = true
+  stopBindPolling()
+
+  try {
+    const ticket = await fetchWechatBindTicket()
+    bindQrCodeUrl.value = `https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=${ticket}`
+    bindPollTimer = setInterval(async () => {
+      try {
+        const result = await checkWechatBind(ticket)
+        if (!result) return
+
+        stopBindPolling()
+        await refreshProfile()
+        bindPanelVisible.value = false
+      } catch (error) {
+        stopBindPolling()
+        bindError.value = error.message || '微信绑定失败'
+      }
+    }, 3000)
+  } catch (error) {
+    bindError.value = error.message || '获取绑定二维码失败'
+    bindPanelVisible.value = false
+  } finally {
+    bindBusy.value = false
+  }
+}
+
+const handleUnbindWechat = async () => {
+  bindError.value = ''
+  bindBusy.value = true
+
+  try {
+    await unbindWechat()
+    await refreshProfile()
+  } catch (error) {
+    bindError.value = error.message || '解除微信绑定失败'
+  } finally {
+    bindBusy.value = false
+  }
+}
+
+onBeforeUnmount(() => {
+  stopBindPolling()
 })
 </script>
 
@@ -372,6 +468,57 @@ const profile = computed(() => {
 
 .status-pip.off {
   background: #c4c9d4;
+}
+
+.bind-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.bind-btn {
+  min-width: 128px;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.bind-btn.solid {
+  background: #4f72c4;
+  color: #fff;
+}
+
+.bind-btn.ghost {
+  background: rgba(255, 255, 255, 0.6);
+  color: #5e6e8a;
+  border-color: rgba(140, 155, 190, 0.14);
+}
+
+.bind-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.bind-panel {
+  display: flex;
+  justify-content: center;
+}
+
+.bind-qr-image {
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(140, 158, 196, 0.25);
+  border-radius: 12px;
+  padding: 6px;
+  background: #fff;
+}
+
+.bind-error {
+  color: #c0526a;
 }
 
 /* ── responsive ── */

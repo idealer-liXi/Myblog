@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-body">
 
-            <form @submit.prevent="" v-if="!showQRCode">
+            <form @submit.prevent="getToken" v-if="!showQRCode">
               <div class="mb-3">
                 <label for="username" class="form-label">用户名</label>
                 <input type="text" class="form-control" id="username" placeholder="请输入用户名" v-model="username">
@@ -20,13 +20,13 @@
                   <span>{{error_message}}</span>
                 </div>
               </transition>
-              <button type="submit" class="btn btn-primary" @click="getToken">登录</button>
+              <button type="submit" class="btn btn-primary" :disabled="isSubmitting">登录</button>
               <hr>
 
               <div class="mb-1">使用其他方式登录</div>
-              <button type="submit" class="btn btn-outline-secondary mb-1">使用QQ登录</button>
-              <button type="button" class="btn btn-outline-secondary mb-1" @click="getWechatQRCode">使用微信登录</button>
-              <button type="submit" class="btn btn-outline-secondary mb-1" @click="onlyGuestLogin">仅游客登录</button>
+              <button type="button" class="btn btn-outline-secondary mb-1" disabled>使用QQ登录</button>
+              <button type="button" class="btn btn-outline-secondary mb-1" @click="getWechatQRCode" :disabled="isSubmitting">使用微信登录</button>
+              <button type="button" class="btn btn-outline-secondary mb-1" @click="onlyGuestLogin">仅游客登录</button>
             </form>
 
             <div v-else class="text-center p-4">
@@ -59,6 +59,13 @@
                 </div>
               </div>
 
+              <transition name="error-fade">
+                <div class="error_message mt-3" v-if="error_message">
+                  <i class="bi bi-exclamation-circle-fill"></i>
+                  <span>{{ error_message }}</span>
+                </div>
+              </transition>
+
               <button @click="cancelWechatLogin" class="btn btn-secondary mt-3">返回</button>
             </div>
 
@@ -74,42 +81,38 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import axios from "axios";
-import router from "@/router";
-import {useStore} from "vuex";
-
-const LOCAL_TEST_USER = {
-  username: 'testuser',
-  password: '123456',
-}
+import { onBeforeUnmount, ref } from 'vue'
+import router from '@/router'
+import { useStore } from 'vuex'
+import { checkWechatLogin, fetchWechatLoginTicket, loginWithPassword } from '@/services/authService'
 
 export default {
   setup(){
     const store = useStore()
-    let username = ref('')
-    let password = ref('')
-    let error_message = ref('')
-    let showQRCode = ref(false)
-    let qrCodeUrl = ref('')
+    const username = ref('')
+    const password = ref('')
+    const error_message = ref('')
+    const showQRCode = ref(false)
+    const qrCodeUrl = ref('')
+    const isSubmitting = ref(false)
+    let pollTimer = null
 
-    const applyLocalPasswordLogin = (name) => {
-      document.cookie = 'openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-      localStorage.removeItem('weixinName')
-      localStorage.removeItem('weixinImageUrl')
-      localStorage.setItem('jwtToken', 'local-test-jwt-token')
-      localStorage.setItem('jwtTokenExpiry', Date.now() + 24 * 60 * 60 * 1000)
-      localStorage.setItem('loginUsername', name)
-      store.dispatch('weixin_user/login', {
-        displayName: name,
-        username: name,
-        weixinName: '',
-        weixinImageUrl: '',
-        loginType: 'password',
-        openid: ''
-      })
+    const stopPolling = () => {
+      if (pollTimer) {
+        clearInterval(pollTimer)
+        pollTimer = null
+      }
     }
 
+    const finishLogin = async (session) => {
+      store.dispatch('weixin_user/applySession', session)
+      const redirect = router.currentRoute.value.query.redirect
+      if (typeof redirect === 'string' && redirect) {
+        await router.push(redirect)
+        return
+      }
+      await router.push({ name: 'home' })
+    }
 
     const getToken = async () => {
       error_message.value = ''
@@ -123,119 +126,48 @@ export default {
         return
       }
 
-      if (username.value === LOCAL_TEST_USER.username && password.value === LOCAL_TEST_USER.password) {
-        applyLocalPasswordLogin(username.value)
-        router.push({ name: 'home' })
-        return
-      }
+      isSubmitting.value = true
 
       try {
-        const response = await axios.post('http://localhost:8080/api/r1/login/token', {
-          username: username.value,
-          password: password.value
-        })
-
-        if (response.data.code === '0000') {
-          const token = response.data.data
-          // 存储JWT到localStorage，24小时有效期
-          applyLocalPasswordLogin(username.value)
-          localStorage.setItem('jwtToken', token)
-          router.push({ name: 'home' })
-        } else {
-          error_message.value = response.data.info || '登录失败'
-        }
+        const session = await loginWithPassword(username.value.trim(), password.value)
+        await finishLogin(session)
       } catch (error) {
-        error_message.value = '登录请求失败，请稍后重试'
+        error_message.value = error.message || '登录失败'
+      } finally {
+        isSubmitting.value = false
       }
     }
-
 
     const getWechatQRCode = async () => {
+      error_message.value = ''
+      showQRCode.value = true
+      qrCodeUrl.value = ''
+      stopPolling()
+
       try {
-        // Show loading state
-        showQRCode.value = true
-        qrCodeUrl.value = ''
-        // 请求获取二维码ticket
-        const response = await axios.get('http://localhost:8080/api/v1/login/weixin_qrcode_ticket')
+        const ticket = await fetchWechatLoginTicket()
+        qrCodeUrl.value = `https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=${ticket}`
+        pollTimer = setInterval(async () => {
+          try {
+            const session = await checkWechatLogin(ticket)
+            if (!session) return
 
-        if(response.data.code === "0000"){
-          const ticket = response.data.data
-          // 根据ticket生成二维码图片
-          qrCodeUrl.value = `https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=${ticket}`
-          // 开始轮询检查用户是否扫描二维码登录
-          const intervalId = setInterval(() => {
-            checkLoginStatus(ticket, intervalId);
-          }, 3000); // 每3秒检查一次
-        }else{
-          console.log(response.data.info);
-        }
-      } catch (error) {
-        console.error('Error getting wechat QR code:', error)
-        error_message.value = '获取微信登录二维码失败'
-        showQRCode.value = false
-      }
-    }
-
-    const checkLoginStatus = async (ticket, intervalId) => {
-      try{
-        const response = await axios.get(`http://localhost:8080/api/v1/login/check_login?ticket=${ticket}`)
-
-        if(response.data.code === "0000"){
-          console.info("login success");
-          // 停止轮询
-          clearInterval(intervalId);
-          // 保存登录 token 到 cookie，设置有效期为30天
-          localStorage.removeItem('jwtToken')
-          localStorage.removeItem('jwtTokenExpiry')
-          localStorage.removeItem('loginUsername')
-          setCookie('openIdToken', response.data.data, 30);
-          // 获取用户昵称和头像
-          const response1 = await axios.get(`http://localhost:8080/api/v1/login/weixin_user_information?openid=${response.data.data}`)
-          if(response1.data.code === "0000"){
-            //成功获取用户昵称和头像
-            const name = response1.data.data.weixinName;
-            const image_url = response1.data.data.weixinImageUrl;
-            //1.将昵称和头像持久化
-            localStorage.setItem('weixinName',name)
-            localStorage.setItem('weixinImageUrl',image_url)
-            //2.缓存到vuex中 todo
-            store.dispatch('weixin_user/login',{
-              displayName: name,
-              username: '',
-              weixinName: name,
-              weixinImageUrl: image_url,
-              loginType: 'weixin',
-              openid: response.data.data,
-            });
-
-          }else{
-            console.error("获取微信用户头像昵称失败");
+            stopPolling()
+            await finishLogin(session)
+          } catch (error) {
+            stopPolling()
+            error_message.value = error.message || '微信登录失败'
+            showQRCode.value = false
           }
-
-
-          //跳转页面
-          router.push({name: "home"})
-        }else{
-          console.log(response.data.info);
-        }
-
-      } catch (e) {
-        console.error('Error getting wechat QR code:', e)
-        error_message.value = '获取微信登录二维码失败'
+        }, 3000)
+      } catch (error) {
+        error_message.value = error.message || '获取微信登录二维码失败'
         showQRCode.value = false
       }
     }
-
-    //保存用户信息
-    function setCookie(name, value, days) {
-      const date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      const expires = "expires=" + date.toUTCString();
-      document.cookie = name + "=" + value + ";" + expires + ";path=/";
-    }
-
 
     const cancelWechatLogin = () => {
+      stopPolling()
       showQRCode.value = false
       qrCodeUrl.value = ''
       error_message.value = ''
@@ -243,12 +175,17 @@ export default {
 
     const onlyGuestLogin = () => router.push({name: 'home'})
 
+    onBeforeUnmount(() => {
+      stopPolling()
+    })
+
     return {
       username,
       password,
       error_message,
       showQRCode,
       qrCodeUrl,
+      isSubmitting,
       getWechatQRCode,
       cancelWechatLogin,
       onlyGuestLogin,
@@ -323,7 +260,7 @@ export default {
   --color: rgb(204, 125, 45);
   --color2: rgb(83, 56, 28);
   transform: scale(0.75);
-  margin: 0 auto; /* Added for centering */
+  margin: 0 auto;
 }
 .capybara {
   width: 100%;

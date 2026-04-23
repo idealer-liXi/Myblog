@@ -14,6 +14,7 @@ import CategoryManagement from "@/components/backend/CategoryManagement.vue";
 import ProjectManagement from "@/components/backend/ProjectManagement.vue";
 import ImageManagement from "@/components/backend/ImageManagement.vue";
 import UserManagement from "@/components/backend/UserManagement.vue";
+import { clearSession, hasValidSession } from '@/utils/authSession'
 
 const routes = [
   {
@@ -58,7 +59,7 @@ const routes = [
     path: '/backend',
     name: 'backend',
     component: BackendView,
-    meta: { requiresAuth: false },
+    meta: { requiresAuth: true },
     redirect: { name: 'backend-dashboard' },
     children: [
       {
@@ -118,20 +119,18 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    const jwtToken = localStorage.getItem('jwtToken')
-    const jwtTokenExpiry = localStorage.getItem('jwtTokenExpiry')
-    const isJwtValid = jwtToken && jwtTokenExpiry && Date.now() < Number(jwtTokenExpiry)
-    const openid = document.cookie.split(';').some(c => c.trim().startsWith('openIdToken='))
-
-    if (isJwtValid || openid) {
-      next()
-    } else {
-      next({ name: 'login' })
-    }
-  } else {
+  if (!to.meta.requiresAuth) {
     next()
+    return
   }
+
+  if (hasValidSession()) {
+    next()
+    return
+  }
+
+  clearSession()
+  next({ name: 'login', query: { redirect: to.fullPath } })
 })
 
 export default router

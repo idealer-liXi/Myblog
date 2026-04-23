@@ -1,11 +1,11 @@
 <template>
   <div class="sidebar">
     <div class="sidebar-user" v-if="userInfo">
-      <img v-if="userInfo.weixinImageUrl" :src="userInfo.weixinImageUrl" alt="头像" class="sidebar-avatar" />
+      <img v-if="userInfo.avatar" :src="userInfo.avatar" alt="头像" class="sidebar-avatar" />
       <div v-else class="sidebar-avatar-placeholder">
         <i class="bi bi-person-fill"></i>
       </div>
-      <span class="sidebar-username">{{ userInfo.weixinName || username || '管理员' }}</span>
+      <span class="sidebar-username">{{ username }}</span>
     </div>
     <div class="sidebar-divider"></div>
     <nav class="sidebar-nav">
@@ -73,13 +73,14 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { logout as clearAuthSession } from '@/services/authService'
 
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
 
-const userInfo = computed(() => store.getters['weixin_user/getUserInfo'])
-const username = computed(() => localStorage.getItem('weixinName'))
+const userInfo = computed(() => store.getters['weixin_user/getUserInfo'] || {})
+const username = computed(() => userInfo.value.displayName || userInfo.value.username || userInfo.value.weixinName || '管理员')
 
 const articleExpanded = ref(true)
 const projectExpanded = ref(true)
@@ -96,13 +97,8 @@ const isProjectActive = computed(() => [
 ].includes(route.name))
 
 const handleLogout = () => {
+  clearAuthSession()
   store.dispatch('weixin_user/logout')
-  document.cookie = 'openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-  localStorage.removeItem('jwtToken')
-  localStorage.removeItem('jwtTokenExpiry')
-  localStorage.removeItem('loginUsername')
-  localStorage.removeItem('weixinName')
-  localStorage.removeItem('weixinImageUrl')
   router.push({ name: 'blog' })
 }
 </script>

@@ -8,26 +8,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 import BackendSidebar from '@/components/backend/BackendSidebar.vue'
-
-const router = useRouter()
-const store = useStore()
-
-onMounted(() => {
-  const jwtToken = localStorage.getItem('jwtToken')
-  const jwtTokenExpiry = localStorage.getItem('jwtTokenExpiry')
-  const isLoggedIn = store.getters['weixin_user/getLoginStatus']
-  const openid = document.cookie.split(';').some(c => c.trim().startsWith('openIdToken='))
-
-  const isJwtValid = jwtToken && jwtTokenExpiry && Date.now() < Number(jwtTokenExpiry)
-
-  // if (!isJwtValid && !isLoggedIn && !openid) {
-  //   router.replace({ name: 'login' })
-  // }
-})
 </script>
 
 <style scoped>

@@ -4,66 +4,54 @@
   <Footer></Footer>
 </template>
 
-
 <script>
-import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/Footer.vue";
-import { useStore } from "vuex";
+import { onMounted } from 'vue'
+import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
+import router from '@/router'
+import { useStore } from 'vuex'
+import { clearSession, hasValidSession, readSession } from '@/utils/authSession'
+import { fetchCurrentUser } from '@/services/authService'
 
 export default {
-  name: '',
   components: {
     Navbar,
     Footer,
   },
   setup() {
-    const store = useStore();
+    const store = useStore()
 
-    function getCookie(name) {
-      let cookieArr = document.cookie.split(";");
-      for(let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        if(name == cookiePair[0].trim()) {
-          return decodeURIComponent(cookiePair[1]);
+    onMounted(async () => {
+      if (!hasValidSession()) {
+        store.dispatch('weixin_user/logout')
+        return
+      }
+
+      const session = readSession()
+      store.dispatch('weixin_user/applySession', session)
+
+      try {
+        const currentUser = await fetchCurrentUser()
+        store.dispatch('weixin_user/updateProfile', currentUser)
+      } catch (error) {
+        clearSession()
+        store.dispatch('weixin_user/logout')
+
+        if (router.currentRoute.value.meta?.requiresAuth) {
+          router.replace({
+            name: 'login',
+            query: { redirect: router.currentRoute.value.fullPath }
+          })
         }
       }
-      return null;
-    }
+    })
 
-    const weixinName = localStorage.getItem("weixinName");
-    const weixinImageUrl = localStorage.getItem("weixinImageUrl")
-    const loginUsername = localStorage.getItem("loginUsername")
-    const jwtToken = localStorage.getItem("jwtToken")
-    const jwtTokenExpiry = localStorage.getItem("jwtTokenExpiry")
-    const openid = getCookie("openIdToken");
-    const isJwtValid = jwtToken && jwtTokenExpiry && Date.now() < Number(jwtTokenExpiry)
-
-    if (openid && weixinName && weixinImageUrl) {
-      store.dispatch("weixin_user/login", {
-        displayName: weixinName,
-        username: '',
-        weixinName: weixinName,
-        weixinImageUrl: weixinImageUrl,
-        loginType: 'weixin',
-        openid,
-      });
-    } else if (isJwtValid && loginUsername) {
-      store.dispatch("weixin_user/login", {
-        displayName: loginUsername,
-        username: loginUsername,
-        weixinName: '',
-        weixinImageUrl: '',
-        loginType: 'password',
-        openid: '',
-      })
-    }
+    return {}
   }
 }
 </script>
 
-
 <style>
-
 html {
   min-height: 100%;
   overscroll-behavior: none;
@@ -88,7 +76,6 @@ body {
   padding-top: 76px;
 }
 
-/* 全局滚动条样式 */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

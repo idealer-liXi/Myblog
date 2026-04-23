@@ -85,6 +85,7 @@ import { useRoute } from "vue-router";
 import { computed } from "vue";
 import router from "@/router";
 import { useStore } from "vuex";
+import { logout as clearAuthSession } from '@/services/authService'
 
 export default {
   setup() {
@@ -92,16 +93,10 @@ export default {
     const store = useStore();
 
     const route_value = computed(() => route.name);
-    const hasJwt = computed(() => {
-      const jwtToken = localStorage.getItem('jwtToken')
-      const jwtTokenExpiry = localStorage.getItem('jwtTokenExpiry')
-      return jwtToken && jwtTokenExpiry && Date.now() < Number(jwtTokenExpiry)
-    })
-    const hasOpenid = computed(() => document.cookie.split(';').some(c => c.trim().startsWith('openIdToken=')))
     const userInfo = computed(() => store.getters["weixin_user/getUserInfo"] || {});
-    const isLoggedIn = computed(() => store.getters["weixin_user/getLoginStatus"] || hasJwt.value || hasOpenid.value);
-    const displayName = computed(() => userInfo.value.displayName || userInfo.value.weixinName || userInfo.value.username || localStorage.getItem('weixinName') || localStorage.getItem('loginUsername') || '用户')
-    const avatarSrc = computed(() => userInfo.value.weixinImageUrl || localStorage.getItem('weixinImageUrl') || '')
+    const isLoggedIn = computed(() => store.getters["weixin_user/getLoginStatus"]);
+    const displayName = computed(() => store.getters['weixin_user/getDisplayName'])
+    const avatarSrc = computed(() => store.getters['weixin_user/getAvatar'])
     const userInitial = computed(() => displayName.value.slice(0, 1).toUpperCase())
 
     const login = () => {
@@ -113,13 +108,8 @@ export default {
     };
 
     const logout = () => {
+      clearAuthSession()
       store.dispatch("weixin_user/logout");
-      document.cookie = "openIdToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      localStorage.removeItem('jwtToken');
-      localStorage.removeItem('jwtTokenExpiry');
-      localStorage.removeItem('loginUsername');
-      localStorage.removeItem('weixinName');
-      localStorage.removeItem('weixinImageUrl');
       router.push({ name: "blog" });
     };
 
