@@ -1,5 +1,7 @@
 package cn.idealer01.domain.auth.service;
 
+import cn.idealer01.api.dto.LoginResponseDTO;
+
 public interface IRegularUserLoginService {
-    String getToken(String username, String password);
+    LoginResponseDTO getToken(String username, String password);
 }

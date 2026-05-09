@@ -1,7 +1,10 @@
 package cn.idealer01.domain.auth.service.login;
 
+import cn.idealer01.api.dto.CurrentUserResponseDTO;
+import cn.idealer01.api.dto.LoginResponseDTO;
 import cn.idealer01.domain.auth.model.aggregate.LoginUserAggregate;
 import cn.idealer01.domain.auth.service.IRegularUserLoginService;
+import cn.idealer01.types.enums.AuthType;
 import cn.idealer01.types.enums.ResponseCode;
 import cn.idealer01.types.exception.AppException;
 import cn.idealer01.types.utils.JwtUtil;
@@ -11,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.Objects;
 
 @Service
@@ -20,9 +24,11 @@ public class RegularUserLoginService implements IRegularUserLoginService {
      */
     @Resource
     private AuthenticationManager authenticationManager;
+    @Resource
+    private JwtUtil jwtUtil;
 
     @Override
-    public String getToken(String username, String password) {
+    public LoginResponseDTO getToken(String username, String password) {
         // 把前端传来的username和password整合成token，此时的authenticationToken处于未认证状态
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 
@@ -40,7 +46,20 @@ public class RegularUserLoginService implements IRegularUserLoginService {
         }
 
         LoginUserAggregate loginUser = (LoginUserAggregate) authenticate.getPrincipal();
+        String loginUsername = loginUser.getUserEntity().getUsername();
+        String token = JwtUtil.generateToken(loginUsername);
 
-        return JwtUtil.generateToken(loginUser.getUsername());
+        return LoginResponseDTO.builder()
+                .token(token)
+                .expiresAt(jwtUtil.extractExpirationTime(token))
+                .user(CurrentUserResponseDTO.builder()
+                        .username(loginUsername)
+                        .displayName(loginUsername)
+                        .loginType(AuthType.PASSWORD.getCode())
+                        .roles(Collections.singletonList(loginUser.getUserEntity().getLevelName()))
+                        .weixinBound(Boolean.FALSE)
+                        .weixinName("")
+                        .build())
+                .build();
     }
 }

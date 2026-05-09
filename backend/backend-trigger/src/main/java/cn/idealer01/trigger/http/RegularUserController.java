@@ -1,6 +1,7 @@
 package cn.idealer01.trigger.http;
 
 import cn.idealer01.api.IRegularUserController;
+import cn.idealer01.api.dto.LoginResponseDTO;
 import cn.idealer01.api.dto.RegularUserRequestDTO;
 import cn.idealer01.api.response.Response;
 import cn.idealer01.domain.auth.service.IRegularUserLoginService;
@@ -26,34 +27,34 @@ public class RegularUserController implements IRegularUserController {
     private IRegularUserRegisterService registerService;
     @Override
     @PostMapping("/login/token")
-    public Response<String> getToken(@RequestBody RegularUserRequestDTO regularUserLoginDTO) {
+    public Response<LoginResponseDTO> getToken(@RequestBody RegularUserRequestDTO regularUserLoginDTO) {
         try{
             String username = regularUserLoginDTO.getUsername();
             String password = regularUserLoginDTO.getPassword();
 
             log.info("网站用户:{}，请求获取token", username);
-            String token = loginService.getToken(username,password);
+            LoginResponseDTO loginResponse = loginService.getToken(username,password);
 
-            log.info("网站用户:{}, 获取token成功:{}", username, token);
-            return Response.<String>builder()
+            log.info("网站用户:{}, 获取token成功", username);
+            return Response.<LoginResponseDTO>builder()
                     .code(ResponseCode.SUCCESS.getCode())
                     .info(ResponseCode.SUCCESS.getInfo())
-                    .data(token)
+                    .data(loginResponse)
                     .build();
         }catch (AppException e){
             log.info("网站用户:{}, 获取token失败", regularUserLoginDTO.getUsername());
-            return Response.<String>builder()
+            return Response.<LoginResponseDTO>builder()
                     .code(e.getCode())
                     .info(e.getInfo())
                     .build();
         }catch (BadCredentialsException e){
-            return Response.<String>builder()
+            return Response.<LoginResponseDTO>builder()
                     .code(ResponseCode.LOGIN_ERROR.getCode())
                     .info(ResponseCode.LOGIN_ERROR.getInfo())
                     .build();
         }catch (Exception e){
             log.error("网站用户登录，未知异常",e);
-            return Response.<String>builder()
+            return Response.<LoginResponseDTO>builder()
                     .code(ResponseCode.UN_ERROR.getCode())
                     .info(ResponseCode.UN_ERROR.getInfo())
                     .build();

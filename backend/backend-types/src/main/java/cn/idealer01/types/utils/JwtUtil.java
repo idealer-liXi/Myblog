@@ -40,6 +40,10 @@ public class JwtUtil {
         return (tokenUsername.equals(username) && !isTokenExpired(token));
     }
 
+    public Long extractExpirationTime(String token) {
+        return extractClaims(token).getExpiration().getTime();
+    }
+
     private Claims extractClaims(String token)  {
         return Jwts.parserBuilder().setSigningKey(KEY).build().parseClaimsJws(token).getBody();
     }

@@ -44,6 +44,10 @@
         <!-- 系统模块 -->
         <dependency>
             <groupId>cn.idealer01</groupId>
+            <artifactId>backend-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.idealer01</groupId>
             <artifactId>backend-types</artifactId>
         </dependency>
 
