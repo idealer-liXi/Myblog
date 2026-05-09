@@ -5,19 +5,28 @@
     <resultMap id="dataMap" type="cn.idealer01.infrastructure.dao.po.User">
         <id column="id" property="id"/>
         <result column="username" property="username"/>
-        <result column="password" property="password"/>
-        <result column="level_id" property="levelId"/>
+        <result column="display_name" property="displayName"/>
+        <result column="avatar" property="avatar"/>
         <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
-    <insert id="insertUser" parameterType="cn.idealer01.infrastructure.dao.po.User">
-        insert into user(username, password) values(#{username}, #{password})
+
+    <insert id="insertUser" parameterType="cn.idealer01.infrastructure.dao.po.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(username, display_name, avatar, status)
+        values(#{username}, #{displayName}, #{avatar}, #{status})
     </insert>
-    <select id="getUserByUserName" parameterType="java.lang.String" resultMap="dataMap">
-        select username, password, level_id, status
+
+    <select id="queryUserByUserName" parameterType="java.lang.String" resultMap="dataMap">
+        select id, username, display_name, avatar, status, create_time, update_time
         from user
         where username = #{username};
+    </select>
+
+    <select id="queryUserById" parameterType="java.lang.Long" resultMap="dataMap">
+        select id, username, display_name, avatar, status, create_time, update_time
+        from user
+        where id = #{userId};
     </select>
 
 </mapper>

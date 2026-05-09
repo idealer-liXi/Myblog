@@ -21,7 +21,7 @@ public class LoginUserAggregate implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_" + userEntity.getLevelName());
+        return AuthorityUtils.createAuthorityList("ROLE_" + userEntity.getRoleCode());
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LoginUserAggregate implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userEntity.getPassword();
+        return userEntity.getUsername();
     }
 
     @Override // 账户是否未过期

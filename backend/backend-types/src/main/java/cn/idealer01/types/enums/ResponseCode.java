@@ -16,8 +16,8 @@ public enum ResponseCode {
     JWT_INVALID("0004", "JWT失效"),
     USER_NOT_EXIST("0005", "用户不存在"),
     USER_EXIST("0006", "用户已存在"),
-    LEVEL_NOT_EXIST("0006", "用户级别不存在"),
-    REGISTER_FAIL("0007", "注册失败"),
+    ROLE_NOT_EXIST("0007", "用户角色不存在"),
+    REGISTER_FAIL("0008", "注册失败"),
 
     ;
 

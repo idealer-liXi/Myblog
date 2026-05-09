@@ -4,11 +4,15 @@ import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
 import cn.idealer01.domain.auth.model.aggregate.LoginUserAggregate;
 import cn.idealer01.domain.auth.model.entity.UserEntity;
 import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
+import cn.idealer01.infrastructure.dao.IRoleDao;
 import cn.idealer01.infrastructure.dao.IUserDao;
-import cn.idealer01.infrastructure.dao.IUserLevelDao;
+import cn.idealer01.infrastructure.dao.IUserAuthDao;
 import cn.idealer01.infrastructure.dao.IWeixinUserDao;
+import cn.idealer01.infrastructure.dao.po.Role;
 import cn.idealer01.infrastructure.dao.po.User;
+import cn.idealer01.infrastructure.dao.po.UserAuth;
 import cn.idealer01.infrastructure.dao.po.WeixinUser;
+import cn.idealer01.types.enums.AuthType;
 import cn.idealer01.infrastructure.redis.IRedisService;
 import cn.idealer01.types.enums.ResponseCode;
 import cn.idealer01.types.exception.AppException;
@@ -28,7 +32,9 @@ public class LoginReposity implements ILoginRepository {
     @Resource
     private IUserDao userDao;
     @Resource
-    private IUserLevelDao userLevelDao;
+    private IUserAuthDao userAuthDao;
+    @Resource
+    private IRoleDao roleDao;
 
     @Override
     public String checkLogin(String ticket) {
@@ -66,16 +72,21 @@ public class LoginReposity implements ILoginRepository {
 
     @Override
     public LoginUserAggregate getRegularUserByUserName(String username) {
-
-        User user = userDao.getUserByUserName(username);
+        User user = userDao.queryUserByUserName(username);
 
         if(null == user){
             throw new AppException(ResponseCode.USER_NOT_EXIST);
         }
 
-        String levelname = userLevelDao.queryLevelNameById(user.getLevelId());
-        if(StringUtils.isBlank(levelname)){
-            throw new AppException(ResponseCode.LEVEL_NOT_EXIST);
+        UserAuth passwordAuth = userAuthDao.queryUserAuthByTypeAndKey(AuthType.PASSWORD.getCode(), username);
+        if (null == passwordAuth || StringUtils.isBlank(passwordAuth.getCredential())) {
+            throw new AppException(ResponseCode.LOGIN_ERROR);
+        }
+
+        Role role = roleDao.queryRoleByUserId(user.getId());
+        String roleCode = null == role ? null : role.getRoleCode();
+        if(StringUtils.isBlank(roleCode)){
+            throw new AppException(ResponseCode.ROLE_NOT_EXIST);
         }
 
 
@@ -83,8 +94,9 @@ public class LoginReposity implements ILoginRepository {
                 .userEntity(
                         UserEntity.builder()
                                 .username(user.getUsername())
-                                .password(user.getPassword())
-                                .levelName(levelname)
+                                .password(passwordAuth.getCredential())
+                                .roleCode(roleCode)
+                                .status(user.getStatus())
                                 .build()
 
                 )

@@ -14,8 +14,8 @@ import java.util.Date;
 public class User {
     private Long id;
     private String username;
-    private String password;
-    private Integer levelId;
+    private String displayName;
+    private String avatar;
     private Integer status;
     private Date createTime;
     private Date updateTime;

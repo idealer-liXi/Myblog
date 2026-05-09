@@ -8,6 +8,7 @@ public interface IUserDao {
 
     void insertUser(User user);
 
+    User queryUserByUserName(String username);
 
-    User getUserByUserName(String username);
+    User queryUserById(Long userId);
 }

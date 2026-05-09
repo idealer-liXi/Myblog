@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
     private String username;
     private String password;
-//    private Long levelId; 根据levelId查询获得levelName用于之后的授权操作
-    private String levelName;
+    private String roleCode;
     private Integer status;
 }
