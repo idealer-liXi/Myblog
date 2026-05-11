@@ -56,7 +56,7 @@ public class RegularUserLoginService implements IRegularUserLoginService {
                         .username(loginUsername)
                         .displayName(loginUsername)
                         .loginType(AuthType.PASSWORD.getCode())
-                        .roles(Collections.singletonList(loginUser.getUserEntity().getLevelName()))
+                        .roles(Collections.singletonList(loginUser.getUserEntity().getRoleCode()))
                         .weixinBound(Boolean.FALSE)
                         .weixinName("")
                         .build())

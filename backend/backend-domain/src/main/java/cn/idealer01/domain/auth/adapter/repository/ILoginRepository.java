@@ -1,5 +1,6 @@
 package cn.idealer01.domain.auth.adapter.repository;
 
+import cn.idealer01.api.dto.CurrentUserResponseDTO;
 import cn.idealer01.domain.auth.model.aggregate.LoginUserAggregate;
 import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
 
@@ -14,4 +15,16 @@ public interface ILoginRepository {
     void addWeixinUser(String openid);
 
     LoginUserAggregate getRegularUserByUserName(String username);
+
+    CurrentUserResponseDTO queryCurrentUser(String username);
+
+    CurrentUserResponseDTO queryCurrentUserByUserId(Long userId);
+
+    Long queryUserIdByAuthTypeAndAuthKey(String authType, String authKey);
+
+    void bindAuthToUser(Long userId, String authType, String authKey);
+
+    CurrentUserResponseDTO createUserForThirdParty(String authType, String authKey, String displayName, String avatar);
+
+    void unbindAuthFromUser(Long userId, String authType);
 }

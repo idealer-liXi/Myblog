@@ -1,5 +1,6 @@
 package cn.idealer01.infrastructure.adapter.repository;
 
+import cn.idealer01.api.dto.CurrentUserResponseDTO;
 import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
 import cn.idealer01.domain.auth.model.aggregate.LoginUserAggregate;
 import cn.idealer01.domain.auth.model.entity.UserEntity;
@@ -7,10 +8,12 @@ import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
 import cn.idealer01.infrastructure.dao.IRoleDao;
 import cn.idealer01.infrastructure.dao.IUserDao;
 import cn.idealer01.infrastructure.dao.IUserAuthDao;
+import cn.idealer01.infrastructure.dao.IUserRoleDao;
 import cn.idealer01.infrastructure.dao.IWeixinUserDao;
 import cn.idealer01.infrastructure.dao.po.Role;
 import cn.idealer01.infrastructure.dao.po.User;
 import cn.idealer01.infrastructure.dao.po.UserAuth;
+import cn.idealer01.infrastructure.dao.po.UserRole;
 import cn.idealer01.infrastructure.dao.po.WeixinUser;
 import cn.idealer01.types.enums.AuthType;
 import cn.idealer01.infrastructure.redis.IRedisService;
@@ -21,6 +24,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -35,6 +40,8 @@ public class LoginReposity implements ILoginRepository {
     private IUserAuthDao userAuthDao;
     @Resource
     private IRoleDao roleDao;
+    @Resource
+    private IUserRoleDao userRoleDao;
 
     @Override
     public String checkLogin(String ticket) {
@@ -100,6 +107,139 @@ public class LoginReposity implements ILoginRepository {
                                 .build()
 
                 )
+                .build();
+    }
+
+    @Override
+    public CurrentUserResponseDTO queryCurrentUser(String username) {
+        User user = userDao.queryUserByUserName(username);
+        if (null == user) {
+            throw new AppException(ResponseCode.USER_NOT_EXIST);
+        }
+
+        return buildCurrentUserResponse(user);
+    }
+
+    @Override
+    public CurrentUserResponseDTO queryCurrentUserByUserId(Long userId) {
+        User user = userDao.queryUserById(userId);
+        if (null == user) {
+            throw new AppException(ResponseCode.USER_NOT_EXIST);
+        }
+
+        return buildCurrentUserResponse(user);
+    }
+
+    @Override
+    public Long queryUserIdByAuthTypeAndAuthKey(String authType, String authKey) {
+        UserAuth userAuth = userAuthDao.queryUserAuthByTypeAndKey(authType, authKey);
+        return null == userAuth ? null : userAuth.getUserId();
+    }
+
+    @Override
+    public void bindAuthToUser(Long userId, String authType, String authKey) {
+        userAuthDao.insertUserAuth(UserAuth.builder()
+                .userId(userId)
+                .authType(authType)
+                .authKey(authKey)
+                .credential(null)
+                .verified(1)
+                .build());
+    }
+
+    @Override
+    public CurrentUserResponseDTO createUserForThirdParty(String authType, String authKey, String displayName, String avatar) {
+        Role defaultRole = roleDao.queryRoleByCode("USER");
+        if (null == defaultRole) {
+            throw new AppException(ResponseCode.ROLE_NOT_EXIST);
+        }
+
+        String generatedUsername = buildWechatUsername(authKey);
+        User user = User.builder()
+                .username(generatedUsername)
+                .displayName(StringUtils.isBlank(displayName) ? generatedUsername : displayName)
+                .avatar(StringUtils.isBlank(avatar) ? "/images/default-avatar.png" : avatar)
+                .status(1)
+                .build();
+        userDao.insertUser(user);
+
+        userAuthDao.insertUserAuth(UserAuth.builder()
+                .userId(user.getId())
+                .authType(authType)
+                .authKey(authKey)
+                .credential(null)
+                .verified(1)
+                .build());
+
+        userRoleDao.insertUserRole(UserRole.builder()
+                .userId(user.getId())
+                .roleId(defaultRole.getId())
+                .build());
+
+        return buildCurrentUserResponse(user);
+    }
+
+    @Override
+    public void unbindAuthFromUser(Long userId, String authType) {
+        userAuthDao.deleteUserAuthByTypeAndUserId(authType, userId);
+    }
+
+    private String buildWechatUsername(String authKey) {
+        String baseUsername = "wx_" + authKey;
+        if (baseUsername.length() <= 64) {
+            return baseUsername;
+        }
+
+        return baseUsername.substring(0, 64);
+    }
+
+    private CurrentUserResponseDTO buildCurrentUserResponse(User user) {
+
+        Role role = roleDao.queryRoleByUserId(user.getId());
+        String roleCode = null == role ? null : role.getRoleCode();
+        List<String> roles = StringUtils.isBlank(roleCode)
+                ? Collections.emptyList()
+                : Collections.singletonList(roleCode);
+
+        List<UserAuth> authList = userAuthDao.queryUserAuthByUserId(user.getId());
+        UserAuth wechatAuth = authList.stream()
+                .filter(auth -> AuthType.WECHAT.getCode().equals(auth.getAuthType()))
+                .findFirst()
+                .orElse(null);
+        UserAuth passwordAuth = authList.stream()
+                .filter(auth -> AuthType.PASSWORD.getCode().equals(auth.getAuthType()))
+                .findFirst()
+                .orElse(null);
+        UserAuth emailAuth = authList.stream()
+                .filter(auth -> AuthType.EMAIL.getCode().equals(auth.getAuthType()))
+                .findFirst()
+                .orElse(null);
+
+        boolean weixinBound = null != wechatAuth;
+        String weixinName = "";
+        if (weixinBound) {
+            WeixinUserEntity weixinUser = queryWeixinUserByOpenId(wechatAuth.getAuthKey());
+            if (null != weixinUser && StringUtils.isNotBlank(weixinUser.getWeixinName())) {
+                weixinName = weixinUser.getWeixinName();
+            }
+        }
+
+        String loginType = AuthType.PASSWORD.getCode();
+        if (null == passwordAuth && null != wechatAuth) {
+            loginType = AuthType.WECHAT.getCode();
+        } else if (null == passwordAuth && null == wechatAuth && null != emailAuth) {
+            loginType = AuthType.EMAIL.getCode();
+        }
+
+        return CurrentUserResponseDTO.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .displayName(user.getDisplayName())
+                .avatar(user.getAvatar())
+                .loginType(loginType)
+                .roles(roles)
+                .weixinBound(weixinBound)
+                .weixinName(weixinName)
                 .build();
     }
 

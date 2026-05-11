@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -24,6 +25,7 @@ public class ApiTest {
 //        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
 //        ops.set("name", "张三");
 //        System.out.println(ops.get("age"));
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
     }
 
 

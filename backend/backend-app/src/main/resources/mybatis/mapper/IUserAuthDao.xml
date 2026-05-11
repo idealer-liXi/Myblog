@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.idealer01.infrastructure.dao.IUserAuthDao">
+
+    <resultMap id="dataMap" type="cn.idealer01.infrastructure.dao.po.UserAuth">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="auth_type" property="authType"/>
+        <result column="auth_key" property="authKey"/>
+        <result column="credential" property="credential"/>
+        <result column="verified" property="verified"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insertUserAuth" parameterType="cn.idealer01.infrastructure.dao.po.UserAuth" useGeneratedKeys="true" keyProperty="id">
+        insert into user_auth(user_id, auth_type, auth_key, credential, verified)
+        values (#{userId}, #{authType}, #{authKey}, #{credential}, #{verified})
+    </insert>
+
+    <select id="queryUserAuthByTypeAndKey" resultMap="dataMap">
+        select id, user_id, auth_type, auth_key, credential, verified, create_time, update_time
+        from user_auth
+        where auth_type = #{authType}
+          and auth_key = #{authKey}
+        limit 1;
+    </select>
+
+    <select id="queryUserAuthByUserId" parameterType="java.lang.Long" resultMap="dataMap">
+        select id, user_id, auth_type, auth_key, credential, verified, create_time, update_time
+        from user_auth
+        where user_id = #{userId};
+    </select>
+
+    <delete id="deleteUserAuthByTypeAndUserId">
+        delete from user_auth
+        where auth_type = #{authType}
+          and user_id = #{userId}
+    </delete>
+
+</mapper>

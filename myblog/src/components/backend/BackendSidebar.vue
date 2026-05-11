@@ -73,7 +73,6 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { logout as clearAuthSession } from '@/services/authService'
 
 const router = useRouter()
 const route = useRoute()
@@ -97,7 +96,6 @@ const isProjectActive = computed(() => [
 ].includes(route.name))
 
 const handleLogout = () => {
-  clearAuthSession()
   store.dispatch('weixin_user/logout')
   router.push({ name: 'blog' })
 }

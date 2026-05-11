@@ -7,6 +7,6 @@ public interface IWeixinLoginController {
     //获取微信登录二维码
     Response<String> weixinQrCodeTicket();
     //检查当前用户是否登录
-    Response<String> checkLogin(String ticket);
+    Response<Object> checkLogin(String ticket);
 
 }

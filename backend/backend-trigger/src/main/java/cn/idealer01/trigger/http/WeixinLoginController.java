@@ -1,11 +1,15 @@
 package cn.idealer01.trigger.http;
 
 import cn.idealer01.api.IWeixinLoginController;
+import cn.idealer01.api.dto.BindExistingAccountRequestDTO;
+import cn.idealer01.api.dto.CreateThirdPartyAccountRequestDTO;
+import cn.idealer01.api.dto.LoginResponseDTO;
 import cn.idealer01.api.dto.WeixinUserInformationResponseDTO;
 import cn.idealer01.api.response.Response;
 import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
 import cn.idealer01.domain.auth.service.IWeixinLoginService;
 import cn.idealer01.types.common.Constants;
+import cn.idealer01.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -44,19 +48,19 @@ public class WeixinLoginController implements IWeixinLoginController {
     
     @GetMapping("check_login")
     @Override
-    public Response<String> checkLogin(String ticket) {
+    public Response<Object> checkLogin(String ticket) {
         try{
-            String openId = loginService.checkLogin(ticket);
-            log.info("扫码检测登录结果 ticket:{} openId:{}", ticket, openId);
+            Object loginResult = loginService.checkLogin(ticket);
+            log.info("扫码检测登录结果 ticket:{} result:{}", ticket, loginResult);
 
-            if(StringUtils.isNotBlank(openId)){
-                return Response.<String>builder()
+            if(ObjectUtils.isNotEmpty(loginResult)){
+                return Response.<Object>builder()
                         .code(Constants.ResponseCode.SUCCESS.getCode())
                         .info(Constants.ResponseCode.SUCCESS.getInfo())
-                        .data(openId)
+                        .data(loginResult)
                         .build();
             }else{
-                return Response.<String>builder()
+                return Response.<Object>builder()
                         .code(Constants.ResponseCode.NO_LOGIN.getCode())
                         .info(Constants.ResponseCode.NO_LOGIN.getInfo())
                         .build();
@@ -65,7 +69,7 @@ public class WeixinLoginController implements IWeixinLoginController {
 
         }catch (Exception e){
             log.error("扫码检测登录结果失败 ticket:{}", ticket, e);
-            return Response.<String>builder()
+            return Response.<Object>builder()
                     .code(Constants.ResponseCode.UN_ERROR.getCode())
                     .info(Constants.ResponseCode.UN_ERROR.getInfo())
                     .build();
@@ -103,6 +107,52 @@ public class WeixinLoginController implements IWeixinLoginController {
                     .build();
         }
 
+    }
+
+    @PostMapping("weixin/bind-existing")
+    public Response<LoginResponseDTO> bindExistingAccount(@RequestBody BindExistingAccountRequestDTO request) {
+        try {
+            LoginResponseDTO loginResponse = loginService.bindExistingAccount(request);
+            return Response.<LoginResponseDTO>builder()
+                    .code(Constants.ResponseCode.SUCCESS.getCode())
+                    .info(Constants.ResponseCode.SUCCESS.getInfo())
+                    .data(loginResponse)
+                    .build();
+        } catch (AppException e) {
+            return Response.<LoginResponseDTO>builder()
+                    .code(e.getCode())
+                    .info(e.getInfo())
+                    .build();
+        } catch (Exception e) {
+            log.error("绑定已有账号失败", e);
+            return Response.<LoginResponseDTO>builder()
+                    .code(Constants.ResponseCode.UN_ERROR.getCode())
+                    .info(Constants.ResponseCode.UN_ERROR.getInfo())
+                    .build();
+        }
+    }
+
+    @PostMapping("weixin/create-account")
+    public Response<LoginResponseDTO> createAccount(@RequestBody CreateThirdPartyAccountRequestDTO request) {
+        try {
+            LoginResponseDTO loginResponse = loginService.createAccount(request);
+            return Response.<LoginResponseDTO>builder()
+                    .code(Constants.ResponseCode.SUCCESS.getCode())
+                    .info(Constants.ResponseCode.SUCCESS.getInfo())
+                    .data(loginResponse)
+                    .build();
+        } catch (AppException e) {
+            return Response.<LoginResponseDTO>builder()
+                    .code(e.getCode())
+                    .info(e.getInfo())
+                    .build();
+        } catch (Exception e) {
+            log.error("创建第三方账号失败", e);
+            return Response.<LoginResponseDTO>builder()
+                    .code(Constants.ResponseCode.UN_ERROR.getCode())
+                    .info(Constants.ResponseCode.UN_ERROR.getInfo())
+                    .build();
+        }
     }
 
 }

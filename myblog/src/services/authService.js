@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { clearSession, readSession, saveSession } from '@/utils/authSession'
+import { readSession } from '@/utils/authSession'
 
 const PASSWORD_BASE_URL = 'http://localhost:8080/api/r1'
 const LOGIN_BASE_URL = 'http://localhost:8080/api/v1/login'
@@ -71,7 +71,6 @@ export async function loginWithPassword(username, password) {
     roles: []
   })
 
-  saveSession(session)
   return session
 }
 
@@ -108,7 +107,6 @@ export async function checkWechatLogin(ticket) {
   }
 
   const session = normalizeSessionFromData(response.data.data, { loginType: 'weixin' })
-  saveSession(session)
   return session
 }
 
@@ -179,8 +177,4 @@ export async function unbindWechat() {
   }
 
   return response.data.data
-}
-
-export function logout() {
-  clearSession()
 }

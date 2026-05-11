@@ -1,199 +1,118 @@
-26-01-10.10:22:21.977 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 17820 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.10:22:21.980 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.10:22:22.938 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.10:22:22.941 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.10:22:22.988 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
-26-01-10.10:22:23.580 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.10:22:23.589 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.10:22:23.590 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.10:22:23.590 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.10:22:23.731 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.10:22:23.732 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1692 ms
-26-01-10.10:22:24.825 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@431e86b1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@35c4e864, org.springframework.security.web.context.SecurityContextPersistenceFilter@708eb310, org.springframework.security.web.header.HeaderWriterFilter@6d33a66e, org.springframework.security.web.authentication.logout.LogoutFilter@3b95a6db, cn.idealer01.config.utils.JwtAuthenticationFilter@22ebccb9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1e977098, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@36c2d629, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@32a2a6be, org.springframework.security.web.session.SessionManagementFilter@6e03db1f, org.springframework.security.web.access.ExceptionTranslationFilter@72bdd7c7, org.springframework.security.web.access.intercept.AuthorizationFilter@1e692555]
-26-01-10.10:22:25.306 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.10:22:25.324 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.10:22:25.334 [main            ] INFO  Application            - Started Application in 4.262 seconds (JVM running for 7.348)
-26-01-10.10:22:44.191 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 19016 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.10:22:44.194 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.10:22:45.123 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.10:22:45.126 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.10:22:45.169 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 25 ms. Found 0 Redis repository interfaces.
-26-01-10.10:22:45.832 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.10:22:45.842 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.10:22:45.843 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.10:22:45.843 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.10:22:46.002 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.10:22:46.002 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1754 ms
-26-01-10.10:22:47.220 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7327a447, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@67022ea, org.springframework.security.web.context.SecurityContextPersistenceFilter@4130955c, org.springframework.security.web.header.HeaderWriterFilter@3c9c6245, org.springframework.security.web.authentication.logout.LogoutFilter@1c3259fa, cn.idealer01.config.utils.JwtAuthenticationFilter@7d78f3d5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@71adfedd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2577a95d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2954f6ab, org.springframework.security.web.session.SessionManagementFilter@17e9bc9e, org.springframework.security.web.access.ExceptionTranslationFilter@5f36c8e3, org.springframework.security.web.access.intercept.AuthorizationFilter@49469ffa]
-26-01-10.10:22:47.881 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.10:22:47.904 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.10:22:47.917 [main            ] INFO  Application            - Started Application in 4.441 seconds (JVM running for 8.019)
-26-01-10.10:54:11.634 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.10:54:11.634 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.10:54:11.634 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.10:54:25.665 [http-nio-8080-exec-2] INFO  RegularUserLoginController - 网站用户:null，请求获取token
-26-01-10.10:54:34.075 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.10:54:35.375 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.10:54:54.909 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.10:54:54.940 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.10:55:04.505 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 16072 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.10:55:04.522 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.10:55:05.905 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.10:55:05.908 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.10:55:05.972 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 0 Redis repository interfaces.
-26-01-10.10:55:07.242 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.10:55:07.259 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.10:55:07.261 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.10:55:07.261 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.10:55:07.507 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.10:55:07.507 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2881 ms
-26-01-10.10:55:09.055 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7327a447, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@67022ea, org.springframework.security.web.context.SecurityContextPersistenceFilter@4130955c, org.springframework.security.web.header.HeaderWriterFilter@3c9c6245, org.springframework.security.web.authentication.logout.LogoutFilter@1c3259fa, cn.idealer01.config.utils.JwtAuthenticationFilter@7d78f3d5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@71adfedd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2577a95d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2954f6ab, org.springframework.security.web.session.SessionManagementFilter@17e9bc9e, org.springframework.security.web.access.ExceptionTranslationFilter@5f36c8e3, org.springframework.security.web.access.intercept.AuthorizationFilter@49469ffa]
-26-01-10.10:55:09.745 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.10:55:09.783 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.10:55:09.796 [main            ] INFO  Application            - Started Application in 7.016 seconds (JVM running for 10.69)
-26-01-10.10:55:30.256 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.10:55:30.256 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.10:55:30.256 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.10:57:01.837 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 10888 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.10:57:01.840 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.10:57:02.946 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.10:57:02.949 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.10:57:02.996 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 0 Redis repository interfaces.
-26-01-10.10:57:03.859 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.10:57:03.871 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.10:57:03.871 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.10:57:03.872 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.10:57:04.048 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.10:57:04.048 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2139 ms
-26-01-10.10:57:05.596 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3a6045c6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@68d6d775, org.springframework.security.web.context.SecurityContextPersistenceFilter@2c9a6717, org.springframework.security.web.header.HeaderWriterFilter@7f4701b1, org.springframework.security.web.authentication.logout.LogoutFilter@17e9bc9e, cn.idealer01.config.utils.JwtAuthenticationFilter@75120e58, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d091cad, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76fe6cdc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@b67cc70, org.springframework.security.web.session.SessionManagementFilter@3b95a6db, org.springframework.security.web.access.ExceptionTranslationFilter@68699afc, org.springframework.security.web.access.intercept.AuthorizationFilter@3238e2aa]
-26-01-10.10:57:06.211 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.10:57:06.236 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.10:57:06.248 [main            ] INFO  Application            - Started Application in 5.522 seconds (JVM running for 9.199)
-26-01-10.10:57:13.099 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.10:57:13.099 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.10:57:13.099 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.11:00:56.730 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 17580 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.11:00:56.734 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.11:00:57.689 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.11:00:57.692 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.11:00:57.736 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 27 ms. Found 0 Redis repository interfaces.
-26-01-10.11:00:58.394 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.11:00:58.404 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.11:00:58.405 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.11:00:58.405 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.11:00:58.564 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.11:00:58.565 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1773 ms
-26-01-10.11:00:59.667 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1e1eeedd, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@798256c5, org.springframework.security.web.context.SecurityContextPersistenceFilter@4ceff87d, org.springframework.security.web.header.HeaderWriterFilter@3127cb44, org.springframework.web.filter.CorsFilter@7ec95456, org.springframework.security.web.authentication.logout.LogoutFilter@73aeef7d, cn.idealer01.config.utils.JwtAuthenticationFilter@71926a36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2c7db926, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3a6045c6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@748a654a, org.springframework.security.web.session.SessionManagementFilter@71adfedd, org.springframework.security.web.access.ExceptionTranslationFilter@3c9c6245, org.springframework.security.web.access.intercept.AuthorizationFilter@58fbd02e]
-26-01-10.11:01:00.265 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.11:01:00.289 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.11:01:00.301 [main            ] INFO  Application            - Started Application in 4.47 seconds (JVM running for 7.298)
-26-01-10.11:01:19.895 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.11:01:19.895 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.11:01:19.896 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 1 ms
-26-01-10.11:01:19.939 [http-nio-8080-exec-2] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
-26-01-10.11:02:08.393 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 16272 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.11:02:08.398 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.11:02:09.363 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.11:02:09.365 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.11:02:09.406 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
-26-01-10.11:02:10.090 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.11:02:10.099 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.11:02:10.100 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.11:02:10.100 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.11:02:10.267 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.11:02:10.267 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1808 ms
-26-01-10.11:02:11.388 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1bf14704, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5a545b0f, org.springframework.security.web.context.SecurityContextPersistenceFilter@2954f6ab, org.springframework.security.web.header.HeaderWriterFilter@6807a356, org.springframework.web.filter.CorsFilter@2be21396, org.springframework.security.web.authentication.logout.LogoutFilter@58658f63, cn.idealer01.config.utils.JwtAuthenticationFilter@48976e6d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@163042ea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1e1eeedd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@124dac75, org.springframework.security.web.session.SessionManagementFilter@7327a447, org.springframework.security.web.access.ExceptionTranslationFilter@5e99b9c, org.springframework.security.web.access.intercept.AuthorizationFilter@383caf89]
-26-01-10.11:02:11.922 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.11:02:11.944 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.11:02:11.956 [main            ] INFO  Application            - Started Application in 4.617 seconds (JVM running for 7.468)
-26-01-10.11:02:21.527 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.11:02:21.528 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.11:02:21.528 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.11:02:21.586 [http-nio-8080-exec-2] INFO  RegularUserLoginController - 网站用户:null，请求获取token
-26-01-10.11:02:43.493 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.11:02:43.778 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.11:02:43.974 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.11:02:43.993 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.11:03:11.272 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 17588 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.11:03:11.277 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.11:03:12.267 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.11:03:12.269 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.11:03:12.313 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 26 ms. Found 0 Redis repository interfaces.
-26-01-10.11:03:13.067 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.11:03:13.078 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.11:03:13.079 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.11:03:13.079 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.11:03:13.259 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.11:03:13.259 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1915 ms
-26-01-10.11:03:14.714 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1d8b0500, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@76544c0a, org.springframework.security.web.context.SecurityContextPersistenceFilter@1668919e, org.springframework.security.web.header.HeaderWriterFilter@3252747e, org.springframework.web.filter.CorsFilter@428bdd72, org.springframework.security.web.authentication.logout.LogoutFilter@4d9754a8, cn.idealer01.config.utils.JwtAuthenticationFilter@71926a36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@22c53d82, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@38b3f208, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@650c405c, org.springframework.security.web.session.SessionManagementFilter@2c7db926, org.springframework.security.web.access.ExceptionTranslationFilter@3127cb44, org.springframework.security.web.access.intercept.AuthorizationFilter@1943c1f2]
-26-01-10.11:03:15.423 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.11:03:15.452 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.11:03:15.467 [main            ] INFO  Application            - Started Application in 5.447 seconds (JVM running for 8.939)
-26-01-10.11:03:20.842 [http-nio-8080-exec-2] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.11:03:20.842 [http-nio-8080-exec-2] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.11:03:20.843 [http-nio-8080-exec-2] INFO  DispatcherServlet      - Completed initialization in 1 ms
-26-01-10.11:03:20.910 [http-nio-8080-exec-3] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'username' for method parameter type String is not present]
-26-01-10.11:03:30.160 [http-nio-8080-exec-5] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'username' for method parameter type String is not present]
-26-01-10.11:04:15.074 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 19148 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.11:04:15.078 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.11:04:15.982 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.11:04:15.985 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.11:04:16.024 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
-26-01-10.11:04:16.640 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.11:04:16.651 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.11:04:16.653 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.11:04:16.653 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.11:04:16.805 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.11:04:16.805 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1668 ms
-26-01-10.11:04:17.905 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@650c405c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@20eaeaf8, org.springframework.security.web.context.SecurityContextPersistenceFilter@3a6045c6, org.springframework.security.web.header.HeaderWriterFilter@17e9bc9e, org.springframework.web.filter.CorsFilter@748ac6f3, org.springframework.security.web.authentication.logout.LogoutFilter@25f15f50, cn.idealer01.config.utils.JwtAuthenticationFilter@48976e6d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b67cc70, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d97e06c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68f6e55d, org.springframework.security.web.session.SessionManagementFilter@63300c4b, org.springframework.security.web.access.ExceptionTranslationFilter@3d20e575, org.springframework.security.web.access.intercept.AuthorizationFilter@798256c5]
-26-01-10.11:04:18.441 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.11:04:18.465 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.11:04:18.476 [main            ] INFO  Application            - Started Application in 4.235 seconds (JVM running for 6.478)
-26-01-10.11:04:27.106 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.11:04:27.106 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.11:04:27.107 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 1 ms
-26-01-10.11:04:27.170 [http-nio-8080-exec-2] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public cn.idealer01.api.response.Response<java.lang.String> cn.idealer01.trigger.http.RegularUserLoginController.getToken(java.lang.String,java.lang.String)]
-26-01-10.11:11:55.235 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 16588 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.11:11:55.239 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.11:11:56.129 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.11:11:56.131 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.11:11:56.171 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
-26-01-10.11:11:56.789 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.11:11:56.799 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.11:11:56.800 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.11:11:56.800 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.11:11:56.958 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.11:11:56.958 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1656 ms
-26-01-10.11:11:58.022 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5b88b8e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@58253c57, org.springframework.security.web.context.SecurityContextPersistenceFilter@52b46d52, org.springframework.security.web.header.HeaderWriterFilter@2fe74516, org.springframework.web.filter.CorsFilter@b73433, org.springframework.security.web.authentication.logout.LogoutFilter@d902300, cn.idealer01.config.utils.JwtAuthenticationFilter@71926a36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@67022ea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1fbf088b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1bf14704, org.springframework.security.web.session.SessionManagementFilter@58b5a2f3, org.springframework.security.web.access.ExceptionTranslationFilter@3eb292cd, org.springframework.security.web.access.intercept.AuthorizationFilter@4a92c6a9]
-26-01-10.11:11:58.571 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.11:11:58.594 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.11:11:58.606 [main            ] INFO  Application            - Started Application in 4.295 seconds (JVM running for 6.606)
-26-01-10.11:17:05.770 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 3940 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.11:17:05.776 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.11:17:06.665 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.11:17:06.668 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.11:17:06.709 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
-26-01-10.11:17:07.326 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.11:17:07.335 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.11:17:07.336 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.11:17:07.336 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.11:17:07.485 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.11:17:07.485 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1653 ms
-26-01-10.11:17:08.585 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@650c405c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@20eaeaf8, org.springframework.security.web.context.SecurityContextPersistenceFilter@3a6045c6, org.springframework.security.web.header.HeaderWriterFilter@17e9bc9e, org.springframework.web.filter.CorsFilter@748ac6f3, org.springframework.security.web.authentication.logout.LogoutFilter@25f15f50, cn.idealer01.config.utils.JwtAuthenticationFilter@48976e6d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b67cc70, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d97e06c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68f6e55d, org.springframework.security.web.session.SessionManagementFilter@63300c4b, org.springframework.security.web.access.ExceptionTranslationFilter@3d20e575, org.springframework.security.web.access.intercept.AuthorizationFilter@798256c5]
-26-01-10.11:17:09.109 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.11:17:09.130 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.11:17:09.141 [main            ] INFO  Application            - Started Application in 4.746 seconds (JVM running for 7.494)
-26-01-10.11:17:24.290 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.11:17:24.290 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.11:17:24.290 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.11:17:24.404 [http-nio-8080-exec-4] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.11:17:52.056 [http-nio-8080-exec-4] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.11:17:53.059 [http-nio-8080-exec-4] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.11:18:37.700 [http-nio-8080-exec-3] INFO  Http11Processor        - Error parsing HTTP request header
- Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
-java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x000x9d0x010x000x000x990x030x03,+T0xc5n0xb70x9f0x9av0x7f0xc6'0xc30xc60xe60x8a0x8c/]0xba0x880xee0xadT0x0aB0x030xf60xf8g0x150x110x000x00B0xc00x110xc00x070xc00x130xc00x090xc00x140xc00x0a0x000x050x00/0x0050xc00x120x000x0a0xc0$0xc0#0xc00x0a0xc00x090xc00x080xc0(0xc0'0xc00x140xc00x130xc00x120x00=0x00<0x0050x00/0x000x0a0xc00x070xc00x110x000x050x000x040xc0+0xc0/0x000x9c0x010x000x00.0x000x050x000x050x010x000x000x000x000x000x0a0x000x080x000x060x000x170x000x180x000x190x000x0b0x000x020x010x000x000x0d0x000x0a0x000x080x040x010x040x030x020x010x020x030xff0x010x000x010x00...]. HTTP method names must be tokens
-	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:263)
+26-05-11.10:41:06.267 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 19360 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
+26-05-11.10:41:06.267 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-05-11.10:41:07.498 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-05-11.10:41:07.500 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-05-11.10:41:07.551 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 0 Redis repository interfaces.
+26-05-11.10:41:08.388 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+26-05-11.10:41:08.399 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+26-05-11.10:41:08.400 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-05-11.10:41:08.400 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+26-05-11.10:41:08.641 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-05-11.10:41:08.641 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2291 ms
+26-05-11.10:41:10.020 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@b73433, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1bf14704, org.springframework.security.web.context.SecurityContextPersistenceFilter@67022ea, org.springframework.security.web.header.HeaderWriterFilter@217bf99e, org.springframework.web.filter.CorsFilter@5a545b0f, org.springframework.security.web.authentication.logout.LogoutFilter@30c3ae63, cn.idealer01.config.utils.JwtAuthenticationFilter@f5b6e78, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@58fbd02e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@d70f722, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2be21396, org.springframework.security.web.session.SessionManagementFilter@52b46d52, org.springframework.security.web.access.ExceptionTranslationFilter@7209ffb5, org.springframework.security.web.access.intercept.AuthorizationFilter@4cb702ce]
+26-05-11.10:41:10.588 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+26-05-11.10:41:10.613 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+26-05-11.10:41:10.626 [main            ] INFO  Application            - Started Application in 5.271 seconds (JVM running for 7.54)
+26-05-11.10:42:28.549 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-05-11.10:42:28.549 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+26-05-11.10:42:28.551 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 2 ms
+26-05-11.10:42:28.720 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-05-11.10:42:38.571 [http-nio-8080-exec-4] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-11.10:42:39.904 [http-nio-8080-exec-2] ERROR HikariPool             - HikariPool-1 - Exception during pool initialization.
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:76)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at com.sun.proxy.$Proxy72.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:160)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:152)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:85)
+	at com.sun.proxy.$Proxy74.queryUserByUserName(Unknown Source)
+	at cn.idealer01.infrastructure.adapter.repository.LoginReposity.getRegularUserByUserName(LoginReposity.java:79)
+	at cn.idealer01.domain.auth.service.UserDetailsServiceImpl.loadUserByUsername(UserDetailsServiceImpl.java:17)
+	at cn.idealer01.config.utils.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:49)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
@@ -202,265 +121,99 @@ java.lang.IllegalArgumentException: Invalid character found in method name [0x16
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-26-01-10.11:19:17.611 [http-nio-8080-exec-5] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.11:20:14.601 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=47s938ms343µs900ns).
-26-01-10.11:21:13.734 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m32s621ms443µs800ns).
-26-01-10.11:21:23.242 [http-nio-8080-exec-7] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.11:22:33.851 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.11:22:33.869 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.11:42:34.827 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 22220 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.11:42:34.832 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.11:42:35.953 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.11:42:35.956 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.11:42:36.004 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 0 Redis repository interfaces.
-26-01-10.11:42:36.771 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.11:42:36.782 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.11:42:36.783 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.11:42:36.783 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.11:42:36.961 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.11:42:36.961 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2069 ms
-26-01-10.11:42:38.322 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6ca30b8a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4a92c6a9, org.springframework.security.web.context.SecurityContextPersistenceFilter@d675f9f, org.springframework.security.web.header.HeaderWriterFilter@276cc8dc, org.springframework.web.filter.CorsFilter@5c9934da, org.springframework.security.web.authentication.logout.LogoutFilter@3aaa3c39, cn.idealer01.config.utils.JwtAuthenticationFilter@a4b5ce3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49469ffa, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@52b46d52, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4cb702ce, org.springframework.security.web.session.SessionManagementFilter@7ddd84b5, org.springframework.security.web.access.ExceptionTranslationFilter@7d97e06c, org.springframework.security.web.access.intercept.AuthorizationFilter@60990e5c]
-26-01-10.11:42:38.951 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.11:42:38.978 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.11:42:38.993 [main            ] INFO  Application            - Started Application in 5.106 seconds (JVM running for 7.659)
-26-01-10.11:42:53.519 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.11:42:53.519 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.11:42:53.519 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.11:42:53.643 [http-nio-8080-exec-2] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.11:43:17.577 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.11:43:18.573 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.11:43:53.447 [http-nio-8080-exec-2] WARN  BCryptPasswordEncoder  - Encoded password does not look like BCrypt
-26-01-10.11:44:00.704 [http-nio-8080-exec-4] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.11:44:03.197 [http-nio-8080-exec-4] WARN  BCryptPasswordEncoder  - Encoded password does not look like BCrypt
-26-01-10.11:44:03.666 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.11:44:03.684 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.11:44:10.391 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 11256 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.11:44:10.393 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.11:44:11.406 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.11:44:11.409 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.11:44:11.457 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 0 Redis repository interfaces.
-26-01-10.11:44:12.079 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.11:44:12.087 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.11:44:12.087 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.11:44:12.087 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.11:44:12.223 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.11:44:12.223 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1772 ms
-26-01-10.11:44:13.130 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@65bad087, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@276cc8dc, org.springframework.security.web.context.SecurityContextPersistenceFilter@1e692555, org.springframework.security.web.header.HeaderWriterFilter@10c47c79, org.springframework.web.filter.CorsFilter@66cd621b, org.springframework.security.web.authentication.logout.LogoutFilter@9301672, cn.idealer01.config.utils.JwtAuthenticationFilter@354e7004, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@76fe6cdc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@35c4e864, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@d3f4505, org.springframework.security.web.session.SessionManagementFilter@7c663eaf, org.springframework.security.web.access.ExceptionTranslationFilter@adcfad9, org.springframework.security.web.access.intercept.AuthorizationFilter@38b3f208]
-26-01-10.11:44:13.610 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.11:44:13.629 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.11:44:13.642 [main            ] INFO  Application            - Started Application in 4.129 seconds (JVM running for 6.27)
-26-01-10.11:44:22.763 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.11:44:22.763 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.11:44:22.764 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.11:44:22.853 [http-nio-8080-exec-5] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.11:44:22.955 [http-nio-8080-exec-5] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.11:44:23.166 [http-nio-8080-exec-5] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.11:44:23.213 [http-nio-8080-exec-5] WARN  BCryptPasswordEncoder  - Encoded password does not look like BCrypt
-26-01-10.14:56:08.682 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 8468 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.14:56:08.684 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.14:56:09.416 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.14:56:09.418 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.14:56:09.464 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
-26-01-10.14:56:10.016 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.14:56:10.025 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.14:56:10.026 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.14:56:10.026 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.14:56:10.156 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.14:56:10.156 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1427 ms
-26-01-10.14:56:11.097 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@d3f4505, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3eb292cd, org.springframework.security.web.context.SecurityContextPersistenceFilter@2ffb3aec, org.springframework.security.web.header.HeaderWriterFilter@12a2585b, org.springframework.web.filter.CorsFilter@7fd987ef, org.springframework.security.web.authentication.logout.LogoutFilter@2c7db926, cn.idealer01.config.utils.JwtAuthenticationFilter@608fe01f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@46039a21, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5f36c8e3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7209ffb5, org.springframework.security.web.session.SessionManagementFilter@3ba0ae41, org.springframework.security.web.access.ExceptionTranslationFilter@7da34b26, org.springframework.security.web.access.intercept.AuthorizationFilter@7d97e06c]
-26-01-10.14:56:11.503 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.14:56:11.526 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.14:56:11.534 [main            ] INFO  Application            - Started Application in 3.419 seconds (JVM running for 5.111)
-26-01-10.15:02:51.742 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.15:02:51.742 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.15:02:51.747 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 5 ms
-26-01-10.15:02:51.862 [http-nio-8080-exec-3] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.15:02:51.966 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.15:02:52.333 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.15:02:52.404 [http-nio-8080-exec-3] WARN  BCryptPasswordEncoder  - Encoded password does not look like BCrypt
-26-01-10.15:04:40.125 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.15:04:40.156 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.15:04:44.662 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 18504 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.15:04:44.664 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.15:04:45.309 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.15:04:45.310 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.15:04:45.340 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-26-01-10.15:04:45.860 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.15:04:45.868 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.15:04:45.869 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.15:04:45.869 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.15:04:45.997 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.15:04:45.997 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1292 ms
-26-01-10.15:04:46.956 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@315105f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7b61bf11, org.springframework.security.web.context.SecurityContextPersistenceFilter@1fbf088b, org.springframework.security.web.header.HeaderWriterFilter@58af5076, org.springframework.web.filter.CorsFilter@40247d48, org.springframework.security.web.authentication.logout.LogoutFilter@39ee94de, cn.idealer01.config.utils.JwtAuthenticationFilter@806996, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d70f722, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1d8b0500, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ff54f3d, org.springframework.security.web.session.SessionManagementFilter@163042ea, org.springframework.security.web.access.ExceptionTranslationFilter@6807a356, org.springframework.security.web.access.intercept.AuthorizationFilter@58253c57]
-26-01-10.15:04:47.383 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.15:04:47.409 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.15:04:47.418 [main            ] INFO  Application            - Started Application in 3.331 seconds (JVM running for 4.964)
-26-01-10.15:04:56.503 [http-nio-8080-exec-5] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.15:04:56.504 [http-nio-8080-exec-5] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.15:04:56.505 [http-nio-8080-exec-5] INFO  DispatcherServlet      - Completed initialization in 1 ms
-26-01-10.15:04:56.613 [http-nio-8080-exec-1] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.15:05:05.479 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.15:05:06.251 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.15:06:01.592 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=55s227ms950µs400ns).
-26-01-10.15:06:27.029 [http-nio-8080-exec-1] WARN  BCryptPasswordEncoder  - Encoded password does not look like BCrypt
-26-01-10.15:09:08.849 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m7s257ms71µs700ns).
-26-01-10.15:09:09.260 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.15:09:09.276 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.15:16:06.237 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 18604 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.15:16:06.239 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.15:16:06.743 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.15:16:06.746 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.15:16:06.778 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
-26-01-10.15:16:07.367 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.15:16:07.375 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.15:16:07.375 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.15:16:07.376 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.15:16:07.493 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.15:16:07.494 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1224 ms
-26-01-10.15:16:08.053 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'regularUserLoginController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'regularUserLoginService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authenticationManager' defined in class path resource [cn/idealer01/config/SecurityConfig.class]: Unsatisfied dependency expressed through method 'authenticationManager' parameter 1; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.springframework.security.crypto.password.PasswordEncoder' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-26-01-10.15:16:08.063 [main            ] INFO  StandardService        - Stopping service [Tomcat]
-26-01-10.15:16:08.072 [main            ] INFO  ConditionEvaluationReportLoggingListener - 
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
 
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-26-01-10.15:16:08.092 [main            ] ERROR LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 1 of method authenticationManager in cn.idealer01.config.SecurityConfig required a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' in your configuration.
-
-26-01-10.15:17:33.402 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 16264 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.15:17:33.404 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.15:17:33.917 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.15:17:33.918 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.15:17:33.944 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-26-01-10.15:17:34.339 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.15:17:34.345 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.15:17:34.345 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.15:17:34.345 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.15:17:34.440 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.15:17:34.442 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1007 ms
-26-01-10.15:17:35.123 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@73aeef7d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@d675f9f, org.springframework.security.web.context.SecurityContextPersistenceFilter@5584d9c6, org.springframework.security.web.header.HeaderWriterFilter@1e692555, org.springframework.web.filter.CorsFilter@58af5076, org.springframework.security.web.authentication.logout.LogoutFilter@6680f714, cn.idealer01.config.utils.JwtAuthenticationFilter@5a75ec37, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d0be7ab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@631cb129, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@49469ffa, org.springframework.security.web.session.SessionManagementFilter@4da39ca9, org.springframework.security.web.access.ExceptionTranslationFilter@7b3cde6f, org.springframework.security.web.access.intercept.AuthorizationFilter@5e99b9c]
-26-01-10.15:17:35.469 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.15:17:35.485 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.15:17:35.493 [main            ] INFO  Application            - Started Application in 2.508 seconds (JVM running for 3.494)
-26-01-10.15:17:43.084 [http-nio-8080-exec-2] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.15:17:43.084 [http-nio-8080-exec-2] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.15:17:43.085 [http-nio-8080-exec-2] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.15:17:43.170 [http-nio-8080-exec-1] INFO  RegularUserLoginController - 网站用户:idealer，请求获取token
-26-01-10.15:17:43.284 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.15:17:43.468 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.15:17:43.532 [http-nio-8080-exec-1] INFO  RegularUserLoginController - 网站用户:idealer, 获取token成功:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7bm9vcH0xMjM0NTYiLCJpYXQiOjE3NjgwMjk0NjMsImV4cCI6MTc2ODExNTg2M30.SjpdwknJnX77ezMdGK990-CzMLTTFbT26r-2D6oQoV0
-26-01-10.15:18:14.331 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.15:18:14.348 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.16:56:02.002 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 22284 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.16:56:02.004 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.16:56:02.675 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.16:56:02.677 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.16:56:02.710 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
-26-01-10.16:56:03.191 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.16:56:03.199 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.16:56:03.199 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.16:56:03.199 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.16:56:03.313 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.16:56:03.313 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1273 ms
-26-01-10.16:56:03.862 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'regularUserController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'cn.idealer01.domain.auth.service.IRegularUserRegisterService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-26-01-10.16:56:03.877 [main            ] INFO  StandardService        - Stopping service [Tomcat]
-26-01-10.16:56:03.885 [main            ] INFO  ConditionEvaluationReportLoggingListener - 
-
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-26-01-10.16:56:03.906 [main            ] ERROR LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-A component required a bean of type 'cn.idealer01.domain.auth.service.IRegularUserRegisterService' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'cn.idealer01.domain.auth.service.IRegularUserRegisterService' in your configuration.
-
-26-01-10.16:56:44.688 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 6160 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.16:56:44.691 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.16:56:45.296 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.16:56:45.297 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.16:56:45.325 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
-26-01-10.16:56:45.745 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.16:56:45.753 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.16:56:45.753 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.16:56:45.753 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.16:56:45.885 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.16:56:45.885 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1153 ms
-26-01-10.16:56:46.371 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'regularUserController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'regularUserRegisterService': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'cn.idealer01.domain.auth.adapter.repository.IRegisterRepository' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-26-01-10.16:56:46.383 [main            ] INFO  StandardService        - Stopping service [Tomcat]
-26-01-10.16:56:46.391 [main            ] INFO  ConditionEvaluationReportLoggingListener - 
-
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-26-01-10.16:56:46.407 [main            ] ERROR LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-A component required a bean of type 'cn.idealer01.domain.auth.adapter.repository.IRegisterRepository' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'cn.idealer01.domain.auth.adapter.repository.IRegisterRepository' in your configuration.
-
-26-01-10.16:57:49.808 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 11312 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.16:57:49.810 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.16:57:50.296 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.16:57:50.298 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.16:57:50.324 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-26-01-10.16:57:50.717 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.16:57:50.723 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.16:57:50.723 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.16:57:50.723 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.16:57:50.842 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.16:57:50.842 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1002 ms
-26-01-10.16:57:51.562 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6807a356, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7ddd84b5, org.springframework.security.web.context.SecurityContextPersistenceFilter@4da39ca9, org.springframework.security.web.header.HeaderWriterFilter@7c663eaf, org.springframework.web.filter.CorsFilter@73aeef7d, org.springframework.security.web.authentication.logout.LogoutFilter@45c9b3, cn.idealer01.config.utils.JwtAuthenticationFilter@5b7c8930, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5584d9c6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3127cb44, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@d675f9f, org.springframework.security.web.session.SessionManagementFilter@682af059, org.springframework.security.web.access.ExceptionTranslationFilter@3bf54172, org.springframework.security.web.access.intercept.AuthorizationFilter@7fd987ef]
-26-01-10.16:57:51.981 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.16:57:52.000 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.16:57:52.008 [main            ] INFO  Application            - Started Application in 2.562 seconds (JVM running for 3.485)
-26-01-10.17:01:46.205 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 23224 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.17:01:46.207 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.17:01:46.728 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.17:01:46.728 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.17:01:46.753 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
-26-01-10.17:01:47.228 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.17:01:47.238 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.17:01:47.239 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.17:01:47.240 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.17:01:47.382 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.17:01:47.382 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1139 ms
-26-01-10.17:01:48.118 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7ddd84b5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73aeef7d, org.springframework.security.web.context.SecurityContextPersistenceFilter@6a9344f5, org.springframework.security.web.header.HeaderWriterFilter@3bb5ceb, org.springframework.web.filter.CorsFilter@d675f9f, org.springframework.security.web.authentication.logout.LogoutFilter@38b3f208, cn.idealer01.config.utils.JwtAuthenticationFilter@58867cd5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3c9c6245, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3234474, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58af5076, org.springframework.security.web.session.SessionManagementFilter@5f36c8e3, org.springframework.security.web.access.ExceptionTranslationFilter@2c9a6717, org.springframework.security.web.access.intercept.AuthorizationFilter@7209ffb5]
-26-01-10.17:01:48.474 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.17:01:48.489 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.17:01:48.497 [main            ] INFO  Application            - Started Application in 2.7 seconds (JVM running for 3.766)
-26-01-10.17:05:42.866 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.17:05:42.866 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.17:05:42.867 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 1 ms
-26-01-10.17:05:48.430 [http-nio-8080-exec-2] INFO  Http11Processor        - Error parsing HTTP request header
- Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
-java.lang.IllegalArgumentException: Invalid character found in method name [MGLNDD_117.72.186.124_80810x0a...]. HTTP method names must be tokens
-	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:263)
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850)
+	... 95 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:607)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:155)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 97 common frames omitted
+26-05-11.10:42:39.917 [http-nio-8080-exec-4] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-05-11.10:42:39.924 [http-nio-8080-exec-2] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+### The error may exist in file [D:\projects\Myblog\backend\backend-app\target\classes\mybatis\mapper\IUserDao.xml]
+### The error may involve cn.idealer01.infrastructure.dao.IUserDao.queryUserByUserName
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
+	at com.sun.proxy.$Proxy72.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:160)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:152)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:85)
+	at com.sun.proxy.$Proxy74.queryUserByUserName(Unknown Source)
+	at cn.idealer01.infrastructure.adapter.repository.LoginReposity.getRegularUserByUserName(LoginReposity.java:79)
+	at cn.idealer01.domain.auth.service.UserDetailsServiceImpl.loadUserByUsername(UserDetailsServiceImpl.java:17)
+	at cn.idealer01.config.utils.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:49)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
@@ -469,64 +222,136 @@ java.lang.IllegalArgumentException: Invalid character found in method name [MGLN
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-26-01-10.17:12:16.484 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 14524 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.17:12:16.485 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.17:12:17.008 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.17:12:17.010 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.17:12:17.037 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-26-01-10.17:12:17.466 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.17:12:17.474 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.17:12:17.475 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.17:12:17.475 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.17:12:17.576 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.17:12:17.577 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1056 ms
-26-01-10.17:12:18.273 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4d9754a8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7a3b7122, org.springframework.security.web.context.SecurityContextPersistenceFilter@6ef60295, org.springframework.security.web.header.HeaderWriterFilter@786ff1cb, org.springframework.web.filter.CorsFilter@58b5a2f3, org.springframework.security.web.authentication.logout.LogoutFilter@3b4a1a75, cn.idealer01.config.utils.JwtAuthenticationFilter@d5af0a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3234474, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2dd8ff1d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25f15f50, org.springframework.security.web.session.SessionManagementFilter@6d0be7ab, org.springframework.security.web.access.ExceptionTranslationFilter@1e692555, org.springframework.security.web.access.intercept.AuthorizationFilter@6807a356]
-26-01-10.17:12:18.640 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.17:12:18.659 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.17:12:18.668 [main            ] INFO  Application            - Started Application in 2.579 seconds (JVM running for 3.542)
-26-01-10.17:12:23.597 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.17:12:23.597 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.17:12:23.597 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.17:12:23.693 [http-nio-8080-exec-2] INFO  RegularUserController  - 请求注册用户名：zhangsan
-26-01-10.17:12:23.790 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.17:12:24.000 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.17:12:24.060 [http-nio-8080-exec-2] INFO  RegularUserController  - 用户名注册成功：zhangsan
-26-01-10.17:12:44.132 [http-nio-8080-exec-4] INFO  RegularUserController  - 网站用户:zhangsan，请求获取token
-26-01-10.17:12:44.344 [http-nio-8080-exec-4] INFO  RegularUserController  - 网站用户:zhangsan, 获取token成功:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIkMmEkMTAkeTdkbkJvTmZXNk9CdFJEby5KbnIuLm9VZS5xdnpVTXFuNk1VL0FTWWl0Y3FsRVI5NXE1bjYiLCJpYXQiOjE3NjgwMzYzNjQsImV4cCI6MTc2ODEyMjc2NH0.9cyG5Sq0_r_Z65dbaQFZmkfemubc0h5wNnt2BFI1Uic
-26-01-10.17:12:53.096 [http-nio-8080-exec-6] INFO  RegularUserController  - 请求注册用户名：root
-26-01-10.17:12:53.191 [http-nio-8080-exec-6] INFO  RegularUserController  - 用户名注册成功：root
-26-01-10.17:16:00.692 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.17:16:00.709 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.17:16:04.924 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 11940 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.17:16:04.927 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.17:16:05.530 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.17:16:05.532 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.17:16:05.561 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
-26-01-10.17:16:06.067 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.17:16:06.075 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.17:16:06.076 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.17:16:06.076 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.17:16:06.190 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.17:16:06.190 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1223 ms
-26-01-10.17:16:07.070 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@b73433, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1bf14704, org.springframework.security.web.context.SecurityContextPersistenceFilter@67022ea, org.springframework.security.web.header.HeaderWriterFilter@217bf99e, org.springframework.web.filter.CorsFilter@5a545b0f, org.springframework.security.web.authentication.logout.LogoutFilter@30c3ae63, cn.idealer01.config.utils.JwtAuthenticationFilter@2a367e93, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@58fbd02e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@d70f722, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2be21396, org.springframework.security.web.session.SessionManagementFilter@52b46d52, org.springframework.security.web.access.ExceptionTranslationFilter@7209ffb5, org.springframework.security.web.access.intercept.AuthorizationFilter@4cb702ce]
-26-01-10.17:16:07.710 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.17:16:07.738 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.17:16:07.749 [main            ] INFO  Application            - Started Application in 3.314 seconds (JVM running for 4.592)
-26-01-10.17:16:24.542 [http-nio-8080-exec-2] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.17:16:24.542 [http-nio-8080-exec-2] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.17:16:24.542 [http-nio-8080-exec-2] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.17:16:24.648 [http-nio-8080-exec-1] INFO  RegularUserController  - 请求注册用户名：idealer
-26-01-10.17:16:29.164 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.17:16:29.883 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.17:16:34.372 [http-nio-8080-exec-1] INFO  RegularUserController  - 用户名注册失败:idealer
-26-01-10.17:17:34.006 [http-nio-8080-exec-4] INFO  RegularUserController  - 网站用户:zhangsan，请求获取token
-26-01-10.17:17:41.520 [http-nio-8080-exec-4] ERROR RegularUserController  - 网站用户登录，未知异常
-org.springframework.security.authentication.BadCredentialsException: 用户名或密码错误
-	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.additionalAuthenticationChecks(DaoAuthenticationProvider.java:80)
-	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:147)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+### The error may exist in file [D:\projects\Myblog\backend\backend-app\target\classes\mybatis\mapper\IUserDao.xml]
+### The error may involve cn.idealer01.infrastructure.dao.IUserDao.queryUserByUserName
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:149)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:76)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	... 64 common frames omitted
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:83)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	... 71 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
+	... 81 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850)
+	... 95 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:607)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:155)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 97 common frames omitted
+26-05-11.10:42:51.007 [http-nio-8080-exec-4] ERROR HikariPool             - HikariPool-1 - Exception during pool initialization.
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:76)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at com.sun.proxy.$Proxy72.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:160)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:152)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:85)
+	at com.sun.proxy.$Proxy74.queryUserByUserName(Unknown Source)
+	at cn.idealer01.infrastructure.adapter.repository.LoginReposity.getRegularUserByUserName(LoginReposity.java:79)
+	at cn.idealer01.domain.auth.service.UserDetailsServiceImpl.loadUserByUsername(UserDetailsServiceImpl.java:17)
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:94)
+	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:133)
 	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182)
-	at cn.idealer01.domain.auth.service.login.RegularUserLoginService.getToken(RegularUserLoginService.java:34)
-	at cn.idealer01.trigger.http.RegularUserController.getToken(RegularUserController.java:34)
+	at cn.idealer01.domain.auth.service.login.RegularUserLoginService.getToken(RegularUserLoginService.java:41)
+	at cn.idealer01.trigger.http.RegularUserController.getToken(RegularUserController.java:36)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -623,36 +448,45 @@ org.springframework.security.authentication.BadCredentialsException: 用户名�
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-26-01-10.17:17:50.612 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.17:17:50.629 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.17:18:02.307 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 19180 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.17:18:02.311 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.17:18:02.847 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.17:18:02.850 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.17:18:02.874 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-26-01-10.17:18:03.282 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.17:18:03.288 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.17:18:03.288 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.17:18:03.288 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.17:18:03.388 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.17:18:03.388 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1043 ms
-26-01-10.17:18:04.099 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@46911148, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2db1b657, org.springframework.security.web.context.SecurityContextPersistenceFilter@3b4a1a75, org.springframework.security.web.header.HeaderWriterFilter@2577a95d, org.springframework.web.filter.CorsFilter@7e351d7, org.springframework.security.web.authentication.logout.LogoutFilter@1943c1f2, cn.idealer01.config.utils.JwtAuthenticationFilter@40e32762, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@276cc8dc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7209ffb5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43c57161, org.springframework.security.web.session.SessionManagementFilter@7d97e06c, org.springframework.security.web.access.ExceptionTranslationFilter@9301672, org.springframework.security.web.access.intercept.AuthorizationFilter@68f6e55d]
-26-01-10.17:18:04.485 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.17:18:04.504 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.17:18:04.513 [main            ] INFO  Application            - Started Application in 2.634 seconds (JVM running for 3.825)
-26-01-10.17:18:14.449 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-10.17:18:14.449 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-10.17:18:14.449 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
-26-01-10.17:18:14.536 [http-nio-8080-exec-2] INFO  RegularUserController  - 网站用户:zhangsan，请求获取token
-26-01-10.17:18:14.629 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Starting...
-26-01-10.17:18:14.796 [http-nio-8080-exec-2] INFO  HikariDataSource       - HikariPool-1 - Start completed.
-26-01-10.17:18:14.917 [http-nio-8080-exec-2] ERROR RegularUserController  - 网站用户登录，未知异常
-org.springframework.security.authentication.BadCredentialsException: 用户名或密码错误
-	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.additionalAuthenticationChecks(DaoAuthenticationProvider.java:80)
-	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:147)
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850)
+	... 140 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:607)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:155)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 142 common frames omitted
+26-05-11.10:42:51.011 [http-nio-8080-exec-4] ERROR RegularUserController  - 网站用户登录，未知异常
+org.springframework.security.authentication.InternalAuthenticationServiceException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+### The error may exist in file [D:\projects\Myblog\backend\backend-app\target\classes\mybatis\mapper\IUserDao.xml]
+### The error may involve cn.idealer01.infrastructure.dao.IUserDao.queryUserByUserName
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:109)
+	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:133)
 	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182)
-	at cn.idealer01.domain.auth.service.login.RegularUserLoginService.getToken(RegularUserLoginService.java:34)
-	at cn.idealer01.trigger.http.RegularUserController.getToken(RegularUserController.java:34)
+	at cn.idealer01.domain.auth.service.login.RegularUserLoginService.getToken(RegularUserLoginService.java:41)
+	at cn.idealer01.trigger.http.RegularUserController.getToken(RegularUserController.java:36)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -749,22 +583,157 @@ org.springframework.security.authentication.BadCredentialsException: 用户名�
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-26-01-10.17:18:20.037 [http-nio-8080-exec-4] INFO  RegularUserController  - 网站用户:zhangsan，请求获取token
-26-01-10.17:18:20.143 [http-nio-8080-exec-4] INFO  RegularUserController  - 网站用户:zhangsan, 获取token成功:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIkMmEkMTAkeTdkbkJvTmZXNk9CdFJEby5KbnIuLm9VZS5xdnpVTXFuNk1VL0FTWWl0Y3FsRVI5NXE1bjYiLCJpYXQiOjE3NjgwMzY3MDAsImV4cCI6MTc2ODEyMzEwMH0.fR4jaUvQJBsWPI7wxDKn7vqdOtPTLun85HEpU-9RsUI
-26-01-10.17:22:42.769 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
-26-01-10.17:22:42.784 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
-26-01-10.17:22:51.840 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 22552 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
-26-01-10.17:22:51.842 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-10.17:22:52.329 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-01-10.17:22:52.330 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-01-10.17:22:52.357 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-26-01-10.17:22:52.745 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
-26-01-10.17:22:52.750 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
-26-01-10.17:22:52.751 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-10.17:22:52.751 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
-26-01-10.17:22:52.846 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-10.17:22:52.846 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 976 ms
-26-01-10.17:22:53.494 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4d9754a8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7a3b7122, org.springframework.security.web.context.SecurityContextPersistenceFilter@6ef60295, org.springframework.security.web.header.HeaderWriterFilter@786ff1cb, org.springframework.web.filter.CorsFilter@58b5a2f3, org.springframework.security.web.authentication.logout.LogoutFilter@3b4a1a75, cn.idealer01.config.utils.JwtAuthenticationFilter@d5af0a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3234474, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2dd8ff1d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25f15f50, org.springframework.security.web.session.SessionManagementFilter@6d0be7ab, org.springframework.security.web.access.ExceptionTranslationFilter@1e692555, org.springframework.security.web.access.intercept.AuthorizationFilter@6807a356]
-26-01-10.17:22:53.835 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
-26-01-10.17:22:53.850 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
-26-01-10.17:22:53.858 [main            ] INFO  Application            - Started Application in 2.368 seconds (JVM running for 3.458)
+Caused by: org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+### The error may exist in file [D:\projects\Myblog\backend\backend-app\target\classes\mybatis\mapper\IUserDao.xml]
+### The error may involve cn.idealer01.infrastructure.dao.IUserDao.queryUserByUserName
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
+	at com.sun.proxy.$Proxy72.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:160)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:152)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:85)
+	at com.sun.proxy.$Proxy74.queryUserByUserName(Unknown Source)
+	at cn.idealer01.infrastructure.adapter.repository.LoginReposity.getRegularUserByUserName(LoginReposity.java:79)
+	at cn.idealer01.domain.auth.service.UserDetailsServiceImpl.loadUserByUsername(UserDetailsServiceImpl.java:17)
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:94)
+	... 100 common frames omitted
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+### The error may exist in file [D:\projects\Myblog\backend\backend-app\target\classes\mybatis\mapper\IUserDao.xml]
+### The error may involve cn.idealer01.infrastructure.dao.IUserDao.queryUserByUserName
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:149)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:76)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	... 109 common frames omitted
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:83)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	... 116 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
+	... 126 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850)
+	... 140 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:607)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:155)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 142 common frames omitted
+26-05-11.10:44:04.128 [http-nio-8080-exec-7] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-11.10:44:04.128 [http-nio-8080-exec-7] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-05-11.10:44:04.461 [http-nio-8080-exec-7] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-05-11.10:44:04.748 [http-nio-8080-exec-7] INFO  RegularUserController  - 网站用户:admin, 获取token成功
+26-05-11.11:05:10.134 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m5s244ms199µs100ns).
+26-05-11.11:13:05.138 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-05-11.11:13:05.159 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-05-11.18:54:35.219 [main            ] INFO  Application            - Starting Application v1.0-SNAPSHOT using Java 17.0.7 on XiaoLI with PID 22924 (D:\projects\Myblog\backend\backend-app\target\backend-app.jar started by 27550 in D:\projects\Myblog\backend)
+26-05-11.18:54:35.220 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-05-11.18:54:35.980 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-05-11.18:54:35.982 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-05-11.18:54:36.014 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
+26-05-11.18:54:37.046 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+26-05-11.18:54:37.061 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+26-05-11.18:54:37.062 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-05-11.18:54:37.062 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+26-05-11.18:54:37.163 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-05-11.18:54:37.166 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1889 ms
+26-05-11.18:54:38.472 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@58cec85b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@629f066f, org.springframework.security.web.context.SecurityContextPersistenceFilter@53692008, org.springframework.security.web.header.HeaderWriterFilter@4c98a6d5, org.springframework.web.filter.CorsFilter@1542af63, org.springframework.security.web.authentication.logout.LogoutFilter@25d3cfc8, cn.idealer01.config.utils.JwtAuthenticationFilter@584f5497, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1bbae752, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5cf87cfd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ecfbe91, org.springframework.security.web.session.SessionManagementFilter@6b587673, org.springframework.security.web.access.ExceptionTranslationFilter@6d4a65c6, org.springframework.security.web.access.intercept.AuthorizationFilter@67dba613]
+26-05-11.18:54:38.942 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+26-05-11.18:54:38.984 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+26-05-11.18:54:38.994 [main            ] INFO  Application            - Started Application in 4.466 seconds (JVM running for 4.952)
+26-05-11.18:57:16.387 [main            ] INFO  Application            - Starting Application v1.0-SNAPSHOT using Java 17.0.7 on XiaoLI with PID 4972 (D:\projects\Myblog\backend\backend-app\target\backend-app.jar started by 27550 in D:\projects\Myblog\backend)
+26-05-11.18:57:16.389 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-05-11.18:57:17.099 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-05-11.18:57:17.101 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-05-11.18:57:17.131 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+26-05-11.18:57:17.986 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+26-05-11.18:57:17.996 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+26-05-11.18:57:17.996 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-05-11.18:57:17.996 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+26-05-11.18:57:18.079 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-05-11.18:57:18.079 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1627 ms
+26-05-11.18:57:19.228 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@629f066f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1542af63, org.springframework.security.web.context.SecurityContextPersistenceFilter@7b2a3ff8, org.springframework.security.web.header.HeaderWriterFilter@392a04e7, org.springframework.web.filter.CorsFilter@ecfbe91, org.springframework.security.web.authentication.logout.LogoutFilter@30331109, cn.idealer01.config.utils.JwtAuthenticationFilter@125c082e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@460b6d54, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76075d65, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@20ed3303, org.springframework.security.web.session.SessionManagementFilter@1bcf67e8, org.springframework.security.web.access.ExceptionTranslationFilter@aa004a0, org.springframework.security.web.access.intercept.AuthorizationFilter@57540fd0]
+26-05-11.18:57:19.713 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+26-05-11.18:57:19.739 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+26-05-11.18:57:19.744 [main            ] INFO  Application            - Started Application in 4.048 seconds (JVM running for 4.514)
+26-05-11.18:58:07.046 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-05-11.18:58:07.046 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+26-05-11.18:58:07.046 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 0 ms
+26-05-11.18:58:07.213 [http-nio-8080-exec-1] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-11.18:58:07.317 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-05-11.18:58:07.648 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-05-11.18:58:07.879 [http-nio-8080-exec-1] INFO  RegularUserController  - 网站用户:admin, 获取token成功
+26-05-11.18:58:07.964 [http-nio-8080-exec-4] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-11.18:58:46.055 [http-nio-8080-exec-2] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-11.18:58:46.138 [http-nio-8080-exec-2] INFO  RegularUserController  - 网站用户:admin, 获取token成功
+26-05-11.18:58:47.571 [http-nio-8080-exec-6] INFO  WeixinLoginController  - 微信二维码生成，ticket:gQE98TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyNk5RQnBldjBhRi0xNUQzRnhHMTcAAgRntgFqAwQAjScA
+26-05-11.18:58:47.584 [http-nio-8080-exec-7] INFO  WeixinLoginController  - 扫码检测登录结果 ticket:gQE98TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyNk5RQnBldjBhRi0xNUQzRnhHMTcAAgRntgFqAwQAjScA result:null
+26-05-11.18:59:23.863 [http-nio-8080-exec-2] INFO  WeixinLoginController  - 微信二维码生成，ticket:gQHN8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyNmdXUXBVdjBhRi0xNmMzRk5HMW4AAgSMtgFqAwQAjScA
+26-05-11.18:59:23.910 [http-nio-8080-exec-5] INFO  WeixinLoginController  - 扫码检测登录结果 ticket:gQHN8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyNmdXUXBVdjBhRi0xNmMzRk5HMW4AAgSMtgFqAwQAjScA result:null
+26-05-11.18:59:52.114 [http-nio-8080-exec-9] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-11.18:59:52.186 [http-nio-8080-exec-9] INFO  RegularUserController  - 网站用户:admin, 获取token成功
+26-05-11.19:04:02.367 [main            ] INFO  Application            - Starting Application v1.0-SNAPSHOT using Java 17.0.7 on XiaoLI with PID 13104 (D:\projects\Myblog\backend\backend-app\target\backend-app.jar started by 27550 in D:\projects\Myblog\backend)
+26-05-11.19:04:02.367 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-05-11.19:04:03.222 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-05-11.19:04:03.232 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-05-11.19:04:03.253 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.

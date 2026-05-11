@@ -85,7 +85,6 @@ import { useRoute } from "vue-router";
 import { computed } from "vue";
 import router from "@/router";
 import { useStore } from "vuex";
-import { logout as clearAuthSession } from '@/services/authService'
 
 export default {
   setup() {
@@ -108,7 +107,6 @@ export default {
     };
 
     const logout = () => {
-      clearAuthSession()
       store.dispatch("weixin_user/logout");
       router.push({ name: "blog" });
     };

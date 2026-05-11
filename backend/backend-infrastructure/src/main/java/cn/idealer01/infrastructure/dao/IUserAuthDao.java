@@ -14,4 +14,6 @@ public interface IUserAuthDao {
     UserAuth queryUserAuthByTypeAndKey(@Param("authType") String authType, @Param("authKey") String authKey);
 
     List<UserAuth> queryUserAuthByUserId(Long userId);
+
+    void deleteUserAuthByTypeAndUserId(@Param("authType") String authType, @Param("userId") Long userId);
 }
