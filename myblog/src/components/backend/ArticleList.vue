@@ -15,7 +15,7 @@
       </div>
       <div class="custom-select-wrapper">
         <select v-model="filterTheme" class="filter-select">
-          <option value="">全部分类</option>
+          <option value="">全部主题</option>
           <option v-for="theme in themes" :key="theme" :value="theme">{{ theme }}</option>
         </select>
         <i class="bi bi-chevron-down select-arrow"></i>
@@ -44,7 +44,7 @@
           <tr>
             <th class="col-id">ID</th>
             <th class="col-title">标题</th>
-            <th class="col-category">分类</th>
+            <th class="col-category">主题</th>
             <th class="col-date">日期</th>
             <th class="col-actions">操作</th>
           </tr>
@@ -62,7 +62,7 @@
               </div>
             </td>
             <td class="col-category">
-              <span class="category-tag">{{ article.category || article.theme }}</span>
+              <span class="category-tag">{{ article.theme }}</span>
             </td>
             <td class="col-date">{{ formatDate(article.date) }}</td>
             <td class="col-actions">
@@ -117,6 +117,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { getAllArticles, deleteArticle } from '@/services/articleService.js'
+import { getThemes } from '@/services/themeService.js'
 
 const articles = ref([])
 const loading = ref(false)
@@ -128,7 +129,7 @@ const pageSize = 10
 const showDeleteModal = ref(false)
 const deleteTarget = ref(null)
 
-const themes = ['java', 'python', 'c++', 'vue']
+const themes = ref([])
 
 const filteredArticles = computed(() => {
   let result = articles.value
@@ -137,7 +138,7 @@ const filteredArticles = computed(() => {
     result = result.filter(a => a.title.toLowerCase().includes(kw))
   }
   if (filterTheme.value) {
-    result = result.filter(a => (a.category || a.theme) === filterTheme.value)
+    result = result.filter(a => a.theme === filterTheme.value)
   }
   return result
 })
@@ -207,7 +208,13 @@ const formatDate = (dateString) => {
   })
 }
 
-onMounted(() => {
+onMounted(async () => {
+  try {
+    const data = await getThemes()
+    themes.value = data.map(t => t.name)
+  } catch {
+    themes.value = ['java', 'python', 'c++', 'vue']
+  }
   fetchArticles()
 })
 </script>
@@ -389,7 +396,7 @@ onMounted(() => {
 .col-id { width: 60px; }
 .col-category { width: 100px; }
 .col-date { width: 110px; }
-.col-actions { width: 160px; }
+.col-actions { width: 200px; }
 
 .title-cell {
   display: flex;

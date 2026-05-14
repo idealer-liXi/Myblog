@@ -167,7 +167,7 @@ DEALLOCATE PREPARE stmt_user_auth;
 
 -- 10) 全新初始化时，旧 user.password 字段不存在，补一条默认管理员 password 认证记录
 INSERT INTO `user_auth` (`user_id`, `auth_type`, `auth_key`, `credential`, `verified`)
-SELECT u.id, 'password', 'admin', '$2a$10$7EqJtq98hPqEX7fNZaFWoOePaWxn96p36sJzP6VSZ/Ik2Vq6KYFQe', 1
+SELECT u.id, 'password', 'admin', '$2a$10$gabdjb7c7oP.QVo4R4YKwulxrp0OazV4RybSXJb5Ulmh1SURLxmu6', 1
 FROM `user` u
 WHERE u.username = 'admin'
   AND NOT EXISTS (

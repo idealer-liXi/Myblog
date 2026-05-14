@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.idealer01.infrastructure.dao.IImageRecordDao">
+
+    <resultMap id="dataMap" type="cn.idealer01.infrastructure.dao.po.ImageRecord">
+        <id column="id" property="id"/>
+        <result column="file_name" property="fileName"/>
+        <result column="oss_url" property="ossUrl"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="uploader_id" property="uploaderId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="queryAll" resultMap="dataMap">
+        select * from image_record order by create_time desc
+    </select>
+
+    <select id="queryById" parameterType="java.lang.Long" resultMap="dataMap">
+        select * from image_record where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="cn.idealer01.infrastructure.dao.po.ImageRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into image_record(file_name, oss_url, file_size, uploader_id)
+        values (#{fileName}, #{ossUrl}, #{fileSize}, #{uploaderId})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from image_record where id = #{id}
+    </delete>
+
+</mapper>

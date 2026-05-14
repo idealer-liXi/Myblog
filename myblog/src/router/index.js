@@ -6,11 +6,12 @@ import RegisterView from "@/views/user/RegisterView.vue";
 import UserProfileView from "@/views/user/UserProfileView.vue";
 import BackendView from "@/views/backend/BackendView.vue";
 import ArticlePerform from "@/components/ArticlePerform.vue";
+import ArticleDetail from "@/components/ArticleDetail.vue";
 import GitHubStarView from "@/views/github/GitHubStarView.vue";
 import DashboardPanel from "@/components/backend/DashboardPanel.vue";
 import ArticleList from "@/components/backend/ArticleList.vue";
 import ArticleForm from "@/components/backend/ArticleForm.vue";
-import CategoryManagement from "@/components/backend/CategoryManagement.vue";
+import ThemeManagement from "@/components/backend/ThemeManagement.vue";
 import ProjectManagement from "@/components/backend/ProjectManagement.vue";
 import ImageManagement from "@/components/backend/ImageManagement.vue";
 import UserManagement from "@/components/backend/UserManagement.vue";
@@ -31,6 +32,11 @@ const routes = [
         path:'/blog/article/:theme',
         name: 'article',
         component: ArticlePerform,
+      },
+      {
+        path:'/blog/article/:theme/:id',
+        name: 'article-detail',
+        component: ArticleDetail,
       }
     ]
   },
@@ -83,9 +89,9 @@ const routes = [
         component: ArticleForm,
       },
       {
-        path: 'categories',
-        name: 'backend-categories',
-        component: CategoryManagement,
+        path: 'themes',
+        name: 'backend-themes',
+        component: ThemeManagement,
       },
       {
         path: 'projects',

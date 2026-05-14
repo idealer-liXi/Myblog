@@ -4,14 +4,14 @@
       <nav class="tab-bar">
         <router-link
           v-for="(theme, i) in themes"
-          :key="theme"
-          :to="{ path: '/blog/article/' + theme }"
+          :key="theme.name"
+          :to="{ path: '/blog/article/' + theme.name }"
           class="tab-pill"
-          :class="{ active: $route.path === '/blog/article/' + theme }"
+          :class="{ active: isThemeActive(theme.name) }"
           :style="{ '--i': i }"
         >
-          <i :class="themeIcon(theme)"></i>
-          <span>{{ theme }}</span>
+          <i :class="theme.icon || 'bi bi-code-slash'"></i>
+          <span>{{ theme.name }}</span>
         </router-link>
       </nav>
 
@@ -23,19 +23,40 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { getPublicThemes } from '@/services/themeService.js'
 
-const themes = ref(["java", "python", "c++", "vue"])
+const route = useRoute()
+const router = useRouter()
+const themes = ref([])
 
-const themeIcon = (theme) => {
-  const icons = {
-    'java': 'bi bi-cup-hot-fill',
-    'python': 'bi bi-stack',
-    'c++': 'bi bi-cpu-fill',
-    'vue': 'bi bi-palette2'
-  }
-  return icons[theme] || 'bi bi-code-slash'
+const fallbackThemes = [
+  { name: 'java', icon: 'bi bi-cup-hot-fill' },
+  { name: 'python', icon: 'bi bi-stack' },
+  { name: 'c++', icon: 'bi bi-cpu-fill' },
+  { name: 'vue', icon: 'bi bi-palette2' }
+]
+
+const isThemeActive = (themeName) => {
+  return route.params.theme === themeName
 }
+
+const navigateToFirstTheme = () => {
+  if (!route.params.theme && themes.value.length > 0) {
+    router.replace(`/blog/article/${themes.value[0].name}`)
+  }
+}
+
+onMounted(async () => {
+  try {
+    const data = await getPublicThemes()
+    themes.value = data.length > 0 ? data : fallbackThemes
+  } catch {
+    themes.value = fallbackThemes
+  }
+  navigateToFirstTheme()
+})
 </script>
 
 <style scoped>

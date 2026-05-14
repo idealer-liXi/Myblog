@@ -64,7 +64,7 @@
           <div class="recent-item-content">
             <span class="recent-item-title">{{ article.title }}</span>
             <span class="recent-item-meta">
-              <span class="recent-item-category">{{ article.category }}</span>
+              <span class="recent-item-category">{{ article.theme }}</span>
               <span class="recent-item-date">{{ formatDate(article.date) }}</span>
             </span>
           </div>
@@ -98,8 +98,8 @@ const stats = computed(() => [
   },
   {
     key: 'categories',
-    label: '分类数量',
-    value: new Set(articles.value.map(a => a.category || a.theme)).size,
+    label: '主题数量',
+    value: new Set(articles.value.map(a => a.theme)).size,
     icon: 'bi bi-tags',
     gradient: 'linear-gradient(135deg, #28a745 0%, #1e7e34 100%)'
   },

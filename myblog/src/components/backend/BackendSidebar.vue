@@ -29,9 +29,9 @@
               <i class="bi bi-plus-circle"></i>
               <span>新建文章</span>
             </router-link>
-            <router-link :to="{ name: 'backend-categories' }" class="sidebar-child" :class="{ active: $route.name === 'backend-categories' }">
+            <router-link :to="{ name: 'backend-themes' }" class="sidebar-child" :class="{ active: $route.name === 'backend-themes' }">
               <i class="bi bi-tags"></i>
-              <span>分类管理</span>
+              <span>主题管理</span>
             </router-link>
           </div>
         </transition>
@@ -88,7 +88,7 @@ const isArticleActive = computed(() => [
   'backend-articles',
   'backend-article-new',
   'backend-article-edit',
-  'backend-categories'
+  'backend-themes'
 ].includes(route.name))
 
 const isProjectActive = computed(() => [

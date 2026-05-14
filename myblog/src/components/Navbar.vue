@@ -34,7 +34,7 @@
               <span>GitHub项目</span>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="isAdmin" class="nav-item">
             <router-link :class="$route.path.startsWith('/backend')?'nav-link active':'nav-link'" :to="{name: 'backend'}">
               <i class="bi bi-gear"></i>
               <span>后台管理</span>
@@ -93,7 +93,8 @@ export default {
 
     const route_value = computed(() => route.name);
     const userInfo = computed(() => store.getters["weixin_user/getUserInfo"] || {});
-    const isLoggedIn = computed(() => store.getters["weixin_user/getLoginStatus"]);
+    const isLoggedIn = computed(() => store.getters["weixin_user/getLoginStatus"])
+    const isAdmin = computed(() => store.getters["weixin_user/getRoles"].includes('ADMIN'));
     const displayName = computed(() => store.getters['weixin_user/getDisplayName'])
     const avatarSrc = computed(() => store.getters['weixin_user/getAvatar'])
     const userInitial = computed(() => displayName.value.slice(0, 1).toUpperCase())
@@ -118,6 +119,7 @@ export default {
     return {
       route_value,
       isLoggedIn,
+      isAdmin,
       userInfo,
       displayName,
       avatarSrc,

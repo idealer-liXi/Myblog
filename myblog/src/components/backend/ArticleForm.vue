@@ -30,14 +30,6 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">分类 <span class="required">*</span></label>
-          <select v-model="form.category" class="form-input" :class="{ 'is-error': errors.category }">
-            <option value="">请选择分类</option>
-            <option v-for="theme in themes" :key="theme" :value="theme">{{ theme }}</option>
-          </select>
-          <span v-if="errors.category" class="error-tip">{{ errors.category }}</span>
-        </div>
-        <div class="form-group">
           <label class="form-label">主题 <span class="required">*</span></label>
           <select v-model="form.theme" class="form-input" :class="{ 'is-error': errors.theme }">
             <option value="">请选择主题</option>
@@ -68,6 +60,9 @@
             @onUploadImg="handleUploadImg"
           />
         </div>
+        <p class="editor-tip">
+          直接将截图或图片粘贴、拖拽到编辑器中即可自动上传到 OSS 并插入 Markdown。图片素材库仅用于回看和维护历史图片。
+        </p>
         <span v-if="errors.content" class="error-tip">{{ errors.content }}</span>
       </div>
 
@@ -92,13 +87,14 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getArticleById, createArticle, updateArticle } from '@/services/articleService.js'
 import { uploadImage } from '@/services/uploadService.js'
+import { getThemes } from '@/services/themeService.js'
 import { MdEditor } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 
 const router = useRouter()
 const route = useRoute()
 
-const themes = ['java', 'python', 'c++', 'vue']
+const themes = ref([])
 const editorTheme = 'light'
 
 const isEdit = computed(() => route.name === 'backend-article-edit')
@@ -107,7 +103,6 @@ const form = ref({
   title: '',
   content: '',
   summary: '',
-  category: '',
   theme: '',
   image: ''
 })
@@ -115,7 +110,6 @@ const form = ref({
 const errors = ref({
   title: '',
   content: '',
-  category: '',
   theme: ''
 })
 
@@ -123,11 +117,18 @@ const loading = ref(false)
 const submitting = ref(false)
 const submitError = ref('')
 
+const buildDocumentDirectory = () => {
+  const rawTitle = (form.value.title || '').trim() || '未命名文章'
+  return `documents/${encodeURIComponent(rawTitle)}`
+}
+
 const handleUploadImg = async (files, callback) => {
   const urls = []
   for (const file of files) {
     try {
-      const url = await uploadImage(file)
+      const url = await uploadImage(file, {
+        directory: buildDocumentDirectory()
+      })
       urls.push(url)
     } catch {
       submitError.value = '图片上传失败，请稍后重试'
@@ -137,7 +138,7 @@ const handleUploadImg = async (files, callback) => {
 }
 
 const validate = () => {
-  errors.value = { title: '', content: '', category: '', theme: '' }
+  errors.value = { title: '', content: '', theme: '' }
   let valid = true
   if (!form.value.title.trim()) {
     errors.value.title = '请输入文章标题'
@@ -145,10 +146,6 @@ const validate = () => {
   }
   if (!form.value.content.trim()) {
     errors.value.content = '请输入文章内容'
-    valid = false
-  }
-  if (!form.value.category) {
-    errors.value.category = '请选择分类'
     valid = false
   }
   if (!form.value.theme) {
@@ -178,6 +175,12 @@ const handleSubmit = async () => {
 }
 
 onMounted(async () => {
+  try {
+    const data = await getThemes()
+    themes.value = data.map(t => t.name)
+  } catch {
+    themes.value = ['java', 'python', 'c++', 'vue']
+  }
   if (isEdit.value && route.params.id) {
     loading.value = true
     try {
@@ -186,7 +189,6 @@ onMounted(async () => {
         title: article.title || '',
         content: article.content || '',
         summary: article.summary || '',
-        category: article.category || '',
         theme: article.theme || '',
         image: article.image || ''
       }
@@ -323,6 +325,13 @@ select.form-input {
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.editor-tip {
+  margin: 8px 2px 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
 }
 
 .editor-wrapper.is-error {

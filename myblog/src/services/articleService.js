@@ -1,143 +1,182 @@
-// 文章服务 - 处理文章相关的API请求
+import axios from 'axios'
 
-// 基础API配置
-const API_BASE_URL = 'http://localhost:3000/api'; // 替换为您的实际API地址
+const PUBLIC_BASE_URL = 'http://localhost:8080/api/public'
+const ADMIN_BASE_URL = 'http://localhost:8080/api/admin'
 
-/**
- * 根据主题获取文章列表
- * @param {string} theme - 文章主题
- * @returns {Promise<Array>} 文章列表
- */
+function getAuthHeaders() {
+  const token = localStorage.getItem('jwtToken')
+  return token ? { Authorization: `Bearer ${token}` } : {}
+}
+
+function normalizeOssUrl(url) {
+  if (!url) return ''
+  try {
+    const parsedUrl = new URL(url)
+    if (!parsedUrl.hostname.includes('aliyuncs.com')) {
+      return url
+    }
+    if (parsedUrl.pathname.includes('%25')) {
+      return url
+    }
+    const encodedPath = parsedUrl.pathname
+      .split('/')
+      .map((segment, index) => (index === 0 ? segment : encodeURIComponent(segment)))
+      .join('/')
+    return `${parsedUrl.protocol}//${parsedUrl.host}${encodedPath}${parsedUrl.search}${parsedUrl.hash}`
+  } catch {
+    return url
+  }
+}
+
+function normalizeMarkdownContent(content) {
+  if (!content) return ''
+  return content.replace(/https?:\/\/[^\s)]+/g, (url) => normalizeOssUrl(url))
+}
+
+function normalizeArticleItem(article) {
+  if (!article) return null
+  return {
+    ...article,
+    image: normalizeOssUrl(article.coverImage || article.image || ''),
+    date: article.createdAt || article.date || ''
+  }
+}
+
+function normalizeArticleDetail(article) {
+  if (!article) return null
+  return {
+    ...article,
+    image: normalizeOssUrl(article.coverImage || article.image || ''),
+    date: article.createdAt || article.date || '',
+    content: normalizeMarkdownContent(article.content || '')
+  }
+}
+
 export async function getArticlesByTheme(theme) {
   try {
-    const response = await fetch(`${API_BASE_URL}/articles?theme=${encodeURIComponent(theme)}`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await axios.get(`${PUBLIC_BASE_URL}/articles`, {
+      params: { theme }
+    })
+    const data = response.data
+    if (data.code !== undefined) {
+      if (data.code !== '0000') {
+        throw new Error(data.info || '获取文章列表失败')
+      }
     }
-    
-    const data = await response.json();
-    return data.articles || [];
+    const list = data.data?.articles || data.data || data.articles || []
+    return list.map(normalizeArticleItem)
   } catch (error) {
-    console.error('获取文章列表失败:', error);
-    throw error;
+    console.error('获取文章列表失败:', error)
+    throw error
   }
 }
 
-/**
- * 获取所有文章列表
- * @returns {Promise<Array>} 文章列表
- */
 export async function getAllArticles() {
   try {
-    const response = await fetch(`${API_BASE_URL}/articles`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await axios.get(`${ADMIN_BASE_URL}/articles`, {
+      params: { page: 1, pageSize: 100 },
+      headers: getAuthHeaders()
+    })
+    if (response.data.code !== '0000') {
+      throw new Error(response.data.info || '获取所有文章失败')
     }
-    
-    const data = await response.json();
-    return data.articles || [];
+    const list = response.data.data?.articles || response.data.data || []
+    return list.map(normalizeArticleItem)
   } catch (error) {
-    console.error('获取所有文章失败:', error);
-    throw error;
+    console.error('获取所有文章失败:', error)
+    throw error
   }
 }
 
-/**
- * 根据ID获取文章详情
- * @param {number} articleId - 文章ID
- * @returns {Promise<Object>} 文章详情
- */
 export async function getArticleById(articleId) {
   try {
-    const response = await fetch(`${API_BASE_URL}/articles/${articleId}`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await axios.get(`${ADMIN_BASE_URL}/articles/${articleId}`, {
+      headers: getAuthHeaders()
+    })
+    if (response.data.code !== '0000') {
+      throw new Error(response.data.info || '获取文章详情失败')
     }
-    
-    const data = await response.json();
-    return data.article;
+    return normalizeArticleDetail(response.data.data)
   } catch (error) {
-    console.error('获取文章详情失败:', error);
-    throw error;
+    console.error('获取文章详情失败:', error)
+    throw error
   }
 }
 
-/**
- * 创建新文章
- * @param {Object} articleData - 文章数据
- * @returns {Promise<Object>} 创建的文章
- */
+export async function getPublicArticleDetail(articleId) {
+  try {
+    const response = await axios.get(`${PUBLIC_BASE_URL}/articles/${articleId}`)
+    const data = response.data
+    if (data.code !== undefined) {
+      if (data.code !== '0000') {
+        throw new Error(data.info || '获取文章详情失败')
+      }
+      return normalizeArticleDetail(data.data)
+    }
+    return normalizeArticleDetail(data)
+  } catch (error) {
+    console.error('获取文章详情失败:', error)
+    throw error
+  }
+}
+
 export async function createArticle(articleData) {
   try {
-    const response = await fetch(`${API_BASE_URL}/articles`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(articleData),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const payload = {
+      title: articleData.title,
+      content: articleData.content,
+      summary: articleData.summary || '',
+      theme: articleData.theme || '',
+      coverImage: articleData.image || articleData.coverImage || '',
+      status: articleData.status || 'PUBLISHED'
     }
-    
-    const data = await response.json();
-    return data.article;
+    const response = await axios.post(`${ADMIN_BASE_URL}/articles`, payload, {
+      headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' }
+    })
+    if (response.data.code !== '0000') {
+      throw new Error(response.data.info || '创建文章失败')
+    }
+    return normalizeArticleDetail(response.data.data)
   } catch (error) {
-    console.error('创建文章失败:', error);
-    throw error;
+    console.error('创建文章失败:', error)
+    throw error
   }
 }
 
-/**
- * 更新文章
- * @param {number} articleId - 文章ID
- * @param {Object} articleData - 更新的文章数据
- * @returns {Promise<Object>} 更新后的文章
- */
 export async function updateArticle(articleId, articleData) {
   try {
-    const response = await fetch(`${API_BASE_URL}/articles/${articleId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(articleData),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const payload = {
+      title: articleData.title,
+      content: articleData.content,
+      summary: articleData.summary || '',
+      theme: articleData.theme || '',
+      coverImage: articleData.image || articleData.coverImage || '',
+      status: articleData.status || 'PUBLISHED'
     }
-    
-    const data = await response.json();
-    return data.article;
+    const response = await axios.put(`${ADMIN_BASE_URL}/articles/${articleId}`, payload, {
+      headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' }
+    })
+    if (response.data.code !== '0000') {
+      throw new Error(response.data.info || '更新文章失败')
+    }
+    return normalizeArticleDetail(response.data.data)
   } catch (error) {
-    console.error('更新文章失败:', error);
-    throw error;
+    console.error('更新文章失败:', error)
+    throw error
   }
 }
 
-/**
- * 删除文章
- * @param {number} articleId - 文章ID
- * @returns {Promise<boolean>} 删除是否成功
- */
 export async function deleteArticle(articleId) {
   try {
-    const response = await fetch(`${API_BASE_URL}/articles/${articleId}`, {
-      method: 'DELETE',
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await axios.delete(`${ADMIN_BASE_URL}/articles/${articleId}`, {
+      headers: getAuthHeaders()
+    })
+    if (response.data.code !== '0000') {
+      throw new Error(response.data.info || '删除文章失败')
     }
-    
-    return true;
+    return true
   } catch (error) {
-    console.error('删除文章失败:', error);
-    throw error;
+    console.error('删除文章失败:', error)
+    throw error
   }
-} 
+}

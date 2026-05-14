@@ -4,7 +4,7 @@
       <i class="bi bi-exclamation-triangle-fill"></i>
       <span>{{ error }}</span>
     </div>
-    <div class="articles-container">
+    <div v-if="articles.length > 0" class="articles-container">
       <div 
         v-for="article in articles" 
         :key="article.id" 
@@ -19,16 +19,12 @@
           <p class="article-summary">{{ article.summary }}</p>
           <div class="article-meta">
             <span class="article-date"><i class="bi bi-clock"></i> {{ formatDate(article.date) }}</span>
-            <span class="article-category">{{ article.category }}</span>
+            <span class="article-category">{{ article.theme }}</span>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="loading" class="loading">
-      <div class="loading-spinner"></div>
-      <p>正在加载文章...</p>
-    </div>
-    <div v-if="!loading && !error && articles.length === 0" class="no-articles">
+    <div v-if="!error && articles.length === 0" class="no-articles">
       <i class="bi bi-inbox"></i>
       <p>暂无相关文章</p>
     </div>
@@ -51,6 +47,7 @@ const router = useRouter()
 const fetchArticles = async (theme) => {
   loading.value = true
   error.value = null
+  articles.value = []
   
   try {
     const response = await getArticlesByTheme(theme)
@@ -58,7 +55,6 @@ const fetchArticles = async (theme) => {
   } catch (err) {
     console.error('获取文章列表失败:', err)
     error.value = '获取文章列表失败，请稍后重试'
-    articles.value = []
     useMockData(theme)
   } finally {
     loading.value = false
@@ -73,7 +69,7 @@ const useMockData = (theme) => {
         title:'java基础',
         summary:'java基础知识',
         date:'2025-06-28',
-        category:'java',
+        theme:'java',
         image:'https://picsum.photos/200/300'
       },
       {
@@ -81,7 +77,7 @@ const useMockData = (theme) => {
         title:'java基础',
         summary:'java基础知识',
         date:'2025-06-28',
-        category:'java',
+        theme:'java',
         image:'https://picsum.photos/200/300'
       }
     ]
@@ -239,7 +235,7 @@ onMounted(() => {
   font-weight: 500;
 }
 
-.loading, .no-articles {
+.no-articles {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -248,29 +244,15 @@ onMounted(() => {
   color: #999;
 }
 
-.loading i, .no-articles i {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-  color: #ccc;
+.no-articles i {
+  font-size: 3rem;
+  color: #ddd;
+  margin-bottom: 8px;
 }
 
-.loading p, .no-articles p {
+.no-articles p {
   margin: 0;
   font-size: 1rem;
-}
-
-.loading-spinner {
-  width: 36px;
-  height: 36px;
-  border: 3px solid rgba(71, 85, 105, 0.1);
-  border-top-color: #475569;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin-bottom: 16px;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 .error-message {
@@ -289,12 +271,6 @@ onMounted(() => {
 
 .error-message i {
   font-size: 1.1rem;
-}
-
-.no-articles i {
-  font-size: 3rem;
-  color: #ddd;
-  margin-bottom: 8px;
 }
 
 @media (max-width: 768px) {

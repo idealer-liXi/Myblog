@@ -5,7 +5,7 @@
         <div class="title-block">
           <span class="section-kicker">Media Archive</span>
           <h2 class="list-title">图片管理</h2>
-          <p class="list-subtitle">像胶片联系表一样整理素材，快速检索、预览并复制引用。</p>
+          <p class="list-subtitle">统一查看、检索、预览并复制已上传图片。写文章时也可以直接在编辑器中粘贴或拖拽图片自动上传。</p>
         </div>
 
         <div class="header-actions">
@@ -31,7 +31,27 @@
         <div class="results-chip">
           <span>当前筛选</span>
           <strong>{{ filteredImages.length }}</strong>
-          <em>/ {{ images.length }}</em>
+          <em>/ {{ selectedFolder ? selectedFolder.images.length : 0 }}</em>
+        </div>
+      </div>
+
+      <div v-if="documentFolders.length > 0" class="folder-section">
+        <div class="folder-section-head">
+          <h3 class="folder-section-title">文档图片文件夹</h3>
+          <span class="folder-section-hint">按文章标题归档</span>
+        </div>
+        <div class="folder-list">
+          <button
+            v-for="folder in documentFolders"
+            :key="folder.key"
+            type="button"
+            class="folder-card"
+            :class="{ active: folder.key === selectedFolderKey }"
+            @click="selectedFolderKey = folder.key"
+          >
+            <span class="folder-card-title">{{ folder.name }}</span>
+            <span class="folder-card-meta">{{ folder.images.length }} 张图片</span>
+          </button>
         </div>
       </div>
 
@@ -155,18 +175,53 @@ const deleteTarget = ref(null)
 const copiedUrl = ref(false)
 const copiedMd = ref(false)
 const fileInput = ref(null)
+const selectedFolderKey = ref('')
+
+const documentFolders = computed(() => {
+  const folders = new Map()
+  for (const image of images.value) {
+    if (image.imageType !== 'DOCUMENT') continue
+    const key = image.folderKey || 'ungrouped'
+    if (!folders.has(key)) {
+      folders.set(key, {
+        key,
+        name: image.folderName || '未分组图片',
+        images: []
+      })
+    }
+    folders.get(key).images.push(image)
+  }
+
+  return Array.from(folders.values()).sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
+})
+
+const selectedFolder = computed(() => {
+  return documentFolders.value.find(folder => folder.key === selectedFolderKey.value) || null
+})
 
 const filteredImages = computed(() => {
-  if (!searchKeyword.value) return images.value
+  const source = selectedFolder.value ? selectedFolder.value.images : images.value.filter(img => img.imageType === 'DOCUMENT')
+  if (!searchKeyword.value) return source
   const kw = searchKeyword.value.toLowerCase()
-  return images.value.filter(img => img.name.toLowerCase().includes(kw))
+  return source.filter(img => img.name.toLowerCase().includes(kw))
 })
+
+const ensureSelectedFolder = () => {
+  if (!documentFolders.value.length) {
+    selectedFolderKey.value = ''
+    return
+  }
+  if (!documentFolders.value.some(folder => folder.key === selectedFolderKey.value)) {
+    selectedFolderKey.value = documentFolders.value[0].key
+  }
+}
 
 const loadImages = async () => {
   loading.value = true
   error.value = null
   try {
     images.value = await getImages()
+    ensureSelectedFolder()
   } catch {
     error.value = '获取图片列表失败'
     images.value = []
@@ -185,15 +240,21 @@ const handleFileSelect = async (event) => {
 
   uploading.value = true
   let successCount = 0
+  const targetFolder = selectedFolder.value || { key: 'manual-upload', name: '手动上传' }
   for (const file of files) {
     try {
-      const url = await uploadImage(file)
+      const url = await uploadImage(file, {
+        directory: `documents/${encodeURIComponent(targetFolder.name)}`
+      })
       images.value.unshift({
         id: Date.now() + Math.random(),
         name: file.name,
         url,
         size: formatFileSize(file.size),
-        uploadedAt: new Date().toISOString()
+        uploadedAt: new Date().toISOString(),
+        imageType: 'DOCUMENT',
+        folderKey: encodeURIComponent(targetFolder.name),
+        folderName: targetFolder.name
       })
       successCount++
     } catch {
@@ -202,6 +263,7 @@ const handleFileSelect = async (event) => {
   }
   uploading.value = false
   event.target.value = ''
+  ensureSelectedFolder()
   if (successCount === 0) {
     error.value = '上传失败，请稍后重试'
   }
@@ -254,6 +316,7 @@ const handleDelete = async () => {
   try {
     await deleteImage(deleteTarget.value.id)
     images.value = images.value.filter(i => i.id !== deleteTarget.value.id)
+    ensureSelectedFolder()
     if (previewImage.value && previewImage.value.id === deleteTarget.value.id) {
       previewImage.value = null
     }
@@ -469,6 +532,73 @@ onMounted(() => {
   margin-bottom: 24px;
   position: relative;
   z-index: 1;
+}
+
+.folder-section {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 22px;
+}
+
+.folder-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.folder-section-title {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text);
+  letter-spacing: 0.08em;
+}
+
+.folder-section-hint {
+  color: var(--dim);
+  font-size: 0.8rem;
+}
+
+.folder-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.folder-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.folder-card:hover {
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.folder-card.active {
+  border-color: rgba(197, 141, 45, 0.32);
+  background: rgba(197, 141, 45, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(197, 141, 45, 0.12);
+}
+
+.folder-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.folder-card-meta {
+  color: var(--muted);
+  font-size: 0.82rem;
 }
 
 .search-box {
