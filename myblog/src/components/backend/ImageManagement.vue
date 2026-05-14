@@ -4,54 +4,26 @@
       <div class="list-header">
         <div class="title-block">
           <span class="section-kicker">Media Archive</span>
-          <h2 class="list-title">图片管理</h2>
-          <p class="list-subtitle">统一查看、检索、预览并复制已上传图片。写文章时也可以直接在编辑器中粘贴或拖拽图片自动上传。</p>
+          <h2 class="list-title">{{ viewMode === 'folder' ? activeTabLabel : currentFolderName }}</h2>
+          <p class="list-subtitle" v-if="viewMode === 'folder'">按文件夹浏览和管理你的图片资源。</p>
+          <button v-else class="btn-back" @click="exitFolder">
+            <i class="bi bi-arrow-left"></i>
+            <span>返回文件夹</span>
+          </button>
         </div>
 
         <div class="header-actions">
           <div class="header-stat">
-            <span class="stat-label">已归档</span>
-            <strong>{{ images.length }}</strong>
-            <span class="stat-hint">张图片</span>
+            <span class="stat-label">{{ viewMode === 'folder' ? '文件夹' : '图片' }}</span>
+            <strong>{{ viewMode === 'folder' ? currentFolders.length : filteredImages.length }}</strong>
+            <span class="stat-hint">{{ viewMode === 'folder' ? '个分类' : '张图片' }}</span>
           </div>
 
-          <button class="btn-upload" @click="triggerUpload" :disabled="uploading">
+          <button v-if="viewMode === 'images'" class="btn-upload" @click="triggerUpload" :disabled="uploading">
             <i class="bi" :class="uploading ? 'bi-arrow-repeat spin' : 'bi-cloud-upload'"></i>
             {{ uploading ? '上传中...' : '上传图片' }}
           </button>
           <input type="file" ref="fileInput" class="hidden-input" accept="image/*" multiple @change="handleFileSelect" />
-        </div>
-      </div>
-
-      <div class="filter-bar">
-        <div class="search-box">
-          <i class="bi bi-search"></i>
-          <input type="text" v-model="searchKeyword" placeholder="搜索文件名 / 后缀 ..." class="search-input" />
-        </div>
-        <div class="results-chip">
-          <span>当前筛选</span>
-          <strong>{{ filteredImages.length }}</strong>
-          <em>/ {{ selectedFolder ? selectedFolder.images.length : 0 }}</em>
-        </div>
-      </div>
-
-      <div v-if="documentFolders.length > 0" class="folder-section">
-        <div class="folder-section-head">
-          <h3 class="folder-section-title">文档图片文件夹</h3>
-          <span class="folder-section-hint">按文章标题归档</span>
-        </div>
-        <div class="folder-list">
-          <button
-            v-for="folder in documentFolders"
-            :key="folder.key"
-            type="button"
-            class="folder-card"
-            :class="{ active: folder.key === selectedFolderKey }"
-            @click="selectedFolderKey = folder.key"
-          >
-            <span class="folder-card-title">{{ folder.name }}</span>
-            <span class="folder-card-meta">{{ folder.images.length }} 张图片</span>
-          </button>
         </div>
       </div>
 
@@ -66,33 +38,74 @@
         <button class="btn-retry" @click="loadImages">重试</button>
       </div>
 
-      <div v-else-if="filteredImages.length === 0" class="empty-state panel-state">
-        <i class="bi bi-image"></i>
-        <p>暂无图片</p>
-        <p class="empty-hint">点击上方“上传图片”按钮添加素材，建立你的媒体档案。</p>
-      </div>
+      <template v-else>
+        <div v-if="viewMode === 'folder'" class="folder-grid">
+          <button
+            v-for="folder in currentFolders"
+            :key="folder.key"
+            type="button"
+            class="folder-cover-card"
+            @click="enterFolder(folder.key)"
+          >
+            <div class="folder-cover-thumb">
+              <img v-if="folder.cover" :src="folder.cover" :alt="folder.name" />
+              <div v-else class="folder-cover-empty">
+                <i class="bi bi-folder2-open"></i>
+              </div>
+              <div class="folder-cover-count">
+                <i class="bi bi-images"></i>
+                <span>{{ folder.images.length }}</span>
+              </div>
+            </div>
+            <div class="folder-cover-info">
+              <span class="folder-cover-name">{{ folder.name }}</span>
+              <span class="folder-cover-meta">{{ folder.images.length }} 张图片</span>
+            </div>
+          </button>
+        </div>
 
-      <div v-else class="image-grid">
-        <div
-          v-for="(img, index) in filteredImages"
-          :key="img.id"
-          class="image-card"
-          @click="openPreview(img)"
-        >
-          <div class="image-card-chrome">
-            <span class="image-index">{{ String(index + 1).padStart(2, '0') }}</span>
-            <span class="image-format">{{ getFileExtension(img.name) }}</span>
+        <div v-else>
+          <div class="filter-bar">
+            <div class="search-box">
+              <i class="bi bi-search"></i>
+              <input type="text" v-model="searchKeyword" placeholder="搜索文件名 / 后缀 ..." class="search-input" />
+            </div>
+            <div class="results-chip">
+              <span>筛选结果</span>
+              <strong>{{ filteredImages.length }}</strong>
+              <em>/ {{ selectedFolder ? selectedFolder.images.length : currentTabImages.length }}</em>
+            </div>
           </div>
-          <div class="image-thumb">
-            <img :src="img.url" :alt="img.name" loading="lazy" />
+
+          <div v-if="filteredImages.length === 0" class="empty-state panel-state">
+            <i class="bi bi-image"></i>
+            <p>暂无图片</p>
+            <p class="empty-hint">点击上方"上传图片"按钮添加素材。</p>
           </div>
-          <div class="image-info">
-            <span class="image-name" :title="img.name">{{ img.name }}</span>
-            <span class="image-meta">{{ img.size }} · {{ formatDate(img.uploadedAt) }}</span>
-            <span class="image-action-hint">点击查看详情与引用</span>
+
+          <div v-else class="image-grid">
+            <div
+              v-for="(img, index) in filteredImages"
+              :key="img.id"
+              class="image-card"
+              @click="openPreview(img)"
+            >
+              <div class="image-card-chrome">
+                <span class="image-index">{{ String(index + 1).padStart(2, '0') }}</span>
+                <span class="image-format">{{ getFileExtension(img.name) }}</span>
+              </div>
+              <div class="image-thumb">
+                <img :src="img.url" :alt="img.name" loading="lazy" />
+              </div>
+              <div class="image-info">
+                <span class="image-name" :title="img.name">{{ img.name }}</span>
+                <span class="image-meta">{{ img.size }} · {{ formatDate(img.uploadedAt) }}</span>
+                <span class="image-action-hint">点击查看详情与引用</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
     </div>
 
     <div v-if="previewImage" class="modal-overlay" @click.self="closePreview">
@@ -164,6 +177,15 @@
 import { ref, computed, onMounted } from 'vue'
 import { getImages, deleteImage, uploadImage } from '@/services/uploadService.js'
 
+const props = defineProps({
+  defaultTab: {
+    type: String,
+    default: 'DOCUMENT'
+  }
+})
+
+const activeTab = ref(props.defaultTab)
+const viewMode = ref('folder')
 const images = ref([])
 const loading = ref(false)
 const error = ref(null)
@@ -177,42 +199,79 @@ const copiedMd = ref(false)
 const fileInput = ref(null)
 const selectedFolderKey = ref('')
 
-const documentFolders = computed(() => {
+const tabLabels = {
+  DOCUMENT: '文档图片',
+  PROJECT: '项目图片',
+  USER: '用户图片'
+}
+
+const activeTabLabel = computed(() => tabLabels[activeTab.value] || '文档图片')
+
+const currentTabImages = computed(() => {
+  return images.value.filter(img => (img.imageType || 'DOCUMENT') === activeTab.value)
+})
+
+const currentFolders = computed(() => {
   const folders = new Map()
-  for (const image of images.value) {
-    if (image.imageType !== 'DOCUMENT') continue
+  for (const image of currentTabImages.value) {
     const key = image.folderKey || 'ungrouped'
     if (!folders.has(key)) {
       folders.set(key, {
         key,
         name: image.folderName || '未分组图片',
-        images: []
+        images: [],
+        cover: null
       })
     }
-    folders.get(key).images.push(image)
+    const folder = folders.get(key)
+    folder.images.push(image)
+    if (!folder.cover && image.url) {
+      folder.cover = image.url
+    }
   }
-
   return Array.from(folders.values()).sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
 })
 
 const selectedFolder = computed(() => {
-  return documentFolders.value.find(folder => folder.key === selectedFolderKey.value) || null
+  return currentFolders.value.find(folder => folder.key === selectedFolderKey.value) || null
 })
 
+const currentFolderName = computed(() => {
+  return selectedFolder.value ? selectedFolder.value.name : activeTabLabel.value
+})
+
+const enterFolder = (folderKey) => {
+  selectedFolderKey.value = folderKey
+  viewMode.value = 'images'
+  searchKeyword.value = ''
+}
+
+const exitFolder = () => {
+  viewMode.value = 'folder'
+  selectedFolderKey.value = ''
+  searchKeyword.value = ''
+}
+
 const filteredImages = computed(() => {
-  const source = selectedFolder.value ? selectedFolder.value.images : images.value.filter(img => img.imageType === 'DOCUMENT')
+  const source = selectedFolder.value ? selectedFolder.value.images : currentTabImages.value
   if (!searchKeyword.value) return source
   const kw = searchKeyword.value.toLowerCase()
   return source.filter(img => img.name.toLowerCase().includes(kw))
 })
 
+const uploadDirectory = computed(() => {
+  if (activeTab.value === 'PROJECT') return 'projects'
+  if (activeTab.value === 'USER') return 'users'
+  return 'documents'
+})
+
 const ensureSelectedFolder = () => {
-  if (!documentFolders.value.length) {
+  if (!currentFolders.value.length) {
     selectedFolderKey.value = ''
     return
   }
-  if (!documentFolders.value.some(folder => folder.key === selectedFolderKey.value)) {
-    selectedFolderKey.value = documentFolders.value[0].key
+  if (viewMode.value === 'images' && selectedFolderKey.value && !currentFolders.value.some(folder => folder.key === selectedFolderKey.value)) {
+    selectedFolderKey.value = currentFolders.value[0].key
   }
 }
 
@@ -244,7 +303,7 @@ const handleFileSelect = async (event) => {
   for (const file of files) {
     try {
       const url = await uploadImage(file, {
-        directory: `documents/${encodeURIComponent(targetFolder.name)}`
+        directory: `${uploadDirectory.value}/${encodeURIComponent(targetFolder.name)}`
       })
       images.value.unshift({
         id: Date.now() + Math.random(),
@@ -252,7 +311,7 @@ const handleFileSelect = async (event) => {
         url,
         size: formatFileSize(file.size),
         uploadedAt: new Date().toISOString(),
-        imageType: 'DOCUMENT',
+        imageType: activeTab.value,
         folderKey: encodeURIComponent(targetFolder.name),
         folderName: targetFolder.name
       })
@@ -534,71 +593,131 @@ onMounted(() => {
   z-index: 1;
 }
 
-.folder-section {
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
   position: relative;
   z-index: 1;
-  margin-bottom: 22px;
 }
 
-.folder-section-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.folder-section-title {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--text);
-  letter-spacing: 0.08em;
-}
-
-.folder-section-hint {
-  color: var(--dim);
-  font-size: 0.8rem;
-}
-
-.folder-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-}
-
-.folder-card {
+.folder-cover-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 14px 16px;
-  border-radius: 16px;
+  border-radius: 20px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  background: rgba(255, 248, 232, 0.04);
   text-align: left;
+}
+
+.folder-cover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22);
+  border-color: var(--line-strong);
+}
+
+.folder-cover-thumb {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #26211a, #151515);
+}
+
+.folder-cover-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.folder-cover-card:hover .folder-cover-thumb img {
+  transform: scale(1.06);
+}
+
+.folder-cover-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(83, 120, 214, 0.08), rgba(83, 120, 214, 0.03));
+}
+
+.folder-cover-empty i {
+  font-size: 2.8rem;
+  color: var(--dim);
+  opacity: 0.5;
+}
+
+.folder-cover-count {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.folder-cover-count i {
+  font-size: 0.82rem;
+}
+
+.folder-cover-info {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.folder-cover-name {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder-cover-meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 248, 232, 0.04);
+  color: var(--muted);
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.folder-card:hover {
+.btn-back:hover {
+  background: rgba(255, 248, 232, 0.08);
   border-color: var(--line-strong);
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
 }
 
-.folder-card.active {
-  border-color: rgba(197, 141, 45, 0.32);
-  background: rgba(197, 141, 45, 0.1);
-  box-shadow: inset 0 0 0 1px rgba(197, 141, 45, 0.12);
-}
-
-.folder-card-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.folder-card-meta {
-  color: var(--muted);
-  font-size: 0.82rem;
+.btn-back i {
+  font-size: 0.9rem;
 }
 
 .search-box {
@@ -1137,7 +1256,12 @@ onMounted(() => {
     align-items: flex-start;
   }
 
-  .header-actions,
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .filter-bar {
     width: 100%;
     flex-direction: column;
@@ -1202,6 +1326,34 @@ onMounted(() => {
     radial-gradient(circle at top right, rgba(129, 164, 234, 0.14), transparent 26%),
     linear-gradient(180deg, var(--panel-strong), var(--panel));
   box-shadow: 0 18px 36px rgba(120, 136, 170, 0.12);
+}
+
+.btn-back,
+.folder-cover-card,
+.folder-cover-name,
+.folder-cover-meta {
+  color: var(--text);
+}
+
+.folder-cover-meta {
+  color: var(--muted);
+}
+
+.folder-cover-card {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.folder-cover-card:hover {
+  box-shadow: 0 20px 48px rgba(120, 136, 170, 0.18);
+}
+
+.folder-cover-thumb,
+.folder-cover-empty {
+  background: linear-gradient(180deg, #f7f9fd, #eef2f8);
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .section-kicker,

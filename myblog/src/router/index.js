@@ -100,8 +100,25 @@ const routes = [
       },
       {
         path: 'images',
-        name: 'backend-images',
+        redirect: { name: 'backend-images-document' },
+      },
+      {
+        path: 'images/document',
+        name: 'backend-images-document',
         component: ImageManagement,
+        props: { defaultTab: 'DOCUMENT' },
+      },
+      {
+        path: 'images/project',
+        name: 'backend-images-project',
+        component: ImageManagement,
+        props: { defaultTab: 'PROJECT' },
+      },
+      {
+        path: 'images/user',
+        name: 'backend-images-user',
+        component: ImageManagement,
+        props: { defaultTab: 'USER' },
       },
       {
         path: 'users',

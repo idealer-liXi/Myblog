@@ -51,10 +51,29 @@
           </div>
         </transition>
       </div>
-      <router-link :to="{ name: 'backend-images' }" class="sidebar-item" :class="{ active: $route.name === 'backend-images' }">
-        <i class="bi bi-image"></i>
-        <span>图片管理</span>
-      </router-link>
+<div class="sidebar-group">
+        <div class="sidebar-item sidebar-parent" :class="{ active: isImageActive }" @click="imageExpanded = !imageExpanded">
+          <i class="bi bi-image"></i>
+          <span>图片管理</span>
+          <i class="bi sidebar-arrow" :class="imageExpanded ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
+        </div>
+        <transition name="expand">
+          <div v-show="imageExpanded" class="sidebar-children">
+            <router-link :to="{ name: 'backend-images-document' }" class="sidebar-child" :class="{ active: $route.name === 'backend-images-document' }">
+              <i class="bi bi-file-earmark-text"></i>
+              <span>文档图片</span>
+            </router-link>
+            <router-link :to="{ name: 'backend-images-project' }" class="sidebar-child" :class="{ active: $route.name === 'backend-images-project' }">
+              <i class="bi bi-kanban"></i>
+              <span>项目图片</span>
+            </router-link>
+            <router-link :to="{ name: 'backend-images-user' }" class="sidebar-child" :class="{ active: $route.name === 'backend-images-user' }">
+              <i class="bi bi-person-circle"></i>
+              <span>用户图片</span>
+            </router-link>
+          </div>
+        </transition>
+      </div>
       <router-link :to="{ name: 'backend-users' }" class="sidebar-item" :class="{ active: $route.name === 'backend-users' }">
         <i class="bi bi-people"></i>
         <span>用户管理</span>
@@ -83,6 +102,7 @@ const username = computed(() => userInfo.value.displayName || userInfo.value.use
 
 const articleExpanded = ref(true)
 const projectExpanded = ref(true)
+const imageExpanded = ref(true)
 
 const isArticleActive = computed(() => [
   'backend-articles',
@@ -93,6 +113,12 @@ const isArticleActive = computed(() => [
 
 const isProjectActive = computed(() => [
   'backend-projects'
+].includes(route.name))
+
+const isImageActive = computed(() => [
+  'backend-images-document',
+  'backend-images-project',
+  'backend-images-user'
 ].includes(route.name))
 
 const handleLogout = () => {

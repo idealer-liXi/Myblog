@@ -26,10 +26,7 @@
           />
           <span v-if="errors.title" class="error-tip">{{ errors.title }}</span>
         </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
+        <div class="form-group form-group-theme">
           <label class="form-label">主题 <span class="required">*</span></label>
           <select v-model="form.theme" class="form-input" :class="{ 'is-error': errors.theme }">
             <option value="">请选择主题</option>
@@ -37,15 +34,48 @@
           </select>
           <span v-if="errors.theme" class="error-tip">{{ errors.theme }}</span>
         </div>
-        <div class="form-group">
-          <label class="form-label">封面图</label>
-          <input type="text" v-model="form.image" class="form-input" placeholder="图片 URL" />
-        </div>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">摘要</label>
-        <textarea v-model="form.summary" class="form-input form-textarea" rows="3" placeholder="请输入文章摘要（可选）"></textarea>
+      <div class="form-row form-row-meta">
+        <div class="form-group form-group-summary">
+          <label class="form-label">摘要</label>
+          <textarea v-model="form.summary" class="form-input form-textarea" rows="3" placeholder="请输入文章摘要（可选）"></textarea>
+        </div>
+        <div class="form-group form-group-cover">
+          <label class="form-label">封面图</label>
+          <div
+            class="cover-upload-zone"
+            :class="{ 'is-dragover': coverDragover }"
+            @click="triggerCoverUpload"
+            @paste="handleCoverPaste"
+            @dragover.prevent="coverDragover = true"
+            @dragleave.prevent="coverDragover = false"
+            @drop.prevent="handleCoverDrop"
+            tabindex="0"
+            @keydown.enter="triggerCoverUpload"
+          >
+            <div v-if="form.image" class="cover-preview">
+              <img :src="form.image" alt="封面预览" class="cover-preview-img" />
+              <div class="cover-preview-overlay">
+                <button type="button" class="cover-btn-replace" @click.stop="triggerCoverUpload">
+                  <i class="bi bi-arrow-repeat"></i> 更换
+                </button>
+                <button type="button" class="cover-btn-remove" @click.stop="removeCover">
+                  <i class="bi bi-x-lg"></i> 移除
+                </button>
+              </div>
+            </div>
+            <div v-else class="cover-upload-empty">
+              <i class="bi bi-cloud-arrow-up"></i>
+              <span>上传 / 粘贴 / 拖拽</span>
+            </div>
+            <div v-if="coverUploading" class="cover-uploading-overlay">
+              <div class="loading-spinner"></div>
+              <span>上传中...</span>
+            </div>
+          </div>
+          <input type="file" ref="coverInput" class="hidden-input" accept="image/*" @change="handleCoverFileSelect" />
+        </div>
       </div>
 
       <div class="form-group">
@@ -116,6 +146,59 @@ const errors = ref({
 const loading = ref(false)
 const submitting = ref(false)
 const submitError = ref('')
+const coverUploading = ref(false)
+const coverDragover = ref(false)
+const coverInput = ref(null)
+
+const triggerCoverUpload = () => {
+  coverInput.value.click()
+}
+
+const removeCover = () => {
+  form.value.image = ''
+}
+
+const uploadCoverFile = async (file) => {
+  coverUploading.value = true
+  try {
+    const url = await uploadImage(file, {
+      directory: buildDocumentDirectory()
+    })
+    form.value.image = url
+  } catch {
+    submitError.value = '封面图上传失败，请稍后重试'
+  } finally {
+    coverUploading.value = false
+  }
+}
+
+const handleCoverFileSelect = (event) => {
+  const file = event.target.files?.[0]
+  if (file) uploadCoverFile(file)
+  event.target.value = ''
+}
+
+const handleCoverPaste = (event) => {
+  const items = event.clipboardData?.items
+  if (!items) return
+  for (const item of items) {
+    if (item.type.startsWith('image/')) {
+      const file = item.getAsFile()
+      if (file) {
+        uploadCoverFile(file)
+        break
+      }
+    }
+  }
+}
+
+const handleCoverDrop = (event) => {
+  coverDragover.value = false
+  const file = event.dataTransfer?.files?.[0]
+  if (file && file.type.startsWith('image/')) {
+    uploadCoverFile(file)
+  }
+}
 
 const buildDocumentDirectory = () => {
   const rawTitle = (form.value.title || '').trim() || '未命名文章'
@@ -210,7 +293,7 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .form-title {
@@ -246,34 +329,50 @@ onMounted(async () => {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .form-row {
   display: flex;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .form-row .form-group {
+  margin-bottom: 0;
+}
+
+.form-row-meta {
+  gap: 12px;
+}
+
+.form-group-summary {
+  flex: 1;
+}
+
+.form-group-cover {
   flex: 1;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .form-group-title {
-  margin-bottom: 0;
+  flex: 2;
+}
+
+.form-group-theme {
+  flex: 1;
 }
 
 .form-label {
   display: block;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: #555;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .required {
@@ -305,8 +404,8 @@ onMounted(async () => {
 
 .form-textarea {
   resize: vertical;
-  min-height: 80px;
-  line-height: 1.6;
+  min-height: 88px;
+  line-height: 1.5;
 }
 
 select.form-input {
@@ -328,10 +427,10 @@ select.form-input {
 }
 
 .editor-tip {
-  margin: 8px 2px 0;
+  margin: 6px 2px 0;
   color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.6;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .editor-wrapper.is-error {
@@ -434,10 +533,140 @@ select.form-input {
   animation: spin 0.8s linear infinite;
 }
 
+.cover-upload-zone {
+  position: relative;
+  border: 2px dashed var(--line);
+  border-radius: 14px;
+  min-height: 120px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  outline: none;
+}
+
+.cover-upload-zone:hover,
+.cover-upload-zone.is-dragover {
+  border-color: var(--accent);
+  background: rgba(83, 120, 214, 0.04);
+}
+
+.cover-upload-zone.is-dragover {
+  border-style: solid;
+}
+
+.cover-upload-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 12px;
+  gap: 6px;
+  color: var(--soft);
+}
+
+.cover-upload-empty i {
+  font-size: 1.6rem;
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.cover-upload-empty span {
+  font-size: 0.78rem;
+  color: var(--soft);
+}
+
+.cover-preview {
+  position: relative;
+  width: 100%;
+  height: 150px;
+}
+
+.cover-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cover-preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 12px;
+}
+
+.cover-preview:hover .cover-preview-overlay {
+  opacity: 1;
+}
+
+.cover-btn-replace,
+.cover-btn-remove {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cover-btn-replace {
+  background: rgba(255, 255, 255, 0.92);
+  color: #333;
+}
+
+.cover-btn-replace:hover {
+  background: #fff;
+}
+
+.cover-btn-remove {
+  background: rgba(212, 107, 107, 0.85);
+  color: #fff;
+}
+
+.cover-btn-remove:hover {
+  background: rgba(212, 107, 107, 1);
+}
+
+.cover-uploading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.hidden-input {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column;
     gap: 0;
+  }
+
+  .form-group-summary,
+  .form-group-cover {
+    flex: 1;
   }
 }
 .article-form {

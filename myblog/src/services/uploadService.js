@@ -88,6 +88,22 @@ function parseImageLocation(url) {
         folderName: decodeUrlSegment(relevantSegments[1])
       }
     }
+
+    if (relevantSegments[0] === 'projects' && relevantSegments[1]) {
+      return {
+        imageType: 'PROJECT',
+        folderKey: relevantSegments[1],
+        folderName: decodeUrlSegment(relevantSegments[1])
+      }
+    }
+
+    if (relevantSegments[0] === 'users' && relevantSegments[1]) {
+      return {
+        imageType: 'USER',
+        folderKey: relevantSegments[1],
+        folderName: decodeUrlSegment(relevantSegments[1])
+      }
+    }
   } catch {
     // fall through to ungrouped
   }

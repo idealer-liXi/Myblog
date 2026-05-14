@@ -69,3 +69,28 @@
 26-05-14.17:29:53.978 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m1s474ms65µs500ns).
 26-05-14.17:32:25.159 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
 26-05-14.17:32:25.175 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-05-14.17:34:51.624 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 25496 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
+26-05-14.17:34:51.626 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-05-14.17:34:52.281 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-05-14.17:34:52.282 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-05-14.17:34:52.317 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
+26-05-14.17:34:52.867 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+26-05-14.17:34:52.878 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+26-05-14.17:34:52.879 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-05-14.17:34:52.879 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+26-05-14.17:34:53.033 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-05-14.17:34:53.033 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1377 ms
+26-05-14.17:34:53.973 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5d94a2dc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@cedee22, org.springframework.security.web.context.SecurityContextPersistenceFilter@31a2a9fa, org.springframework.security.web.header.HeaderWriterFilter@3069a360, org.springframework.web.filter.CorsFilter@59b32539, org.springframework.security.web.authentication.logout.LogoutFilter@fa5f81c, cn.idealer01.config.utils.JwtAuthenticationFilter@7add838c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27a09971, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5ec1963c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5b47731f, org.springframework.security.web.session.SessionManagementFilter@3af58f76, org.springframework.security.web.access.ExceptionTranslationFilter@7cfac39f, org.springframework.security.web.access.intercept.AuthorizationFilter@771a7d53]
+26-05-14.17:34:54.401 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+26-05-14.17:34:54.432 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+26-05-14.17:34:54.442 [main            ] INFO  Application            - Started Application in 3.457 seconds (JVM running for 4.926)
+26-05-14.17:35:06.046 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-05-14.17:35:06.046 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+26-05-14.17:35:06.047 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 1 ms
+26-05-14.17:35:06.110 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-05-14.17:35:06.351 [http-nio-8080-exec-1] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-05-14.18:05:52.650 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=19m16s1ms37µs900ns).
+26-05-14.18:53:24.809 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=44m2s116ms355µs600ns).
+26-05-14.18:58:43.191 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m18s301ms267µs700ns).
+26-05-14.19:14:45.975 [http-nio-8080-exec-8] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-14.19:14:46.171 [http-nio-8080-exec-8] INFO  RegularUserController  - 网站用户:admin, 获取token成功
