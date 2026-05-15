@@ -1,50 +1,71 @@
 <template>
-  <div v-for="p in projects.detail" :key="p.id" class="card projects-card">
+  <div v-for="project in projects" :key="project.id" class="card projects-card">
     <div class="image-container">
-      <img :src="p.image" class="card-img" alt="项目图片">
+      <img :src="project.image || fallbackImage" class="card-img" alt="项目图片">
       <div class="image-overlay">
-        <button type="button" class="btn btn-light btn-sm view-btn">查看详情</button>
+        <button
+          type="button"
+          class="btn btn-light btn-sm view-btn"
+          :disabled="!getProjectLink(project)"
+          @click="openProject(project)"
+        >
+          查看详情
+        </button>
       </div>
     </div>
     <div class="card-body">
-      <h5 class="project-name">{{p.name}}</h5>
+      <h5 class="project-name">{{ project.name }}</h5>
       <div class="project-tags">
-        <span class="tag">Vue.js</span>
-        <span class="tag">Bootstrap</span>
+        <span v-for="tag in getProjectTags(project.techStack)" :key="`${project.id}-${tag}`" class="tag">{{ tag }}</span>
+        <span v-if="getProjectTags(project.techStack).length === 0" class="tag">{{ project.status || '项目' }}</span>
       </div>
     </div>
   </div>
+
+  <div v-if="!loading && projects.length === 0" class="empty-projects">
+    暂无公开项目
+  </div>
 </template>
 
-<script>
-export default {
-  setup(){
-    let projects = {
-      count:1,
-      detail:[
-        {
-          id: 1,
-          image:'https://www.2uyx.com/gameimages/20230322203859641af6e33da87.jpeg',
-          name: 'Web游戏平台',
-          url: '',
-        },
-        {
-          id: 2,
-          image:'https://img2.baidu.com/it/u=3442884034,846253587&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
-          name: '商城系统',
-          url: '',
-        }
-      ]
-    };
+<script setup>
+import { onMounted, ref } from 'vue'
+import { getPublicProjects } from '@/services/projectService.js'
 
-    return {
-      projects,
-    }
-  }
+const fallbackImage = 'https://picsum.photos/seed/project-fallback/500/320'
+const projects = ref([])
+const loading = ref(false)
 
-
+function getProjectTags(techStack) {
+  if (!techStack) return []
+  return techStack
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean)
+    .slice(0, 3)
 }
 
+function getProjectLink(project) {
+  return project.previewUrl || project.projectUrl || project.githubUrl || ''
+}
+
+function openProject(project) {
+  const url = getProjectLink(project)
+  if (!url) return
+  window.open(url, '_blank', 'noopener,noreferrer')
+}
+
+async function loadProjects() {
+  loading.value = true
+  try {
+    projects.value = await getPublicProjects()
+  } catch {
+    projects.value = []
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(loadProjects)
 </script>
 
 <style scoped>
@@ -110,6 +131,11 @@ export default {
   transform: translateY(0);
 }
 
+.view-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 .card-body {
   padding: 15px;
   background: white;
@@ -135,5 +161,12 @@ export default {
   padding: 3px 8px;
   border-radius: 4px;
   font-weight: 500;
+}
+
+.empty-projects {
+  text-align: center;
+  color: #7b8794;
+  padding: 18px 10px;
+  font-size: 0.9rem;
 }
 </style>

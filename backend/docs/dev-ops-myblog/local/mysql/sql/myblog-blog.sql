@@ -72,4 +72,32 @@ CREATE TABLE `image_record` (
   KEY `idx_uploader` (`uploader_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='图片记录表';
 
+-- ----------------------------
+-- Table structure for project
+-- ----------------------------
+DROP TABLE IF EXISTS `project`;
+CREATE TABLE `project` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL DEFAULT '' COMMENT '项目名称',
+  `description` varchar(1024) NOT NULL DEFAULT '' COMMENT '项目描述',
+  `tech_stack` varchar(512) NOT NULL DEFAULT '' COMMENT '技术栈',
+  `project_url` varchar(512) NOT NULL DEFAULT '' COMMENT '项目地址',
+  `github_url` varchar(512) NOT NULL DEFAULT '' COMMENT 'GitHub 地址',
+  `preview_url` varchar(512) NOT NULL DEFAULT '' COMMENT '预览地址',
+  `cover_image` varchar(512) NOT NULL DEFAULT '' COMMENT '封面图',
+  `status` varchar(32) NOT NULL DEFAULT '进行中' COMMENT '项目状态',
+  `sort_order` int(11) NOT NULL DEFAULT 0 COMMENT '排序权重',
+  `start_date` varchar(32) NOT NULL DEFAULT '' COMMENT '开始日期',
+  `end_date` varchar(32) NOT NULL DEFAULT '' COMMENT '结束日期',
+  `is_public` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否公开',
+  `enabled` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `access_type` varchar(32) NOT NULL DEFAULT 'public' COMMENT '访问类型',
+  `allowed_roles` varchar(255) NOT NULL DEFAULT '' COMMENT '允许角色列表',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_project_public_sort` (`is_public`, `sort_order`),
+  KEY `idx_project_enabled` (`enabled`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='项目表';
+
 SET FOREIGN_KEY_CHECKS = 1;

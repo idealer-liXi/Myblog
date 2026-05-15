@@ -4,22 +4,22 @@
       <div class="list-header">
         <div class="title-block">
           <span class="section-kicker">Media Archive</span>
-          <h2 class="list-title">{{ viewMode === 'folder' ? activeTabLabel : currentFolderName }}</h2>
-          <p class="list-subtitle" v-if="viewMode === 'folder'">按文件夹浏览和管理你的图片资源。</p>
+          <h2 class="list-title">{{ currentPanelTitle }}</h2>
+          <p class="list-subtitle" v-if="currentPanelSubtitle">{{ currentPanelSubtitle }}</p>
           <button v-else class="btn-back" @click="exitFolder">
             <i class="bi bi-arrow-left"></i>
-            <span>返回文件夹</span>
+            <span>{{ isProjectTab ? '返回项目列表' : '返回文件夹' }}</span>
           </button>
         </div>
 
         <div class="header-actions">
           <div class="header-stat">
-            <span class="stat-label">{{ viewMode === 'folder' ? '文件夹' : '图片' }}</span>
-            <strong>{{ viewMode === 'folder' ? currentFolders.length : filteredImages.length }}</strong>
-            <span class="stat-hint">{{ viewMode === 'folder' ? '个分类' : '张图片' }}</span>
+            <span class="stat-label">{{ headerStatLabel }}</span>
+            <strong>{{ headerStatValue }}</strong>
+            <span class="stat-hint">{{ headerStatHint }}</span>
           </div>
 
-          <button v-if="viewMode === 'images'" class="btn-upload" @click="triggerUpload" :disabled="uploading">
+          <button v-if="viewMode === 'images' && !isProjectTab" class="btn-upload" @click="triggerUpload" :disabled="uploading">
             <i class="bi" :class="uploading ? 'bi-arrow-repeat spin' : 'bi-cloud-upload'"></i>
             {{ uploading ? '上传中...' : '上传图片' }}
           </button>
@@ -40,6 +40,33 @@
 
       <template v-else>
         <div v-if="viewMode === 'folder'" class="folder-grid">
+          <template v-if="isProjectTab">
+            <button
+              v-for="project in projectCards"
+              :key="project.projectId"
+              type="button"
+              class="folder-cover-card project-cover-card"
+              @click="enterProject(project.projectId)"
+            >
+              <div class="folder-cover-thumb">
+                <img v-if="project.coverImage" :src="project.coverImage" :alt="project.projectName" />
+                <div v-else class="folder-cover-empty">
+                  <i class="bi bi-card-image"></i>
+                </div>
+                <div class="folder-cover-count project-cover-count" :class="project.hasCover ? 'has-cover' : 'no-cover'">
+                  <i class="bi" :class="project.hasCover ? 'bi-check-circle' : 'bi-dash-circle'"></i>
+                  <span>{{ project.hasCover ? '已有封面' : '无封面' }}</span>
+                </div>
+              </div>
+              <div class="folder-cover-info">
+                <span class="folder-cover-name">{{ project.projectName }}</span>
+                <span class="folder-cover-meta">项目 ID · {{ project.projectId }}</span>
+                <span class="status-badge" :class="getStatusClass(getProjectStatus(project))">{{ getProjectStatus(project) || '未知状态' }}</span>
+              </div>
+            </button>
+          </template>
+
+          <template v-else>
           <button
             v-for="folder in currentFolders"
             :key="folder.key"
@@ -62,9 +89,64 @@
               <span class="folder-cover-meta">{{ folder.images.length }} 张图片</span>
             </div>
           </button>
+          </template>
         </div>
 
         <div v-else>
+          <div v-if="isProjectTab" class="project-detail panel-state">
+            <div class="project-detail-media">
+              <img
+                v-if="projectHasCover"
+                :src="projectDetail.coverImage"
+                :alt="projectDetail.projectName"
+                class="project-detail-image"
+              />
+              <div v-else class="empty-state project-detail-empty">
+                <i class="bi bi-card-image"></i>
+                <p>当前项目还没有封面图</p>
+                <p class="empty-hint">请前往项目管理页为该项目设置封面后再回来查看。</p>
+              </div>
+            </div>
+
+            <div v-if="projectDetail" class="project-detail-sidebar">
+              <span class="section-kicker preview-kicker">Project Cover</span>
+              <h3 class="preview-title">{{ projectDetail.projectName }}</h3>
+              <div class="preview-detail">
+                <span class="detail-label">项目 ID</span>
+                <span class="detail-value">{{ projectDetail.projectId }}</span>
+              </div>
+              <div class="preview-detail">
+                <span class="detail-label">项目状态</span>
+                <span class="detail-value"><span class="status-badge" :class="getStatusClass(getProjectStatus(projectDetail))">{{ getProjectStatus(projectDetail) || '未知状态' }}</span></span>
+              </div>
+              <div class="preview-detail">
+                <span class="detail-label">封面状态</span>
+                <span class="detail-value">{{ projectHasCover ? '已有封面' : '无封面' }}</span>
+              </div>
+              <div v-if="projectDetail.updatedAt" class="preview-detail">
+                <span class="detail-label">更新时间</span>
+                <span class="detail-value">{{ formatDate(projectDetail.updatedAt) }}</span>
+              </div>
+              <div v-if="projectHasCover" class="preview-detail">
+                <span class="detail-label">封面 URL</span>
+                <span class="detail-value url-value">{{ projectDetail.coverImage }}</span>
+              </div>
+              <div v-if="projectHasCover" class="preview-actions">
+                <button class="btn-copy" @click="copyToClipboard(projectDetail.coverImage)">
+                  <i class="bi bi-clipboard"></i>
+                  {{ copiedUrl ? '已复制' : '复制 URL' }}
+                </button>
+              </div>
+              <div v-if="projectHasCover" class="preview-actions preview-actions-stack">
+                <button class="btn-delete" @click="confirmDelete(projectDetail)">
+                  <i class="bi bi-trash3"></i>
+                  清除封面
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <template v-else>
           <div class="filter-bar">
             <div class="search-box">
               <i class="bi bi-search"></i>
@@ -104,6 +186,7 @@
               </div>
             </div>
           </div>
+          </template>
         </div>
       </template>
     </div>
@@ -163,7 +246,7 @@
           <i class="bi bi-exclamation-triangle modal-icon"></i>
           <h3>确认删除</h3>
         </div>
-        <p class="modal-body">确定要删除图片「{{ deleteTarget?.name }}」吗？文章中引用的图片链接将失效。</p>
+        <p class="modal-body">{{ deleteModalBody }}</p>
         <div class="modal-actions">
           <button class="btn-cancel" @click="showDeleteModal = false">取消</button>
           <button class="btn-confirm-delete" @click="handleDelete">确认删除</button>
@@ -174,8 +257,15 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { getImages, deleteImage, uploadImage } from '@/services/uploadService.js'
+import { ref, computed, onMounted, watch } from 'vue'
+import {
+  getImages,
+  deleteImage,
+  uploadImage,
+  getProjectImages,
+  getProjectImageByProjectId,
+  clearProjectImage
+} from '@/services/uploadService.js'
 
 const props = defineProps({
   defaultTab: {
@@ -198,6 +288,10 @@ const copiedUrl = ref(false)
 const copiedMd = ref(false)
 const fileInput = ref(null)
 const selectedFolderKey = ref('')
+const projectCards = ref([])
+const selectedProjectId = ref(null)
+const projectDetail = ref(null)
+const projectDetailRequestId = ref(0)
 
 const tabLabels = {
   DOCUMENT: '文档图片',
@@ -206,12 +300,14 @@ const tabLabels = {
 }
 
 const activeTabLabel = computed(() => tabLabels[activeTab.value] || '文档图片')
+const isProjectTab = computed(() => activeTab.value === 'PROJECT')
 
 const currentTabImages = computed(() => {
   return images.value.filter(img => (img.imageType || 'DOCUMENT') === activeTab.value)
 })
 
 const currentFolders = computed(() => {
+  if (isProjectTab.value) return []
   const folders = new Map()
   for (const image of currentTabImages.value) {
     const key = image.folderKey || 'ungrouped'
@@ -240,19 +336,117 @@ const currentFolderName = computed(() => {
   return selectedFolder.value ? selectedFolder.value.name : activeTabLabel.value
 })
 
+const currentPanelTitle = computed(() => {
+  if (isProjectTab.value && viewMode.value === 'images') {
+    return projectDetail.value?.projectName || activeTabLabel.value
+  }
+  return viewMode.value === 'folder' ? activeTabLabel.value : currentFolderName.value
+})
+
+const currentPanelSubtitle = computed(() => {
+  if (viewMode.value !== 'folder') return ''
+  return isProjectTab.value ? '按项目浏览和管理每个项目的封面图。' : '按文件夹浏览和管理你的图片资源。'
+})
+
+const headerStatLabel = computed(() => {
+  if (isProjectTab.value) {
+    return viewMode.value === 'folder' ? '项目' : '封面'
+  }
+  return viewMode.value === 'folder' ? '文件夹' : '图片'
+})
+
+const headerStatValue = computed(() => {
+  if (isProjectTab.value) {
+    return viewMode.value === 'folder' ? projectCards.value.length : (projectHasCover.value ? 1 : 0)
+  }
+  return viewMode.value === 'folder' ? currentFolders.value.length : filteredImages.value.length
+})
+
+const headerStatHint = computed(() => {
+  if (isProjectTab.value) {
+    return viewMode.value === 'folder' ? '个项目' : (projectHasCover.value ? '张封面' : '无封面')
+  }
+  return viewMode.value === 'folder' ? '个分类' : '张图片'
+})
+
+const projectHasCover = computed(() => {
+  return Boolean(projectDetail.value?.hasCover && projectDetail.value?.coverImage)
+})
+
+const deleteModalBody = computed(() => {
+  if (isProjectTab.value && deleteTarget.value?.projectId != null) {
+    return `确定要清除项目「${deleteTarget.value.projectName}」的封面图吗？项目会恢复为无封面状态。`
+  }
+  return `确定要删除图片「${deleteTarget.value?.name}」吗？文章中引用的图片链接将失效。`
+})
+
+const getStatusClass = (status) => {
+  const statusMap = {
+    '进行中': 'status-progress',
+    '已完成': 'status-completed',
+    '暂停': 'status-paused'
+  }
+  return statusMap[status] || 'status-default'
+}
+
+const getProjectStatus = (project) => {
+  return project?.projectStatus || ''
+}
+
 const enterFolder = (folderKey) => {
   selectedFolderKey.value = folderKey
   viewMode.value = 'images'
   searchKeyword.value = ''
 }
 
+const loadProjectDetail = async (projectId, switchView = false) => {
+  const requestId = ++projectDetailRequestId.value
+  const detail = await getProjectImageByProjectId(projectId)
+
+  if (requestId !== projectDetailRequestId.value || selectedProjectId.value !== projectId) {
+    return false
+  }
+
+  projectDetail.value = detail
+  if (switchView) {
+    viewMode.value = 'images'
+  }
+
+  return true
+}
+
+const enterProject = async (projectId) => {
+  selectedProjectId.value = projectId
+  loading.value = true
+  error.value = null
+  try {
+    await loadProjectDetail(projectId, true)
+  } catch {
+    if (selectedProjectId.value === projectId) {
+      error.value = '获取项目封面详情失败'
+      projectDetail.value = null
+    }
+  } finally {
+    if (selectedProjectId.value === projectId) {
+      loading.value = false
+    }
+  }
+}
+
 const exitFolder = () => {
   viewMode.value = 'folder'
   selectedFolderKey.value = ''
   searchKeyword.value = ''
+  if (isProjectTab.value) {
+    projectDetailRequestId.value++
+    selectedProjectId.value = null
+    projectDetail.value = null
+    loading.value = false
+  }
 }
 
 const filteredImages = computed(() => {
+  if (isProjectTab.value) return []
   const source = selectedFolder.value ? selectedFolder.value.images : currentTabImages.value
   if (!searchKeyword.value) return source
   const kw = searchKeyword.value.toLowerCase()
@@ -260,12 +454,12 @@ const filteredImages = computed(() => {
 })
 
 const uploadDirectory = computed(() => {
-  if (activeTab.value === 'PROJECT') return 'projects'
   if (activeTab.value === 'USER') return 'users'
   return 'documents'
 })
 
 const ensureSelectedFolder = () => {
+  if (isProjectTab.value) return
   if (!currentFolders.value.length) {
     selectedFolderKey.value = ''
     return
@@ -279,10 +473,24 @@ const loadImages = async () => {
   loading.value = true
   error.value = null
   try {
-    images.value = await getImages()
-    ensureSelectedFolder()
+    if (isProjectTab.value) {
+      projectCards.value = await getProjectImages()
+      if (viewMode.value === 'images' && selectedProjectId.value) {
+        await loadProjectDetail(selectedProjectId.value)
+      } else {
+        projectDetailRequestId.value++
+        viewMode.value = 'folder'
+        selectedProjectId.value = null
+        projectDetail.value = null
+      }
+    } else {
+      images.value = await getImages()
+      ensureSelectedFolder()
+    }
   } catch {
-    error.value = '获取图片列表失败'
+    error.value = isProjectTab.value ? '获取项目图片失败' : '获取图片列表失败'
+    projectCards.value = []
+    projectDetail.value = null
     images.value = []
   } finally {
     loading.value = false
@@ -294,6 +502,10 @@ const triggerUpload = () => {
 }
 
 const handleFileSelect = async (event) => {
+  if (isProjectTab.value) {
+    event.target.value = ''
+    return
+  }
   const files = Array.from(event.target.files)
   if (!files.length) return
 
@@ -302,18 +514,8 @@ const handleFileSelect = async (event) => {
   const targetFolder = selectedFolder.value || { key: 'manual-upload', name: '手动上传' }
   for (const file of files) {
     try {
-      const url = await uploadImage(file, {
+      await uploadImage(file, {
         directory: `${uploadDirectory.value}/${encodeURIComponent(targetFolder.name)}`
-      })
-      images.value.unshift({
-        id: Date.now() + Math.random(),
-        name: file.name,
-        url,
-        size: formatFileSize(file.size),
-        uploadedAt: new Date().toISOString(),
-        imageType: activeTab.value,
-        folderKey: encodeURIComponent(targetFolder.name),
-        folderName: targetFolder.name
       })
       successCount++
     } catch {
@@ -322,9 +524,10 @@ const handleFileSelect = async (event) => {
   }
   uploading.value = false
   event.target.value = ''
-  ensureSelectedFolder()
   if (successCount === 0) {
     error.value = '上传失败，请稍后重试'
+  } else {
+    await loadImages()
   }
 }
 
@@ -373,11 +576,19 @@ const confirmDelete = (img) => {
 const handleDelete = async () => {
   if (!deleteTarget.value) return
   try {
-    await deleteImage(deleteTarget.value.id)
-    images.value = images.value.filter(i => i.id !== deleteTarget.value.id)
-    ensureSelectedFolder()
-    if (previewImage.value && previewImage.value.id === deleteTarget.value.id) {
-      previewImage.value = null
+    if (isProjectTab.value && deleteTarget.value.projectId != null) {
+      await clearProjectImage(deleteTarget.value.projectId)
+      projectCards.value = await getProjectImages()
+      if (selectedProjectId.value === deleteTarget.value.projectId) {
+        await loadProjectDetail(deleteTarget.value.projectId)
+      }
+    } else {
+      await deleteImage(deleteTarget.value.id)
+      images.value = images.value.filter(i => i.id !== deleteTarget.value.id)
+      ensureSelectedFolder()
+      if (previewImage.value && previewImage.value.id === deleteTarget.value.id) {
+        previewImage.value = null
+      }
     }
   } catch {
     // error handled
@@ -406,6 +617,30 @@ const getFileExtension = (fileName) => {
   const extension = fileName.split('.').pop()
   return extension ? extension.toUpperCase() : 'IMG'
 }
+
+const resetViewStateForTab = () => {
+  viewMode.value = 'folder'
+  searchKeyword.value = ''
+  selectedFolderKey.value = ''
+  previewImage.value = null
+  showDeleteModal.value = false
+  deleteTarget.value = null
+  copiedUrl.value = false
+  copiedMd.value = false
+  projectDetailRequestId.value++
+  selectedProjectId.value = null
+  projectDetail.value = null
+}
+
+watch(
+  () => props.defaultTab,
+  async (nextTab, prevTab) => {
+    if (nextTab === prevTab) return
+    activeTab.value = nextTab
+    resetViewStateForTab()
+    await loadImages()
+  }
+)
 
 onMounted(() => {
   loadImages()
@@ -673,6 +908,18 @@ onMounted(() => {
   font-size: 0.82rem;
 }
 
+.project-cover-count {
+  padding-inline: 12px;
+}
+
+.project-cover-count.has-cover {
+  background: rgba(12, 122, 87, 0.82);
+}
+
+.project-cover-count.no-cover {
+  background: rgba(92, 108, 138, 0.82);
+}
+
 .folder-cover-info {
   padding: 14px 16px 16px;
   display: flex;
@@ -911,6 +1158,71 @@ onMounted(() => {
   border-radius: 24px;
   border: 1px dashed var(--line);
   background: rgba(255, 248, 232, 0.025);
+}
+
+.project-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 340px);
+  overflow: hidden;
+}
+
+.project-detail-media {
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: linear-gradient(180deg, #f7f9fd, #eef2f8);
+}
+
+.project-detail-image {
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.16);
+}
+
+.project-detail-sidebar {
+  padding: 30px 24px;
+  border-left: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.project-detail-empty {
+  min-height: 100%;
+  width: 100%;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.status-progress {
+  color: #1f6b52;
+  background: rgba(73, 174, 129, 0.14);
+}
+
+.status-completed {
+  color: #2857b8;
+  background: rgba(83, 120, 214, 0.14);
+}
+
+.status-paused {
+  color: #9c6227;
+  background: rgba(217, 160, 82, 0.18);
+}
+
+.status-default {
+  color: var(--muted);
+  background: rgba(128, 145, 184, 0.14);
 }
 
 .loading-state, .error-state, .empty-state {
@@ -1283,6 +1595,15 @@ onMounted(() => {
 
   .preview-body {
     flex-direction: column;
+  }
+
+  .project-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .project-detail-sidebar {
+    border-left: none;
+    border-top: 1px solid var(--line);
   }
 
   .preview-sidebar {

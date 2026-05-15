@@ -25,7 +25,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/admin/images")
+@RequestMapping("/api/admin")
 public class ImageAdminController implements IImageAdminController {
 
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -59,7 +59,7 @@ public class ImageAdminController implements IImageAdminController {
         }
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/images/upload")
     public Response<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file,
                                                      @RequestParam(value = "directory", required = false) String directory) {
         if (file == null || file.isEmpty()) {
@@ -93,7 +93,7 @@ public class ImageAdminController implements IImageAdminController {
     }
 
     @Override
-    @GetMapping("")
+    @GetMapping("/images")
     public Response<List<Map<String, Object>>> getImages() {
         try {
             return Response.<List<Map<String, Object>>>builder()
@@ -116,7 +116,84 @@ public class ImageAdminController implements IImageAdminController {
     }
 
     @Override
-    @DeleteMapping("/{imageId}")
+    @GetMapping("/project-images")
+    public Response<List<Map<String, Object>>> getProjectImages() {
+        try {
+            return Response.<List<Map<String, Object>>>builder()
+                    .code(ResponseCode.SUCCESS.getCode())
+                    .info(ResponseCode.SUCCESS.getInfo())
+                    .data(imageService.getProjectImages())
+                    .build();
+        } catch (AppException e) {
+            return Response.<List<Map<String, Object>>>builder()
+                    .code(e.getCode())
+                    .info(e.getInfo())
+                    .build();
+        } catch (Exception e) {
+            log.error("获取项目图片列表失败", e);
+            return Response.<List<Map<String, Object>>>builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info(ResponseCode.UN_ERROR.getInfo())
+                    .build();
+        }
+    }
+
+    @Override
+    @GetMapping("/project-images/{projectId}")
+    public Response<Map<String, Object>> getProjectImageByProjectId(@PathVariable Long projectId) {
+        try {
+            Map<String, Object> data = imageService.getProjectImageByProjectId(projectId);
+            if (data == null) {
+                return Response.<Map<String, Object>>builder()
+                        .code(ResponseCode.USER_NOT_EXIST.getCode())
+                        .info("项目不存在")
+                        .build();
+            }
+
+            return Response.<Map<String, Object>>builder()
+                    .code(ResponseCode.SUCCESS.getCode())
+                    .info(ResponseCode.SUCCESS.getInfo())
+                    .data(data)
+                    .build();
+        } catch (AppException e) {
+            return Response.<Map<String, Object>>builder()
+                    .code(e.getCode())
+                    .info(e.getInfo())
+                    .build();
+        } catch (Exception e) {
+            log.error("获取项目图片详情失败 projectId:{}", projectId, e);
+            return Response.<Map<String, Object>>builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info(ResponseCode.UN_ERROR.getInfo())
+                    .build();
+        }
+    }
+
+    @Override
+    @DeleteMapping("/project-images/{projectId}")
+    public Response<Void> clearProjectImage(@PathVariable Long projectId) {
+        try {
+            imageService.clearProjectImage(projectId);
+            return Response.<Void>builder()
+                    .code(ResponseCode.SUCCESS.getCode())
+                    .info(ResponseCode.SUCCESS.getInfo())
+                    .build();
+        } catch (AppException e) {
+            return Response.<Void>builder()
+                    .code(e.getCode())
+                    .info(e.getInfo())
+                    .build();
+        } catch (Exception e) {
+            log.error("清空项目封面失败 projectId:{}", projectId, e);
+            return Response.<Void>builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info(ResponseCode.UN_ERROR.getInfo())
+                    .build();
+        }
+    }
+
+    @Override
+    @DeleteMapping("/images/{imageId}")
     public Response<Void> deleteImage(@PathVariable Long imageId) {
         try {
             imageService.deleteImage(imageId);

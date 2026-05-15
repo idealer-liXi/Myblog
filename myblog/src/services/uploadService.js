@@ -41,7 +41,14 @@ function normalizeOssUrl(url) {
     }
     const encodedPath = parsedUrl.pathname
       .split('/')
-      .map((segment, index) => (index === 0 ? segment : encodeURIComponent(segment)))
+      .map((segment, index) => {
+        if (index === 0) return segment
+        try {
+          return encodeURIComponent(decodeURIComponent(segment))
+        } catch {
+          return encodeURIComponent(segment)
+        }
+      })
       .join('/')
     return `${parsedUrl.protocol}//${parsedUrl.host}${encodedPath}${parsedUrl.search}${parsedUrl.hash}`
   } catch {
@@ -130,6 +137,21 @@ function normalizeImageRecord(image) {
   }
 }
 
+function normalizeProjectImageRecord(projectImage) {
+  if (!projectImage) return null
+  return {
+    ...projectImage,
+    coverImage: normalizeOssUrl(projectImage.coverImage || '')
+  }
+}
+
+function unwrapAdminResponse(response, fallbackMessage) {
+  if (response.data.code !== '0000') {
+    throw new Error(response.data.info || fallbackMessage)
+  }
+  return response.data.data
+}
+
 export async function uploadImage(file, options = {}) {
   const formData = new FormData()
   formData.append('file', file)
@@ -158,7 +180,12 @@ export async function getImages() {
   const response = await axios.get(`${API_BASE_URL}/images`, {
     headers: getAuthHeaders()
   })
-  const list = response.data.data || response.data || []
+  const payload = unwrapAdminResponse(response, '获取图片列表失败')
+  const list = payload == null ? [] : Array.isArray(payload)
+    ? payload
+    : (() => {
+        throw new Error('获取图片列表失败：接口返回的 data 不是数组')
+      })()
   return list.map(normalizeImageRecord).filter(Boolean)
 }
 
@@ -171,5 +198,29 @@ export async function deleteImage(id) {
   const response = await axios.delete(`${API_BASE_URL}/images/${id}`, {
     headers: getAuthHeaders()
   })
-  return response.data.code === '0000' || response.data.success !== false
+  const result = unwrapAdminResponse(response, '删除图片失败')
+  return result !== false
+}
+
+export async function getProjectImages() {
+  const response = await axios.get(`${API_BASE_URL}/project-images`, {
+    headers: getAuthHeaders()
+  })
+  const list = unwrapAdminResponse(response, '获取项目图片失败') || []
+  return Array.isArray(list) ? list.map(normalizeProjectImageRecord).filter(Boolean) : []
+}
+
+export async function getProjectImageByProjectId(projectId) {
+  const response = await axios.get(`${API_BASE_URL}/project-images/${projectId}`, {
+    headers: getAuthHeaders()
+  })
+  return normalizeProjectImageRecord(unwrapAdminResponse(response, '获取项目图片详情失败'))
+}
+
+export async function clearProjectImage(projectId) {
+  const response = await axios.delete(`${API_BASE_URL}/project-images/${projectId}`, {
+    headers: getAuthHeaders()
+  })
+  unwrapAdminResponse(response, '删除项目封面失败')
+  return true
 }

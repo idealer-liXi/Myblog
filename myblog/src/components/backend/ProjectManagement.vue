@@ -87,9 +87,46 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">项目描述</label>
-            <textarea v-model="form.description" class="form-input form-textarea" rows="3" placeholder="简要描述项目功能和特点..."></textarea>
+          <div class="form-row-inline">
+            <div class="form-group flex-1">
+              <label class="form-label">项目描述</label>
+              <textarea v-model="form.description" class="form-input form-textarea" rows="3" placeholder="简要描述项目功能和特点..."></textarea>
+            </div>
+            <div class="form-group flex-1">
+              <label class="form-label">封面图</label>
+              <div
+                class="cover-upload-zone"
+                :class="{ 'is-dragover': coverDragover }"
+                @click="triggerCoverUpload"
+                @paste="handleCoverPaste"
+                @dragover.prevent="coverDragover = true"
+                @dragleave.prevent="coverDragover = false"
+                @drop.prevent="handleCoverDrop"
+                tabindex="0"
+                @keydown.enter="triggerCoverUpload"
+              >
+                <div v-if="form.coverImage" class="cover-preview">
+                  <img :src="form.coverImage" alt="封面预览" class="cover-preview-img" />
+                  <div class="cover-preview-overlay">
+                    <button type="button" class="cover-btn-replace" @click.stop="triggerCoverUpload">
+                      <i class="bi bi-arrow-repeat"></i> 更换
+                    </button>
+                    <button type="button" class="cover-btn-remove" @click.stop="removeCover">
+                      <i class="bi bi-x-lg"></i> 移除
+                    </button>
+                  </div>
+                </div>
+                <div v-else class="cover-upload-empty">
+                  <i class="bi bi-cloud-arrow-up"></i>
+                  <span>上传 / 粘贴 / 拖拽</span>
+                </div>
+                <div v-if="coverUploading" class="cover-uploading-overlay">
+                  <div class="cover-spinner"></div>
+                  <span>上传中...</span>
+                </div>
+              </div>
+              <input type="file" ref="coverInput" class="cover-hidden-input" accept="image/*" @change="handleCoverFileSelect" />
+            </div>
           </div>
 
           <div class="form-group">
@@ -99,23 +136,12 @@
 
           <div class="form-row-inline">
             <div class="form-group flex-1">
-              <label class="form-label">项目链接</label>
-              <input type="url" v-model="form.projectUrl" class="form-input" placeholder="https://..." />
-            </div>
-            <div class="form-group flex-1">
               <label class="form-label">GitHub 地址</label>
               <input type="url" v-model="form.githubUrl" class="form-input" placeholder="https://github.com/..." />
             </div>
-          </div>
-
-          <div class="form-row-inline">
             <div class="form-group flex-1">
               <label class="form-label">预览地址</label>
               <input type="url" v-model="form.previewUrl" class="form-input" placeholder="https://..." />
-            </div>
-            <div class="form-group flex-1">
-              <label class="form-label">封面图片 URL</label>
-              <input type="url" v-model="form.coverImage" class="form-input" placeholder="https://..." />
             </div>
           </div>
 
@@ -180,6 +206,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { getProjects, getProjectById, createProject, updateProject, deleteProject } from '@/services/projectService.js'
+import { uploadImage } from '@/services/uploadService.js'
 
 const projects = ref([])
 const searchKeyword = ref('')
@@ -189,6 +216,9 @@ const isEditing = ref(false)
 const saving = ref(false)
 const formError = ref('')
 const deleteTarget = ref(null)
+const coverUploading = ref(false)
+const coverDragover = ref(false)
+const coverInput = ref(null)
 
 const form = ref({
   id: null,
@@ -267,6 +297,56 @@ const openEditModal = (proj) => {
 
 const closeModal = () => {
   showModal.value = false
+}
+
+const triggerCoverUpload = () => {
+  coverInput.value.click()
+}
+
+const removeCover = () => {
+  form.value.coverImage = ''
+}
+
+const uploadCoverFile = async (file) => {
+  coverUploading.value = true
+  try {
+    const url = await uploadImage(file, {
+      directory: 'projects'
+    })
+    form.value.coverImage = url
+  } catch {
+    formError.value = '封面图上传失败，请稍后重试'
+  } finally {
+    coverUploading.value = false
+  }
+}
+
+const handleCoverFileSelect = (event) => {
+  const file = event.target.files?.[0]
+  if (file) uploadCoverFile(file)
+  event.target.value = ''
+}
+
+const handleCoverPaste = (event) => {
+  const items = event.clipboardData?.items
+  if (!items) return
+  for (const item of items) {
+    if (item.type.startsWith('image/')) {
+      const file = item.getAsFile()
+      if (file) {
+        uploadCoverFile(file)
+        break
+      }
+    }
+  }
+}
+
+const handleCoverDrop = (event) => {
+  coverDragover.value = false
+  const file = event.dataTransfer?.files?.[0]
+  if (file && file.type.startsWith('image/')) {
+    uploadCoverFile(file)
+  }
 }
 
 const validateForm = () => {
@@ -591,21 +671,23 @@ loadProjects()
 .modal-content {
   background: white;
   border-radius: 16px;
-  padding: 28px;
-  width: 460px;
-  max-width: 90vw;
+  padding: 24px 28px;
+  width: 780px;
+  max-width: 92vw;
+  max-height: 88vh;
+  overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 .modal-large {
-  width: 600px;
+  width: 780px;
 }
 
 .modal-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .modal-title-icon {
@@ -634,17 +716,17 @@ loadProjects()
 .modal-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .form-label {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: #555;
 }
@@ -685,7 +767,7 @@ loadProjects()
 
 .form-row-inline {
   display: flex;
-  gap: 16px;
+  gap: 12px;
 }
 
 .form-row-inline .form-group {
@@ -795,6 +877,140 @@ loadProjects()
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+.cover-upload-zone {
+  position: relative;
+  border: 2px dashed var(--line);
+  border-radius: 14px;
+  min-height: 100px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  outline: none;
+}
+
+.cover-upload-zone:hover,
+.cover-upload-zone.is-dragover {
+  border-color: var(--accent);
+  background: rgba(83, 120, 214, 0.04);
+}
+
+.cover-upload-zone.is-dragover {
+  border-style: solid;
+}
+
+.cover-upload-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+  gap: 4px;
+  color: var(--soft);
+}
+
+.cover-upload-empty i {
+  font-size: 1.6rem;
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.cover-upload-empty span {
+  font-size: 0.78rem;
+  color: var(--soft);
+}
+
+.cover-preview {
+  position: relative;
+  width: 100%;
+  height: 130px;
+}
+
+.cover-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cover-preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 12px;
+}
+
+.cover-preview:hover .cover-preview-overlay {
+  opacity: 1;
+}
+
+.cover-btn-replace,
+.cover-btn-remove {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cover-btn-replace {
+  background: rgba(255, 255, 255, 0.92);
+  color: #333;
+}
+
+.cover-btn-replace:hover {
+  background: #fff;
+}
+
+.cover-btn-remove {
+  background: rgba(212, 107, 107, 0.85);
+  color: #fff;
+}
+
+.cover-btn-remove:hover {
+  background: rgba(212, 107, 107, 1);
+}
+
+.cover-uploading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.cover-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(83, 120, 214, 0.15);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.cover-hidden-input {
+  display: none;
 }
 
 .btn-confirm-delete {
