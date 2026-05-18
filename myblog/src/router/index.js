@@ -14,6 +14,7 @@ import ArticleForm from "@/components/backend/ArticleForm.vue";
 import ThemeManagement from "@/components/backend/ThemeManagement.vue";
 import ProjectManagement from "@/components/backend/ProjectManagement.vue";
 import ImageManagement from "@/components/backend/ImageManagement.vue";
+import MusicManagement from "@/components/backend/MusicManagement.vue";
 import UserManagement from "@/components/backend/UserManagement.vue";
 import { clearSession, hasValidSession } from '@/utils/authSession'
 
@@ -97,6 +98,11 @@ const routes = [
         path: 'projects',
         name: 'backend-projects',
         component: ProjectManagement,
+      },
+      {
+        path: 'music',
+        name: 'backend-music',
+        component: MusicManagement,
       },
       {
         path: 'images',

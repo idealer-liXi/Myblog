@@ -51,6 +51,10 @@
           </div>
         </transition>
       </div>
+      <router-link :to="{ name: 'backend-music' }" class="sidebar-item" :class="{ active: $route.name === 'backend-music' }">
+        <i class="bi bi-disc"></i>
+        <span>音乐管理</span>
+      </router-link>
 <div class="sidebar-group">
         <div class="sidebar-item sidebar-parent" :class="{ active: isImageActive }" @click="imageExpanded = !imageExpanded">
           <i class="bi bi-image"></i>

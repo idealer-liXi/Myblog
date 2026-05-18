@@ -54,10 +54,14 @@
             <td class="col-id">{{ article.id }}</td>
             <td class="col-title">
               <div class="title-cell">
-                <img v-if="article.image" :src="article.image" :alt="article.title" class="article-thumb" />
-                <div v-else class="article-thumb-placeholder">
-                  <i class="bi bi-image"></i>
-                </div>
+                <ImageInitialFallback
+                  :src="article.image"
+                  :name="article.title"
+                  :alt="article.title"
+                  wrapperClass="article-thumb-frame"
+                  imageClass="article-thumb"
+                  fallbackClass="article-thumb-placeholder"
+                />
                 <span class="title-text">{{ article.title }}</span>
               </div>
             </td>
@@ -118,6 +122,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { getAllArticles, deleteArticle } from '@/services/articleService.js'
 import { getThemes } from '@/services/themeService.js'
+import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
 
 const articles = ref([])
 const loading = ref(false)
@@ -404,24 +409,21 @@ onMounted(async () => {
   gap: 12px;
 }
 
-.article-thumb,
-.article-thumb-placeholder {
+.article-thumb-frame,
+:deep(.article-thumb),
+:deep(.article-thumb-placeholder) {
   width: 42px;
   height: 42px;
   border-radius: 10px;
   flex-shrink: 0;
 }
 
-.article-thumb {
+:deep(.article-thumb) {
   object-fit: cover;
 }
 
-.article-thumb-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+:deep(.article-thumb-placeholder) {
   background: rgba(242, 245, 250, 0.95);
-  color: #b5bece;
 }
 
 .title-text {

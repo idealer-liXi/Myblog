@@ -56,10 +56,14 @@
           class="recent-item"
         >
           <div class="recent-item-image">
-            <img v-if="article.image" :src="article.image" :alt="article.title" />
-            <div v-else class="placeholder-surface">
-              <i class="bi bi-image placeholder-icon"></i>
-            </div>
+            <ImageInitialFallback
+              :src="article.image"
+              :name="article.title"
+              :alt="article.title"
+              wrapperClass="recent-item-image-frame"
+              imageClass="recent-item-image-media"
+              fallbackClass="placeholder-surface recent-item-image-fallback"
+            />
           </div>
           <div class="recent-item-content">
             <span class="recent-item-title">{{ article.title }}</span>
@@ -77,6 +81,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { getAllArticles } from '@/services/articleService.js'
+import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
 
 const articles = ref([])
 const loading = ref(false)
@@ -477,9 +482,14 @@ onMounted(() => {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
-.recent-item-image img {
+.recent-item-image-frame,
+:deep(.recent-item-image-media),
+:deep(.recent-item-image-fallback) {
   width: 100%;
   height: 100%;
+}
+
+:deep(.recent-item-image-media) {
   object-fit: cover;
 }
 
@@ -490,11 +500,6 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   background: radial-gradient(circle at 30% 20%, rgba(98, 145, 230, 0.14), rgba(98, 145, 230, 0) 60%);
-}
-
-.placeholder-icon {
-  font-size: 1.2rem;
-  color: #97a6bf;
 }
 
 .recent-item-content {

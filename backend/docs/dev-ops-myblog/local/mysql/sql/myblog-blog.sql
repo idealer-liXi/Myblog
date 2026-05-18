@@ -100,4 +100,22 @@ CREATE TABLE `project` (
   KEY `idx_project_enabled` (`enabled`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='项目表';
 
+-- ----------------------------
+-- Table structure for music
+-- ----------------------------
+DROP TABLE IF EXISTS `music`;
+CREATE TABLE `music` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL DEFAULT '' COMMENT '歌曲名',
+  `artist` varchar(128) NOT NULL DEFAULT '' COMMENT '歌手',
+  `audio_url` varchar(512) NOT NULL DEFAULT '' COMMENT '音频 OSS 地址',
+  `cover_image` varchar(512) NOT NULL DEFAULT '' COMMENT '封面 OSS 地址',
+  `sort_order` int(11) NOT NULL DEFAULT 0 COMMENT '排序权重',
+  `enabled` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_music_enabled_sort` (`enabled`, `sort_order`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='音乐表';
+
 SET FOREIGN_KEY_CHECKS = 1;

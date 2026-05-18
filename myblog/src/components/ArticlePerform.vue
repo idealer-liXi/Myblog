@@ -12,7 +12,14 @@
         @click="viewArticle(article.id)"
       >
         <div class="article-image">
-          <img :src="article.image" :alt="article.title" />
+          <ImageInitialFallback
+            :src="article.image"
+            :name="article.title"
+            :alt="article.title"
+            wrapperClass="article-image-frame"
+            imageClass="article-image-media"
+            fallbackClass="article-image-fallback"
+          />
         </div>
         <div class="article-content">
           <h3 class="article-title">{{ article.title }}</h3>
@@ -35,6 +42,7 @@
 import { ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getArticlesByTheme } from '@/services/articleService.js'
+import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
 
 const articles = ref([])
 const loading = ref(false)
@@ -158,14 +166,23 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
-.article-image img {
+.article-image-frame,
+:deep(.article-image-media),
+:deep(.article-image-fallback) {
   width: 100%;
   height: 100%;
+}
+
+:deep(.article-image-media) {
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.article-card:hover .article-image img {
+:deep(.article-image-fallback) {
+  border-right: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.article-card:hover :deep(.article-image-media) {
   transform: scale(1.08);
 }
 

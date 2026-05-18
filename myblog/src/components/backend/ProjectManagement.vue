@@ -32,12 +32,14 @@
           <tr v-for="proj in filteredProjects" :key="proj.id">
             <td class="col-id">{{ proj.id }}</td>
             <td class="col-cover">
-              <div class="cover-thumb" v-if="proj.coverImage">
-                <img :src="proj.coverImage" alt="封面" />
-              </div>
-              <div class="cover-placeholder" v-else>
-                <i class="bi bi-image"></i>
-              </div>
+              <ImageInitialFallback
+                :src="proj.coverImage"
+                :name="proj.name"
+                alt="封面"
+                wrapperClass="cover-thumb-frame"
+                imageClass="cover-thumb-image"
+                fallbackClass="cover-placeholder"
+              />
             </td>
             <td class="col-name">{{ proj.name }}</td>
             <td class="col-status">
@@ -207,6 +209,7 @@
 import { ref, computed } from 'vue'
 import { getProjects, getProjectById, createProject, updateProject, deleteProject } from '@/services/projectService.js'
 import { uploadImage } from '@/services/uploadService.js'
+import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
 
 const projects = ref([])
 const searchKeyword = ref('')
@@ -528,7 +531,9 @@ loadProjects()
 .col-date { width: 110px; }
 .col-actions { width: 200px; white-space: nowrap; }
 
-.cover-thumb {
+.cover-thumb-frame,
+:deep(.cover-thumb-image),
+:deep(.cover-placeholder) {
   width: 48px;
   height: 48px;
   border-radius: 8px;
@@ -536,22 +541,15 @@ loadProjects()
   background: #f5f5f5;
 }
 
-.cover-thumb img {
+:deep(.cover-thumb-image) {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.cover-placeholder {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
+:deep(.cover-placeholder) {
   background: rgba(0, 123, 255, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #007bff;
-  font-size: 1.2rem;
 }
 
 .status-badge {

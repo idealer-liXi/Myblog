@@ -13,3 +13,45 @@
 26-05-18.10:41:48.086 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
 26-05-18.10:41:48.118 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
 26-05-18.10:41:48.130 [main            ] INFO  Application            - Started Application in 5.268 seconds (JVM running for 7.011)
+26-05-18.10:47:40.343 [http-nio-8080-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-05-18.10:47:40.343 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+26-05-18.10:47:40.345 [http-nio-8080-exec-1] INFO  DispatcherServlet      - Completed initialization in 2 ms
+26-05-18.10:47:40.450 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-05-18.10:47:40.735 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-05-18.10:59:19.708 [http-nio-8080-exec-4] INFO  Http11Processor        - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x000xee0x010x000x000xea0x030x030x01T0xef$0xf9e0x9a0xd60xde0xc60x980x960xf6r0x1e0xec0x9b0x920x9aQ0xd60xc00xa0X0x90@0xbe0xdc0xf30xb30x15g ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:263)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+26-05-18.11:48:27.446 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-05-18.11:48:27.465 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-05-18.22:42:44.838 [main            ] INFO  Application            - Starting Application using Java 1.8.0_422 on XiaoLI with PID 9288 (D:\projects\Myblog\backend\backend-app\target\classes started by 27550 in D:\projects\Myblog\backend)
+26-05-18.22:42:44.842 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-05-18.22:42:45.913 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-05-18.22:42:45.915 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-05-18.22:42:45.973 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 0 Redis repository interfaces.
+26-05-18.22:42:46.675 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port(s): 8080 (http)
+26-05-18.22:42:46.686 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8080"]
+26-05-18.22:42:46.687 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-05-18.22:42:46.687 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/9.0.75]
+26-05-18.22:42:46.960 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-05-18.22:42:46.960 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2056 ms
+26-05-18.22:42:48.312 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@77c1e611, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@12c0c0b3, org.springframework.security.web.context.SecurityContextPersistenceFilter@5d0b0cb9, org.springframework.security.web.header.HeaderWriterFilter@59b32539, org.springframework.web.filter.CorsFilter@5a97b17c, org.springframework.security.web.authentication.logout.LogoutFilter@6dd36ab6, cn.idealer01.config.utils.JwtAuthenticationFilter@34aeacd1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@16ac5d35, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@78cfa264, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@9c73fff, org.springframework.security.web.session.SessionManagementFilter@32d5279, org.springframework.security.web.access.ExceptionTranslationFilter@7e4579c7, org.springframework.security.web.access.intercept.AuthorizationFilter@35ef439e]
+26-05-18.22:42:48.770 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8080"]
+26-05-18.22:42:48.800 [main            ] INFO  TomcatWebServer        - Tomcat started on port(s): 8080 (http) with context path ''
+26-05-18.22:42:48.811 [main            ] INFO  Application            - Started Application in 4.757 seconds (JVM running for 7.129)
+26-05-18.22:42:53.356 [http-nio-8080-exec-3] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-05-18.22:42:53.357 [http-nio-8080-exec-3] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+26-05-18.22:42:53.359 [http-nio-8080-exec-3] INFO  DispatcherServlet      - Completed initialization in 2 ms
+26-05-18.22:42:53.527 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-05-18.22:42:53.913 [http-nio-8080-exec-3] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-05-18.22:43:04.666 [http-nio-8080-exec-7] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-18.22:43:04.916 [http-nio-8080-exec-7] INFO  RegularUserController  - 网站用户:admin, 获取token成功

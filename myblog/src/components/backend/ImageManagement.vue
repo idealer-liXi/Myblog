@@ -49,10 +49,14 @@
               @click="enterProject(project.projectId)"
             >
               <div class="folder-cover-thumb">
-                <img v-if="project.coverImage" :src="project.coverImage" :alt="project.projectName" />
-                <div v-else class="folder-cover-empty">
-                  <i class="bi bi-card-image"></i>
-                </div>
+                <ImageInitialFallback
+                  :src="project.coverImage"
+                  :name="project.projectName"
+                  :alt="project.projectName"
+                  wrapperClass="folder-cover-thumb-frame"
+                  imageClass="folder-cover-thumb-image"
+                  fallbackClass="folder-cover-empty project-cover-letter"
+                />
                 <div class="folder-cover-count project-cover-count" :class="project.hasCover ? 'has-cover' : 'no-cover'">
                   <i class="bi" :class="project.hasCover ? 'bi-check-circle' : 'bi-dash-circle'"></i>
                   <span>{{ project.hasCover ? '已有封面' : '无封面' }}</span>
@@ -121,17 +125,14 @@
         <div v-else>
           <div v-if="isProjectTab" class="project-detail panel-state">
             <div class="project-detail-media">
-              <img
-                v-if="projectHasCover"
-                :src="projectDetail.coverImage"
-                :alt="projectDetail.projectName"
-                class="project-detail-image"
+              <ImageInitialFallback
+                :src="projectDetail?.coverImage || ''"
+                :name="projectDetail?.projectName || ''"
+                :alt="projectDetail?.projectName || '项目封面'"
+                wrapperClass="project-detail-image-frame"
+                imageClass="project-detail-image"
+                fallbackClass="project-detail-empty project-detail-letter"
               />
-              <div v-else class="empty-state project-detail-empty">
-                <i class="bi bi-card-image"></i>
-                <p>当前项目还没有封面图</p>
-                <p class="empty-hint">请前往项目管理页为该项目设置封面后再回来查看。</p>
-              </div>
             </div>
 
             <div v-if="projectDetail" class="project-detail-sidebar">
@@ -224,22 +225,26 @@
                 <span class="detail-label">当前来源</span>
                 <span class="detail-value">{{ getAvatarSourceLabel(userAvatarDetail.avatarSource) }}</span>
               </div>
-              <div class="preview-actions user-avatar-actions-grid">
-                <button class="btn-copy" @click="updateUserAvatar(userAvatarDetail.userId, { avatarSource: 'DEFAULT' }).then(loadImages)">
-                  <i class="bi bi-person-circle"></i>
-                  使用默认头像
-                </button>
-                <button class="btn-copy btn-upload-avatar" @click="triggerUpload" :disabled="uploading">
-                  <i class="bi" :class="uploading ? 'bi-arrow-repeat spin' : 'bi-cloud-upload'"></i>
-                  {{ uploading ? '上传中...' : '上传并使用站内头像' }}
-                </button>
-                <button class="btn-copy btn-wechat-avatar" @click="updateUserAvatar(userAvatarDetail.userId, { avatarSource: 'WECHAT' }).then(loadImages)" :disabled="!userAvatarDetail.hasWeixinAvatar">
-                  <i class="bi bi-wechat"></i>
-                  使用微信头像
-                </button>
-              </div>
-              <div class="preview-actions preview-actions-stack">
-                <button class="btn-delete" @click="confirmDelete(userAvatarDetail)" :disabled="!userAvatarDetail.hasUploadedAvatar">
+              <div class="avatar-action-section">
+                <span class="avatar-action-section-label">切换头像来源</span>
+                <div class="avatar-action-grid">
+                  <button class="avatar-action-btn avatar-action-default" @click="updateUserAvatar(userAvatarDetail.userId, { avatarSource: 'DEFAULT' }).then(loadImages)">
+                    <span class="avatar-action-icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="avatar-action-label">默认头像</span>
+                    <span class="avatar-action-desc">系统生成</span>
+                  </button>
+                  <button class="avatar-action-btn avatar-action-upload" @click="triggerUpload" :disabled="uploading">
+                    <span class="avatar-action-icon"><i class="bi" :class="uploading ? 'bi-arrow-repeat spin' : 'bi-cloud-upload'"></i></span>
+                    <span class="avatar-action-label">{{ uploading ? '上传中' : '上传头像' }}</span>
+                    <span class="avatar-action-desc">自定义图片</span>
+                  </button>
+                  <button class="avatar-action-btn avatar-action-wechat" @click="updateUserAvatar(userAvatarDetail.userId, { avatarSource: 'WECHAT' }).then(loadImages)" :disabled="!userAvatarDetail.hasWeixinAvatar">
+                    <span class="avatar-action-icon"><i class="bi bi-wechat"></i></span>
+                    <span class="avatar-action-label">微信头像</span>
+                    <span class="avatar-action-desc">微信绑定</span>
+                  </button>
+                </div>
+                <button class="avatar-action-danger" @click="confirmDelete(userAvatarDetail)" :disabled="!userAvatarDetail.hasUploadedAvatar">
                   <i class="bi bi-trash3"></i>
                   清空上传头像
                 </button>
@@ -359,6 +364,7 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
+import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
 import {
   getImages,
   deleteImage,
@@ -1081,14 +1087,21 @@ onMounted(() => {
   background: linear-gradient(135deg, #26211a, #151515);
 }
 
-.folder-cover-thumb img {
+.folder-cover-thumb-frame,
+:deep(.folder-cover-thumb-image),
+:deep(.project-cover-letter) {
+  width: 100%;
+  height: 100%;
+}
+
+:deep(.folder-cover-thumb-image) {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.45s ease;
 }
 
-.folder-cover-card:hover .folder-cover-thumb img {
+.folder-cover-card:hover :deep(.folder-cover-thumb-image) {
   transform: scale(1.06);
 }
 
@@ -1099,12 +1112,6 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, rgba(83, 120, 214, 0.08), rgba(83, 120, 214, 0.03));
-}
-
-.folder-cover-empty i {
-  font-size: 2.8rem;
-  color: var(--dim);
-  opacity: 0.5;
 }
 
 .folder-cover-count {
@@ -1401,6 +1408,15 @@ onMounted(() => {
   object-fit: contain;
   border-radius: 16px;
   box-shadow: 0 22px 56px rgba(0, 0, 0, 0.16);
+}
+
+.project-detail-image-frame,
+:deep(.project-detail-letter) {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .project-detail-sidebar {
@@ -1902,6 +1918,156 @@ onMounted(() => {
   color: #fff1ee;
 }
 
+.avatar-action-section {
+  margin-top: 18px;
+}
+
+.avatar-action-section-label {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--dim);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.avatar-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.avatar-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 10px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 248, 232, 0.04);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-action-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.avatar-action-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+}
+
+.avatar-action-btn:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.avatar-action-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+.avatar-action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-action-default .avatar-action-icon {
+  background: rgba(128, 145, 184, 0.12);
+  color: var(--muted);
+}
+
+.avatar-action-upload .avatar-action-icon {
+  background: rgba(197, 141, 45, 0.14);
+  color: #c58d2d;
+}
+
+.avatar-action-wechat .avatar-action-icon {
+  background: rgba(7, 193, 96, 0.1);
+  color: #07c160;
+}
+
+.avatar-action-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-action-desc {
+  font-size: 0.66rem;
+  color: var(--dim);
+  letter-spacing: 0.06em;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-action-default::before {
+  background: rgba(128, 145, 184, 0.06);
+}
+
+.avatar-action-upload::before {
+  background: rgba(197, 141, 45, 0.08);
+}
+
+.avatar-action-upload:hover:not(:disabled) {
+  border-color: rgba(197, 141, 45, 0.35);
+}
+
+.avatar-action-wechat::before {
+  background: rgba(7, 193, 96, 0.06);
+}
+
+.avatar-action-wechat:hover:not(:disabled) {
+  border-color: rgba(7, 193, 96, 0.35);
+}
+
+.avatar-action-danger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 107, 87, 0.15);
+  background: rgba(255, 107, 87, 0.06);
+  color: rgba(255, 107, 87, 0.7);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.avatar-action-danger:hover:not(:disabled) {
+  background: rgba(255, 107, 87, 0.12);
+  color: #ff9d90;
+  border-color: rgba(255, 107, 87, 0.28);
+}
+
+.avatar-action-danger:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .modal-content {
   background: linear-gradient(180deg, rgba(24, 24, 24, 0.98), rgba(13, 13, 13, 0.98));
   border: 1px solid var(--line);
@@ -2071,6 +2237,10 @@ onMounted(() => {
 
   .user-avatar-actions-grid {
     flex-direction: column;
+  }
+
+  .avatar-action-grid {
+    grid-template-columns: 1fr;
   }
 
   .user-avatar-current-card {
@@ -2309,6 +2479,55 @@ onMounted(() => {
 
 .btn-wechat-avatar:hover:not(:disabled) {
   background: rgba(7, 193, 96, 0.12) !important;
+}
+
+.avatar-action-default {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.avatar-action-default:hover:not(:disabled) {
+  box-shadow: 0 8px 20px rgba(120, 136, 170, 0.14);
+}
+
+.avatar-action-default .avatar-action-icon {
+  background: rgba(83, 120, 214, 0.1);
+  color: var(--accent);
+}
+
+.avatar-action-upload {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.avatar-action-upload:hover:not(:disabled) {
+  border-color: rgba(83, 120, 214, 0.3);
+  box-shadow: 0 8px 20px rgba(83, 120, 214, 0.1);
+}
+
+.avatar-action-upload .avatar-action-icon {
+  background: rgba(83, 120, 214, 0.1);
+  color: var(--accent);
+}
+
+.avatar-action-wechat {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.avatar-action-wechat:hover:not(:disabled) {
+  border-color: rgba(7, 193, 96, 0.35);
+  box-shadow: 0 8px 20px rgba(7, 193, 96, 0.08);
+}
+
+.avatar-action-wechat .avatar-action-icon {
+  background: rgba(7, 193, 96, 0.08);
+  color: #07c160;
+}
+
+.avatar-action-danger {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.avatar-action-danger:hover:not(:disabled) {
+  background: rgba(212, 107, 107, 0.08);
 }
 
 .user-avatar-empty-state {

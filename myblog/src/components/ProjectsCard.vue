@@ -1,7 +1,14 @@
 <template>
   <div v-for="project in projects" :key="project.id" class="card projects-card">
     <div class="image-container">
-      <img :src="project.image || fallbackImage" class="card-img" alt="项目图片">
+      <ImageInitialFallback
+        :src="project.image"
+        :name="project.name"
+        :alt="project.name || '项目图片'"
+        wrapperClass="card-img-frame"
+        imageClass="card-img project-cover-media"
+        fallbackClass="project-cover-fallback"
+      />
       <div class="image-overlay">
         <button
           type="button"
@@ -30,8 +37,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getPublicProjects } from '@/services/projectService.js'
+import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
 
-const fallbackImage = 'https://picsum.photos/seed/project-fallback/500/320'
 const projects = ref([])
 const loading = ref(false)
 
@@ -90,15 +97,20 @@ onMounted(loadProjects)
   background: rgba(71, 85, 105, 0.06);
 }
 
-.card-img {
+.card-img-frame,
+:deep(.project-cover-media),
+:deep(.project-cover-fallback) {
   width: 100%;
   height: 100%;
+}
+
+:deep(.project-cover-media) {
   object-fit: cover;
   transition: transform 0.5s ease;
   background: rgba(71, 85, 105, 0.08);
 }
 
-.projects-card:hover .card-img {
+.projects-card:hover :deep(.project-cover-media) {
   transform: scale(1.1);
 }
 

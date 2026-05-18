@@ -3,14 +3,21 @@
     <div class="music-header">
       <div class="music-info">
         <div class="music-cover">
-          <img :src="currentMusic.image || defaultImage" :alt="currentMusic.name" />
+          <ImageInitialFallback
+            :src="currentMusic.coverImage || ''"
+            :name="currentMusic.name || '音乐'"
+            :alt="currentMusic.name || '音乐封面'"
+            wrapperClass="music-cover-frame"
+            imageClass="music-cover-image"
+            fallbackClass="music-cover-fallback"
+          />
           <div class="play-overlay" v-if="isPlaying">
             <i class="bi bi-music-note-beamed"></i>
           </div>
         </div>
         <div class="music-details">
-          <h4 class="music-title">{{ currentMusic.name || '未知歌曲' }}</h4>
-          <p class="music-artist"><i class="bi bi-music-note"></i> {{ currentMusic.artist || '未知艺术家' }}</p>
+          <h4 class="music-title">{{ currentMusic.name || '暂无音乐' }}</h4>
+          <p class="music-artist"><i class="bi bi-music-note"></i> {{ currentMusic.artist || '请先在后台添加音乐' }}</p>
         </div>
       </div>
     </div>
@@ -27,133 +34,185 @@
       </div>
     </div>
 
-    <div class="music-controls">
-      <button class="control-btn prev-btn" @click="previousTrack" :disabled="currentIndex === 0">
+<div class="music-controls">
+      <button class="control-btn prev-btn" @click="previousTrack" :disabled="!hasMusic || currentIndex === 0">
         <i class="bi bi-skip-backward-fill"></i>
       </button>
-      
-      <button class="control-btn play-btn" @click="togglePlay">
+
+      <button class="control-btn play-btn" @click="togglePlay" :disabled="!hasMusic">
         <i v-if="isPlaying" class="bi bi-pause-circle-fill"></i>
         <i v-else class="bi bi-play-circle-fill"></i>
       </button>
-      
-      <button class="control-btn next-btn" @click="nextTrack" :disabled="currentIndex === musicList.length - 1">
+
+      <button class="control-btn next-btn" @click="nextTrack" :disabled="!hasMusic || currentIndex === musicList.length - 1">
         <i class="bi bi-skip-forward-fill"></i>
       </button>
+
+      <button class="playlist-toggle-btn" @click="showPlaylist = !showPlaylist" :disabled="!hasMusic" :title="showPlaylist ? '收起列表' : '播放列表'">
+        <i class="bi" :class="showPlaylist ? 'bi-chevron-up' : 'bi-list-ul'"></i>
+      </button>
     </div>
+
+    <div v-if="error" class="music-error">{{ error }}</div>
+    <div v-else-if="!hasMusic" class="music-empty">暂无可播放音乐</div>
+
+    <Transition name="playlist">
+      <div v-if="showPlaylist && hasMusic" class="playlist-panel">
+        <button
+          v-for="(music, index) in musicList"
+          :key="music.id"
+          type="button"
+          class="playlist-item"
+          :class="{ active: index === currentIndex }"
+          @click="selectTrack(index, true)"
+        >
+          <ImageInitialFallback
+            :src="music.coverImage || ''"
+            :name="music.name || '音乐'"
+            :alt="music.name || '音乐封面'"
+            wrapperClass="playlist-cover-frame"
+            imageClass="playlist-cover-image"
+            fallbackClass="playlist-cover-fallback"
+          />
+          <span class="playlist-main">
+            <strong>{{ music.name }}</strong>
+            <small>{{ music.artist }}</small>
+          </span>
+        </button>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import defaultImage from '@/assets/images/default-music.jpg'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
+import { getPublicMusicList } from '@/services/musicService.js'
 
-// 音乐列表数据
-const musicList = ref([
-  {
-    id: 1,
-    name: '红色高跟鞋',
-    artist: '蔡健雅',
-    image: defaultImage,
-    path: '/src/assets/music/song1.mp3',
-    duration: 240
-  },
-  {
-    id: 2,
-    name: '夜曲',
-    artist: '周杰伦',
-    image: defaultImage,
-    path: '/src/assets/music/song2.mp3',
-    duration: 210
-  },
-  {
-    id: 3,
-    name: '青花瓷',
-    artist: '周杰伦',
-    image: defaultImage,
-    path: '/src/assets/music/song3.mp3',
-    duration: 235
-  }
-])
-
-// 响应式数据
+const musicList = ref([])
 const currentIndex = ref(0)
 const isPlaying = ref(false)
 const currentTime = ref(0)
 const duration = ref(0)
 const audio = ref(null)
+const showPlaylist = ref(false)
+const error = ref('')
 
-// 计算属性
-const currentMusic = computed(() => musicList.value[currentIndex.value])
-const progress = computed(() => {
-  return duration.value > 0 ? (currentTime.value / duration.value) * 100 : 0
-})
+const hasMusic = computed(() => musicList.value.length > 0)
+const currentMusic = computed(() => musicList.value[currentIndex.value] || {})
+const progress = computed(() => (duration.value > 0 ? (currentTime.value / duration.value) * 100 : 0))
 
-// 方法
-const togglePlay = () => {
-  if (!audio.value) return
-  
+const togglePlay = async () => {
+  if (!audio.value || !hasMusic.value) return
+
   if (isPlaying.value) {
     audio.value.pause()
-  } else {
-    audio.value.play()
+    isPlaying.value = false
+    return
   }
-  isPlaying.value = !isPlaying.value
+
+  try {
+    await audio.value.play()
+    isPlaying.value = true
+  } catch {
+    isPlaying.value = false
+  }
+}
+
+const loadTrack = async (autoPlay = false) => {
+  if (!audio.value || !hasMusic.value) return
+
+  audio.value.src = currentMusic.value.audioUrl || ''
+  audio.value.load()
+  currentTime.value = 0
+  duration.value = 0
+  isPlaying.value = false
+
+  if (autoPlay) {
+    try {
+      await audio.value.play()
+      isPlaying.value = true
+    } catch {
+      isPlaying.value = false
+    }
+  }
+}
+
+const selectTrack = async (index, autoPlay = false) => {
+  if (index < 0 || index >= musicList.value.length) return
+  currentIndex.value = index
+  await loadTrack(autoPlay)
 }
 
 const previousTrack = () => {
   if (currentIndex.value > 0) {
-    currentIndex.value--
-    loadTrack()
+    selectTrack(currentIndex.value - 1, isPlaying.value)
   }
 }
 
 const nextTrack = () => {
   if (currentIndex.value < musicList.value.length - 1) {
-    currentIndex.value++
-    loadTrack()
+    selectTrack(currentIndex.value + 1, isPlaying.value)
   }
 }
 
-const loadTrack = () => {
-  if (!audio.value) return
-  
-  audio.value.src = currentMusic.value.path
-  audio.value.load()
-  duration.value = currentMusic.value.duration
-  currentTime.value = 0
-  isPlaying.value = false
+const loadMusic = async () => {
+  try {
+    error.value = ''
+    musicList.value = await getPublicMusicList()
+    currentIndex.value = 0
+    if (musicList.value.length > 0) {
+      await loadTrack(false)
+    } else {
+      showPlaylist.value = false
+    }
+  } catch (err) {
+    musicList.value = []
+    error.value = err?.message || '加载音乐失败'
+    showPlaylist.value = false
+  }
 }
 
-// 音频事件监听
 const handleTimeUpdate = () => {
   if (audio.value) {
     currentTime.value = audio.value.currentTime
   }
 }
 
-const handleEnded = () => {
-  isPlaying.value = false
-  nextTrack()
+const handleLoadedMetadata = () => {
+  if (audio.value) {
+    duration.value = Number.isFinite(audio.value.duration) ? audio.value.duration : 0
+  }
 }
 
-// 生命周期
-onMounted(() => {
+const handleEnded = () => {
+  isPlaying.value = false
+  if (currentIndex.value < musicList.value.length - 1) {
+    selectTrack(currentIndex.value + 1, true)
+  }
+}
+
+onMounted(async () => {
   audio.value = new Audio()
   audio.value.addEventListener('timeupdate', handleTimeUpdate)
+  audio.value.addEventListener('loadedmetadata', handleLoadedMetadata)
   audio.value.addEventListener('ended', handleEnded)
-  loadTrack()
+  await loadMusic()
 })
 
 onUnmounted(() => {
   if (audio.value) {
     audio.value.removeEventListener('timeupdate', handleTimeUpdate)
+    audio.value.removeEventListener('loadedmetadata', handleLoadedMetadata)
     audio.value.removeEventListener('ended', handleEnded)
     audio.value.pause()
   }
 })
 
 const formatTime = (seconds) => {
+  if (!Number.isFinite(seconds) || seconds <= 0) {
+    return '0:00'
+  }
   const mins = Math.floor(seconds / 60)
   const secs = Math.floor(seconds % 60)
   return `${mins}:${secs.toString().padStart(2, '0')}`
@@ -198,10 +257,18 @@ const formatTime = (seconds) => {
   transition: all 0.3s ease;
 }
 
-.music-cover img {
+.music-cover-frame,
+.music-cover-image {
   width: 100%;
   height: 100%;
+}
+
+.music-cover-image {
   object-fit: cover;
+}
+
+.music-cover-fallback {
+  border-radius: 15px;
 }
 
 
@@ -307,13 +374,14 @@ const formatTime = (seconds) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 22px;
+  gap: 16px;
   margin-bottom: 2px;
   margin-top: 8px;
   padding: 0;
   height: unset;
   min-height: unset;
   line-height: 1;
+  position: relative;
 }
 
 .control-btn {
@@ -325,6 +393,7 @@ const formatTime = (seconds) => {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .control-btn:hover:not(:disabled) {
@@ -346,6 +415,7 @@ const formatTime = (seconds) => {
   padding: 0;
   margin: 0;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .prev-btn:hover,
@@ -364,11 +434,152 @@ const formatTime = (seconds) => {
   margin: 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .play-btn:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.playlist-toggle-btn {
+  margin-left: auto;
+  border: 1px solid rgba(74, 134, 232, 0.18);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: rgba(168, 237, 234, 0.2);
+  color: #4a86e8;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.playlist-toggle-btn:hover:not(:disabled) {
+  background: rgba(74, 134, 232, 0.16);
+  border-color: rgba(74, 134, 232, 0.3);
+}
+
+.playlist-toggle-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.music-error,
+.music-empty {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.music-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+}
+
+.music-empty {
+  background: rgba(148, 163, 184, 0.12);
+  color: #64748b;
+}
+
+.playlist-panel {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.playlist-item {
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.playlist-item:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.playlist-item.active {
+  background: rgba(168, 237, 234, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(74, 134, 232, 0.14);
+}
+
+.playlist-enter-active,
+.playlist-leave-active {
+  transition: all 0.28s ease;
+  overflow: hidden;
+}
+
+.playlist-enter-from,
+.playlist-leave-to {
+  opacity: 0;
+  max-height: 0 !important;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.playlist-enter-to,
+.playlist-leave-from {
+  opacity: 1;
+  max-height: 260px;
+}
+
+.playlist-cover-frame,
+.playlist-cover-image {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+}
+
+.playlist-cover-image {
+  object-fit: cover;
+}
+
+.playlist-cover-fallback {
+  border-radius: 12px;
+}
+
+.playlist-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-main strong,
+.playlist-main small {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-main strong {
+  font-size: 0.85rem;
+  color: #334155;
+}
+
+.playlist-main small {
+  margin-top: 2px;
+  font-size: 0.76rem;
+  color: #64748b;
 }
 
 /* 响应式设计 */
@@ -391,9 +602,13 @@ const formatTime = (seconds) => {
     font-size: 0.8rem;
   }
   
-  .music-controls {
-    gap: 15px;
+.music-controls {
+    gap: 12px;
     margin-top: 5px;
+  }
+
+  .playlist-panel {
+    max-height: 220px;
   }
   
   .prev-btn, .next-btn {
@@ -407,6 +622,12 @@ const formatTime = (seconds) => {
     height: 34px;
     font-size: 1.4rem;
   }
+
+  .playlist-toggle-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -419,6 +640,16 @@ const formatTime = (seconds) => {
   .music-cover {
     width: 55px;
     height: 55px;
+  }
+
+  .playlist-item {
+    padding: 7px;
+  }
+
+  .playlist-cover-frame,
+  .playlist-cover-image {
+    width: 40px;
+    height: 40px;
   }
   
   .music-title {
@@ -435,6 +666,12 @@ const formatTime = (seconds) => {
     font-size: 0.8rem;
     width: 25px;
     height: 25px;
+  }
+
+  .playlist-toggle-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 0.76rem;
   }
 }
 </style>
