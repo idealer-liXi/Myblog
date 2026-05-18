@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(64) DEFAULT NULL COMMENT '系统用户名，可用于展示或账号标识',
   `display_name` varchar(64) NOT NULL DEFAULT '' COMMENT '显示昵称',
-  `avatar` varchar(255) NOT NULL DEFAULT '/images/default-avatar.png' COMMENT '头像地址',
+  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '上传头像地址',
+  `avatar_source` varchar(16) NOT NULL DEFAULT 'DEFAULT' COMMENT '头像来源 DEFAULT/UPLOAD/WECHAT',
   `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '账号状态 0-禁用 1-正常',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -59,13 +60,41 @@ SET @has_avatar_column := (
 
 SET @add_avatar_sql := IF(
     @has_avatar_column = 0,
-    'ALTER TABLE `user` ADD COLUMN `avatar` varchar(255) NOT NULL DEFAULT ''/images/default-avatar.png'' COMMENT ''头像地址'' AFTER `display_name`',
+    'ALTER TABLE `user` ADD COLUMN `avatar` varchar(255) NOT NULL DEFAULT '''' COMMENT ''上传头像地址'' AFTER `display_name`',
     'SELECT 1'
 );
 
 PREPARE stmt_add_avatar FROM @add_avatar_sql;
 EXECUTE stmt_add_avatar;
 DEALLOCATE PREPARE stmt_add_avatar;
+
+SET @normalize_avatar_column_sql := IF(
+    @has_avatar_column > 0,
+    'ALTER TABLE `user` MODIFY COLUMN `avatar` varchar(255) NOT NULL DEFAULT '''' COMMENT ''上传头像地址''',
+    'SELECT 1'
+);
+
+PREPARE stmt_normalize_avatar_column FROM @normalize_avatar_column_sql;
+EXECUTE stmt_normalize_avatar_column;
+DEALLOCATE PREPARE stmt_normalize_avatar_column;
+
+SET @has_avatar_source_column := (
+    SELECT COUNT(*)
+    FROM information_schema.COLUMNS
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME = 'user'
+      AND COLUMN_NAME = 'avatar_source'
+);
+
+SET @add_avatar_source_sql := IF(
+    @has_avatar_source_column = 0,
+    'ALTER TABLE `user` ADD COLUMN `avatar_source` varchar(16) NOT NULL DEFAULT ''DEFAULT'' COMMENT ''头像来源 DEFAULT/UPLOAD/WECHAT'' AFTER `avatar`',
+    'SELECT 1'
+);
+
+PREPARE stmt_add_avatar_source FROM @add_avatar_source_sql;
+EXECUTE stmt_add_avatar_source;
+DEALLOCATE PREPARE stmt_add_avatar_source;
 
 -- 3) 让旧数据拥有基础 display_name / avatar
 UPDATE `user`
@@ -74,12 +103,25 @@ WHERE (`display_name` IS NULL OR `display_name` = '')
   AND `username` IS NOT NULL;
 
 UPDATE `user`
-SET `avatar` = '/images/default-avatar.png'
-WHERE `avatar` IS NULL OR `avatar` = '';
+SET `avatar_source` = 'DEFAULT'
+WHERE `avatar_source` IS NULL OR `avatar_source` = '';
+
+UPDATE `user`
+SET `avatar_source` = 'DEFAULT',
+    `avatar` = ''
+WHERE `avatar` IS NULL
+   OR `avatar` = ''
+   OR `avatar` = '/images/default-avatar.png';
+
+UPDATE `user`
+SET `avatar_source` = 'UPLOAD'
+WHERE `avatar_source` = 'DEFAULT'
+  AND `avatar` IS NOT NULL
+  AND `avatar` <> '';
 
 -- 4) 为全新初始化场景创建默认管理员账号
-INSERT INTO `user` (`username`, `display_name`, `avatar`, `status`)
-SELECT 'admin', '管理员', '/images/default-avatar.png', 1
+INSERT INTO `user` (`username`, `display_name`, `avatar`, `avatar_source`, `status`)
+SELECT 'admin', '管理员', '', 'DEFAULT', 1
 FROM DUAL
 WHERE NOT EXISTS (
     SELECT 1 FROM `user` WHERE `username` = 'admin'
@@ -176,5 +218,17 @@ WHERE u.username = 'admin'
       WHERE ua.auth_type = 'password'
         AND ua.auth_key = 'admin'
   );
+
+-- 11) 对历史微信账号重新归类，避免将旧微信头像 URL 当作上传头像
+UPDATE `user` u
+INNER JOIN `user_auth` ua_wechat
+        ON ua_wechat.user_id = u.id
+       AND ua_wechat.auth_type = 'wechat'
+LEFT JOIN `user_auth` ua_password
+       ON ua_password.user_id = u.id
+      AND ua_password.auth_type = 'password'
+SET u.`avatar_source` = 'WECHAT',
+    u.`avatar` = ''
+WHERE ua_password.id IS NULL;
 
 SET FOREIGN_KEY_CHECKS = 1;

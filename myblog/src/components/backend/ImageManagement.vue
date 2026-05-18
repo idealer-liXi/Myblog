@@ -8,7 +8,7 @@
           <p class="list-subtitle" v-if="currentPanelSubtitle">{{ currentPanelSubtitle }}</p>
           <button v-else class="btn-back" @click="exitFolder">
             <i class="bi bi-arrow-left"></i>
-            <span>{{ isProjectTab ? '返回项目列表' : '返回文件夹' }}</span>
+            <span>{{ isProjectTab ? '返回项目列表' : isUserTab ? '返回用户列表' : '返回文件夹' }}</span>
           </button>
         </div>
 
@@ -19,7 +19,7 @@
             <span class="stat-hint">{{ headerStatHint }}</span>
           </div>
 
-          <button v-if="viewMode === 'images' && !isProjectTab" class="btn-upload" @click="triggerUpload" :disabled="uploading">
+          <button v-if="viewMode === 'images' && !isProjectTab && !isUserTab" class="btn-upload" @click="triggerUpload" :disabled="uploading">
             <i class="bi" :class="uploading ? 'bi-arrow-repeat spin' : 'bi-cloud-upload'"></i>
             {{ uploading ? '上传中...' : '上传图片' }}
           </button>
@@ -62,6 +62,32 @@
                 <span class="folder-cover-name">{{ project.projectName }}</span>
                 <span class="folder-cover-meta">项目 ID · {{ project.projectId }}</span>
                 <span class="status-badge" :class="getStatusClass(getProjectStatus(project))">{{ getProjectStatus(project) || '未知状态' }}</span>
+              </div>
+            </button>
+          </template>
+
+          <template v-else-if="isUserTab">
+            <button
+              v-for="user in userAvatarCards"
+              :key="user.userId"
+              type="button"
+              class="folder-cover-card user-cover-card"
+              @click="enterUserAvatar(user.userId)"
+            >
+              <div class="folder-cover-thumb user-cover-thumb">
+                <img v-if="user.effectiveAvatar" :src="user.effectiveAvatar" :alt="user.displayName || user.username" />
+                <div v-else class="folder-cover-empty user-avatar-fallback-card">
+                  <span>{{ getUserInitial(user) }}</span>
+                </div>
+                <div class="folder-cover-count user-cover-source">
+                  <i class="bi bi-person-circle"></i>
+                  <span>{{ getAvatarSourceLabel(user.avatarSource) }}</span>
+                </div>
+              </div>
+              <div class="folder-cover-info">
+                <span class="folder-cover-name">{{ user.displayName || user.username }}</span>
+                <span class="folder-cover-meta">{{ user.username ? `@${user.username}` : '微信用户' }}</span>
+                <span class="folder-cover-meta">{{ user.hasUploadedAvatar ? '有上传头像' : '无上传头像' }} · {{ user.hasWeixinAvatar ? '有微信头像' : '无微信头像' }}</span>
               </div>
             </button>
           </template>
@@ -141,6 +167,81 @@
                 <button class="btn-delete" @click="confirmDelete(projectDetail)">
                   <i class="bi bi-trash3"></i>
                   清除封面
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div v-else-if="isUserTab" class="project-detail panel-state user-avatar-detail">
+            <div class="project-detail-media user-avatar-preview-grid">
+              <div class="user-avatar-preview-card user-avatar-current-card">
+                <span class="preview-source-label"><i class="bi bi-check-circle-fill"></i> 当前生效</span>
+                <img v-if="userAvatarDetail?.effectiveAvatar" :src="userAvatarDetail.effectiveAvatar" :alt="userAvatarDetail?.displayName || userAvatarDetail?.username" class="project-detail-image user-avatar-image" />
+                <div v-else class="empty-state project-detail-empty compact-empty user-avatar-letter-empty">
+                  <span>{{ getUserInitial(userAvatarDetail) }}</span>
+                </div>
+              </div>
+              <div class="user-avatar-preview-card">
+                <span class="preview-source-label">默认头像</span>
+                <div class="empty-state project-detail-empty compact-empty user-avatar-letter-empty">
+                  <span>{{ getUserInitial(userAvatarDetail) }}</span>
+                </div>
+              </div>
+              <div class="user-avatar-preview-card" :class="{ disabled: !userAvatarDetail?.hasUploadedAvatar }">
+                <span class="preview-source-label">上传头像</span>
+                <img v-if="userAvatarDetail?.hasUploadedAvatar" :src="userAvatarDetail.avatar" alt="上传头像" class="project-detail-image user-avatar-image" />
+                <div v-else class="empty-state project-detail-empty compact-empty user-avatar-empty-state">
+                  <i class="bi bi-cloud-upload"></i>
+                  <p>暂无上传</p>
+                </div>
+              </div>
+              <div class="user-avatar-preview-card" :class="{ disabled: !userAvatarDetail?.hasWeixinAvatar }">
+                <span class="preview-source-label">微信头像</span>
+                <img v-if="userAvatarDetail?.hasWeixinAvatar" :src="userAvatarDetail.weixinImageUrl" alt="微信头像" class="project-detail-image user-avatar-image" />
+                <div v-else class="empty-state project-detail-empty compact-empty user-avatar-empty-state">
+                  <i class="bi bi-wechat"></i>
+                  <p>暂无微信</p>
+                </div>
+              </div>
+            </div>
+
+            <div v-if="userAvatarDetail" class="project-detail-sidebar">
+              <span class="section-kicker preview-kicker">User Avatar</span>
+              <h3 class="preview-title">{{ userAvatarDetail.displayName || userAvatarDetail.username }}</h3>
+              <div class="preview-detail">
+                <span class="detail-label">用户 ID</span>
+                <span class="detail-value">{{ userAvatarDetail.userId }}</span>
+              </div>
+              <div class="preview-detail">
+                <span class="detail-label">用户名</span>
+                <span class="detail-value">{{ userAvatarDetail.username || '—' }}</span>
+              </div>
+              <div class="preview-detail">
+                <span class="detail-label">登录方式</span>
+                <span class="detail-value">{{ userAvatarDetail.loginType === 'weixin' ? '微信登录' : '密码登录' }}</span>
+              </div>
+              <div class="preview-detail">
+                <span class="detail-label">当前来源</span>
+                <span class="detail-value">{{ getAvatarSourceLabel(userAvatarDetail.avatarSource) }}</span>
+              </div>
+              <div class="preview-actions user-avatar-actions-grid">
+                <button class="btn-copy" @click="updateUserAvatar(userAvatarDetail.userId, { avatarSource: 'DEFAULT' }).then(loadImages)">
+                  <i class="bi bi-person-circle"></i>
+                  使用默认头像
+                </button>
+                <button class="btn-copy btn-upload-avatar" @click="triggerUpload" :disabled="uploading">
+                  <i class="bi" :class="uploading ? 'bi-arrow-repeat spin' : 'bi-cloud-upload'"></i>
+                  {{ uploading ? '上传中...' : '上传并使用站内头像' }}
+                </button>
+                <button class="btn-copy btn-wechat-avatar" @click="updateUserAvatar(userAvatarDetail.userId, { avatarSource: 'WECHAT' }).then(loadImages)" :disabled="!userAvatarDetail.hasWeixinAvatar">
+                  <i class="bi bi-wechat"></i>
+                  使用微信头像
+                </button>
+              </div>
+              <div class="preview-actions preview-actions-stack">
+                <button class="btn-delete" @click="confirmDelete(userAvatarDetail)" :disabled="!userAvatarDetail.hasUploadedAvatar">
+                  <i class="bi bi-trash3"></i>
+                  清空上传头像
                 </button>
               </div>
             </div>
@@ -266,6 +367,12 @@ import {
   getProjectImageByProjectId,
   clearProjectImage
 } from '@/services/uploadService.js'
+import {
+  getUserAvatarImages,
+  getUserAvatarImageByUserId,
+  updateUserAvatar,
+  clearUserAvatar
+} from '@/services/userService.js'
 
 const props = defineProps({
   defaultTab: {
@@ -292,6 +399,10 @@ const projectCards = ref([])
 const selectedProjectId = ref(null)
 const projectDetail = ref(null)
 const projectDetailRequestId = ref(0)
+const userAvatarCards = ref([])
+const selectedUserAvatarId = ref(null)
+const userAvatarDetail = ref(null)
+const userAvatarRequestId = ref(0)
 
 const tabLabels = {
   DOCUMENT: '文档图片',
@@ -301,13 +412,14 @@ const tabLabels = {
 
 const activeTabLabel = computed(() => tabLabels[activeTab.value] || '文档图片')
 const isProjectTab = computed(() => activeTab.value === 'PROJECT')
+const isUserTab = computed(() => activeTab.value === 'USER')
 
 const currentTabImages = computed(() => {
   return images.value.filter(img => (img.imageType || 'DOCUMENT') === activeTab.value)
 })
 
 const currentFolders = computed(() => {
-  if (isProjectTab.value) return []
+  if (isProjectTab.value || isUserTab.value) return []
   const folders = new Map()
   for (const image of currentTabImages.value) {
     const key = image.folderKey || 'ungrouped'
@@ -340,17 +452,25 @@ const currentPanelTitle = computed(() => {
   if (isProjectTab.value && viewMode.value === 'images') {
     return projectDetail.value?.projectName || activeTabLabel.value
   }
+  if (isUserTab.value && viewMode.value === 'images') {
+    return userAvatarDetail.value?.displayName || userAvatarDetail.value?.username || activeTabLabel.value
+  }
   return viewMode.value === 'folder' ? activeTabLabel.value : currentFolderName.value
 })
 
 const currentPanelSubtitle = computed(() => {
   if (viewMode.value !== 'folder') return ''
-  return isProjectTab.value ? '按项目浏览和管理每个项目的封面图。' : '按文件夹浏览和管理你的图片资源。'
+  if (isProjectTab.value) return '按项目浏览和管理每个项目的封面图。'
+  if (isUserTab.value) return '按用户浏览和管理头像来源。'
+  return '按文件夹浏览和管理你的图片资源。'
 })
 
 const headerStatLabel = computed(() => {
   if (isProjectTab.value) {
     return viewMode.value === 'folder' ? '项目' : '封面'
+  }
+  if (isUserTab.value) {
+    return viewMode.value === 'folder' ? '用户' : '头像'
   }
   return viewMode.value === 'folder' ? '文件夹' : '图片'
 })
@@ -359,12 +479,18 @@ const headerStatValue = computed(() => {
   if (isProjectTab.value) {
     return viewMode.value === 'folder' ? projectCards.value.length : (projectHasCover.value ? 1 : 0)
   }
+  if (isUserTab.value) {
+    return viewMode.value === 'folder' ? userAvatarCards.value.length : 1
+  }
   return viewMode.value === 'folder' ? currentFolders.value.length : filteredImages.value.length
 })
 
 const headerStatHint = computed(() => {
   if (isProjectTab.value) {
     return viewMode.value === 'folder' ? '个项目' : (projectHasCover.value ? '张封面' : '无封面')
+  }
+  if (isUserTab.value) {
+    return viewMode.value === 'folder' ? '位用户' : '个来源视图'
   }
   return viewMode.value === 'folder' ? '个分类' : '张图片'
 })
@@ -376,6 +502,9 @@ const projectHasCover = computed(() => {
 const deleteModalBody = computed(() => {
   if (isProjectTab.value && deleteTarget.value?.projectId != null) {
     return `确定要清除项目「${deleteTarget.value.projectName}」的封面图吗？项目会恢复为无封面状态。`
+  }
+  if (isUserTab.value && deleteTarget.value?.userId != null) {
+    return `确定要清除用户「${deleteTarget.value.displayName || deleteTarget.value.username}」的上传头像吗？系统会切回默认头像。`
   }
   return `确定要删除图片「${deleteTarget.value?.name}」吗？文章中引用的图片链接将失效。`
 })
@@ -391,6 +520,15 @@ const getStatusClass = (status) => {
 
 const getProjectStatus = (project) => {
   return project?.projectStatus || ''
+}
+
+const getAvatarSourceLabel = (avatarSource) => {
+  return avatarSource === 'UPLOAD' ? '上传头像' : avatarSource === 'WECHAT' ? '微信头像' : '默认头像'
+}
+
+const getUserInitial = (user) => {
+  const source = user?.displayName || user?.username || user?.weixinName || '?'
+  return source.slice(0, 1).toUpperCase()
 }
 
 const enterFolder = (folderKey) => {
@@ -433,6 +571,39 @@ const enterProject = async (projectId) => {
   }
 }
 
+const loadUserAvatarDetail = async (userId, switchView = false) => {
+  const requestId = ++userAvatarRequestId.value
+  const detail = await getUserAvatarImageByUserId(userId)
+
+  if (requestId !== userAvatarRequestId.value || selectedUserAvatarId.value !== userId) {
+    return false
+  }
+
+  userAvatarDetail.value = detail
+  if (switchView) {
+    viewMode.value = 'images'
+  }
+  return true
+}
+
+const enterUserAvatar = async (userId) => {
+  selectedUserAvatarId.value = userId
+  loading.value = true
+  error.value = null
+  try {
+    await loadUserAvatarDetail(userId, true)
+  } catch {
+    if (selectedUserAvatarId.value === userId) {
+      error.value = '获取用户头像详情失败'
+      userAvatarDetail.value = null
+    }
+  } finally {
+    if (selectedUserAvatarId.value === userId) {
+      loading.value = false
+    }
+  }
+}
+
 const exitFolder = () => {
   viewMode.value = 'folder'
   selectedFolderKey.value = ''
@@ -443,10 +614,16 @@ const exitFolder = () => {
     projectDetail.value = null
     loading.value = false
   }
+  if (isUserTab.value) {
+    userAvatarRequestId.value++
+    selectedUserAvatarId.value = null
+    userAvatarDetail.value = null
+    loading.value = false
+  }
 }
 
 const filteredImages = computed(() => {
-  if (isProjectTab.value) return []
+  if (isProjectTab.value || isUserTab.value) return []
   const source = selectedFolder.value ? selectedFolder.value.images : currentTabImages.value
   if (!searchKeyword.value) return source
   const kw = searchKeyword.value.toLowerCase()
@@ -454,12 +631,11 @@ const filteredImages = computed(() => {
 })
 
 const uploadDirectory = computed(() => {
-  if (activeTab.value === 'USER') return 'users'
   return 'documents'
 })
 
 const ensureSelectedFolder = () => {
-  if (isProjectTab.value) return
+  if (isProjectTab.value || isUserTab.value) return
   if (!currentFolders.value.length) {
     selectedFolderKey.value = ''
     return
@@ -483,14 +659,26 @@ const loadImages = async () => {
         selectedProjectId.value = null
         projectDetail.value = null
       }
+    } else if (isUserTab.value) {
+      userAvatarCards.value = await getUserAvatarImages()
+      if (viewMode.value === 'images' && selectedUserAvatarId.value) {
+        await loadUserAvatarDetail(selectedUserAvatarId.value)
+      } else {
+        userAvatarRequestId.value++
+        viewMode.value = 'folder'
+        selectedUserAvatarId.value = null
+        userAvatarDetail.value = null
+      }
     } else {
       images.value = await getImages()
       ensureSelectedFolder()
     }
   } catch {
-    error.value = isProjectTab.value ? '获取项目图片失败' : '获取图片列表失败'
+    error.value = isProjectTab.value ? '获取项目图片失败' : isUserTab.value ? '获取用户头像失败' : '获取图片列表失败'
     projectCards.value = []
     projectDetail.value = null
+    userAvatarCards.value = []
+    userAvatarDetail.value = null
     images.value = []
   } finally {
     loading.value = false
@@ -504,6 +692,29 @@ const triggerUpload = () => {
 const handleFileSelect = async (event) => {
   if (isProjectTab.value) {
     event.target.value = ''
+    return
+  }
+  if (isUserTab.value) {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file || !selectedUserAvatarId.value) return
+
+    uploading.value = true
+    error.value = null
+    try {
+      const url = await uploadImage(file, {
+        directory: `users/${selectedUserAvatarId.value}`
+      })
+      await updateUserAvatar(selectedUserAvatarId.value, {
+        avatarSource: 'UPLOAD',
+        avatar: url
+      })
+      await loadImages()
+    } catch {
+      error.value = '上传用户头像失败'
+    } finally {
+      uploading.value = false
+    }
     return
   }
   const files = Array.from(event.target.files)
@@ -576,11 +787,17 @@ const confirmDelete = (img) => {
 const handleDelete = async () => {
   if (!deleteTarget.value) return
   try {
-    if (isProjectTab.value && deleteTarget.value.projectId != null) {
+  if (isProjectTab.value && deleteTarget.value.projectId != null) {
       await clearProjectImage(deleteTarget.value.projectId)
       projectCards.value = await getProjectImages()
       if (selectedProjectId.value === deleteTarget.value.projectId) {
         await loadProjectDetail(deleteTarget.value.projectId)
+      }
+    } else if (isUserTab.value && deleteTarget.value.userId != null) {
+      await clearUserAvatar(deleteTarget.value.userId)
+      userAvatarCards.value = await getUserAvatarImages()
+      if (selectedUserAvatarId.value === deleteTarget.value.userId) {
+        await loadUserAvatarDetail(deleteTarget.value.userId)
       }
     } else {
       await deleteImage(deleteTarget.value.id)
@@ -630,6 +847,9 @@ const resetViewStateForTab = () => {
   projectDetailRequestId.value++
   selectedProjectId.value = null
   projectDetail.value = null
+  userAvatarRequestId.value++
+  selectedUserAvatarId.value = null
+  userAvatarDetail.value = null
 }
 
 watch(
@@ -1194,6 +1414,204 @@ onMounted(() => {
   width: 100%;
 }
 
+.user-avatar-detail {
+  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 360px);
+}
+
+.user-avatar-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 28px 24px;
+  align-content: center;
+}
+
+.user-avatar-preview-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 16px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: rgba(255, 248, 232, 0.035);
+  transition: all 0.28s ease;
+  position: relative;
+}
+
+.user-avatar-preview-card:first-child {
+  border-color: rgba(197, 141, 45, 0.35);
+  background: rgba(197, 141, 45, 0.06);
+  box-shadow: 0 8px 28px rgba(197, 141, 45, 0.1);
+}
+
+.user-avatar-preview-card.disabled {
+  opacity: 0.45;
+  filter: grayscale(0.5);
+}
+
+.preview-source-label {
+  font-size: 0.68rem;
+  color: var(--dim);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.user-avatar-preview-card:first-child .preview-source-label {
+  color: var(--accent);
+}
+
+.user-avatar-image {
+  width: 88px;
+  height: 88px;
+  max-width: 88px;
+  max-height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid var(--line);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+
+.user-avatar-preview-card:first-child .user-avatar-image {
+  border-color: rgba(197, 141, 45, 0.4);
+  box-shadow: 0 8px 28px rgba(197, 141, 45, 0.16);
+}
+
+.compact-empty {
+  min-height: auto !important;
+  padding: 0 !important;
+  gap: 6px !important;
+}
+
+.compact-empty i {
+  font-size: 2rem !important;
+}
+
+.compact-empty p {
+  font-size: 0.78rem;
+  margin: 0;
+}
+
+.user-avatar-letter-empty {
+  width: 88px;
+  height: 88px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, rgba(197, 141, 45, 0.22), rgba(197, 141, 45, 0.08)) !important;
+  border: 2.5px solid rgba(197, 141, 45, 0.25);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0;
+}
+
+.user-avatar-letter-empty span {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.user-avatar-actions-grid {
+  display: flex;
+  gap: 8px;
+}
+
+.user-avatar-actions-grid .btn-copy {
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.user-avatar-actions-grid .btn-copy i {
+  flex-shrink: 0;
+}
+
+.user-avatar-current-card {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 28px 32px;
+}
+
+.user-avatar-current-card .preview-source-label {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+}
+
+.user-avatar-current-card .user-avatar-image {
+  width: 120px;
+  height: 120px;
+  max-width: 120px;
+  max-height: 120px;
+}
+
+.user-avatar-current-card .user-avatar-letter-empty {
+  width: 120px;
+  height: 120px !important;
+}
+
+.user-avatar-current-card .user-avatar-letter-empty span {
+  font-size: 3rem;
+}
+
+.user-avatar-empty-state {
+  background: none;
+  border: 2px dashed var(--line);
+  border-radius: 50%;
+  width: 88px;
+  height: 88px;
+  margin: 0;
+  min-height: auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.user-avatar-empty-state i {
+  font-size: 1.6rem !important;
+}
+
+.user-avatar-empty-state p {
+  font-size: 0.68rem;
+  color: var(--dim);
+  margin: 0;
+}
+
+.btn-upload-avatar {
+  background: rgba(197, 141, 45, 0.12) !important;
+  border-color: rgba(197, 141, 45, 0.25) !important;
+  color: #ffd89b !important;
+}
+
+.btn-upload-avatar:hover:not(:disabled) {
+  background: rgba(197, 141, 45, 0.2) !important;
+  color: #fff4d6 !important;
+}
+
+.btn-wechat-avatar {
+  background: rgba(7, 193, 96, 0.08) !important;
+  border-color: rgba(7, 193, 96, 0.2) !important;
+  color: #47d67a !important;
+}
+
+.btn-wechat-avatar:hover:not(:disabled) {
+  background: rgba(7, 193, 96, 0.14) !important;
+  color: #6fe09c !important;
+}
+
+.btn-wechat-avatar:disabled {
+  opacity: 0.4;
+}
+
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -1624,6 +2042,67 @@ onMounted(() => {
   .modal-content {
     border-radius: 20px;
   }
+
+  .user-avatar-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .user-avatar-preview-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 20px 16px;
+  }
+
+  .user-avatar-image {
+    width: 64px;
+    height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+  }
+
+  .user-avatar-letter-empty {
+    width: 64px;
+    height: 64px !important;
+  }
+
+  .user-avatar-letter-empty span {
+    font-size: 1.6rem;
+  }
+
+  .user-avatar-actions-grid {
+    flex-direction: column;
+  }
+
+  .user-avatar-current-card {
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px 16px 18px;
+  }
+
+  .user-avatar-current-card .preview-source-label {
+    position: static;
+  }
+
+  .user-avatar-current-card .user-avatar-image {
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+  }
+
+  .user-avatar-current-card .user-avatar-letter-empty {
+    width: 80px;
+    height: 80px !important;
+  }
+
+  .user-avatar-current-card .user-avatar-letter-empty span {
+    font-size: 2rem;
+  }
+
+  .user-avatar-empty-state {
+    width: 64px;
+    height: 64px;
+  }
 }
 .image-management {
   --bg: #f4f6fb;
@@ -1777,5 +2256,62 @@ onMounted(() => {
 
 .preview-sidebar {
   border-left-color: var(--line);
+}
+
+.user-avatar-preview-card:first-child {
+  border-color: rgba(83, 120, 214, 0.3);
+  background: rgba(83, 120, 214, 0.06);
+  box-shadow: 0 8px 28px rgba(83, 120, 214, 0.1);
+}
+
+.user-avatar-preview-card {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.user-avatar-preview-card:first-child .preview-source-label {
+  color: var(--accent);
+}
+
+.user-avatar-image {
+  border-color: rgba(128, 145, 184, 0.2);
+  box-shadow: 0 6px 18px rgba(95, 122, 183, 0.12);
+}
+
+.user-avatar-preview-card:first-child .user-avatar-image {
+  border-color: rgba(83, 120, 214, 0.35);
+  box-shadow: 0 8px 24px rgba(83, 120, 214, 0.14);
+}
+
+.user-avatar-letter-empty {
+  background: linear-gradient(135deg, rgba(83, 120, 214, 0.18), rgba(83, 120, 214, 0.06)) !important;
+  border-color: rgba(83, 120, 214, 0.25) !important;
+}
+
+.user-avatar-letter-empty span {
+  color: var(--accent);
+}
+
+.btn-upload-avatar {
+  background: rgba(83, 120, 214, 0.1) !important;
+  border-color: rgba(83, 120, 214, 0.2) !important;
+  color: var(--accent) !important;
+}
+
+.btn-upload-avatar:hover:not(:disabled) {
+  background: rgba(83, 120, 214, 0.18) !important;
+}
+
+.btn-wechat-avatar {
+  background: rgba(7, 193, 96, 0.06) !important;
+  border-color: rgba(7, 193, 96, 0.15) !important;
+  color: #07c160 !important;
+}
+
+.btn-wechat-avatar:hover:not(:disabled) {
+  background: rgba(7, 193, 96, 0.12) !important;
+}
+
+.user-avatar-empty-state {
+  border-color: var(--line);
 }
 </style>

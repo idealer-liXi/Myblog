@@ -5,6 +5,7 @@ import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
 import cn.idealer01.domain.auth.model.aggregate.LoginUserAggregate;
 import cn.idealer01.domain.auth.model.entity.UserEntity;
 import cn.idealer01.domain.auth.model.entity.WeixinUserEntity;
+import cn.idealer01.domain.auth.service.UserAvatarAdminService;
 import cn.idealer01.infrastructure.dao.IRoleDao;
 import cn.idealer01.infrastructure.dao.IUserDao;
 import cn.idealer01.infrastructure.dao.IUserAuthDao;
@@ -24,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -131,6 +133,16 @@ public class LoginReposity implements ILoginRepository {
     }
 
     @Override
+    public List<CurrentUserResponseDTO> queryAllCurrentUsers() {
+        List<User> users = userDao.queryAllUsers();
+        List<CurrentUserResponseDTO> result = new ArrayList<>();
+        for (User user : users) {
+            result.add(buildCurrentUserResponse(user));
+        }
+        return result;
+    }
+
+    @Override
     public Long queryUserIdByAuthTypeAndAuthKey(String authType, String authKey) {
         UserAuth userAuth = userAuthDao.queryUserAuthByTypeAndKey(authType, authKey);
         return null == userAuth ? null : userAuth.getUserId();
@@ -158,7 +170,10 @@ public class LoginReposity implements ILoginRepository {
         User user = User.builder()
                 .username(generatedUsername)
                 .displayName(StringUtils.isBlank(displayName) ? generatedUsername : displayName)
-                .avatar(StringUtils.isBlank(avatar) ? "/images/default-avatar.png" : avatar)
+                .avatar("")
+                .avatarSource(AuthType.WECHAT.getCode().equals(authType)
+                        ? UserAvatarAdminService.AVATAR_SOURCE_WECHAT
+                        : UserAvatarAdminService.AVATAR_SOURCE_DEFAULT)
                 .status(1)
                 .build();
         userDao.insertUser(user);
@@ -182,6 +197,16 @@ public class LoginReposity implements ILoginRepository {
     @Override
     public void unbindAuthFromUser(Long userId, String authType) {
         userAuthDao.deleteUserAuthByTypeAndUserId(authType, userId);
+    }
+
+@Override
+    public void updateUserAvatar(Long userId, String avatar, String avatarSource) {
+        userDao.updateUserAvatar(userId, avatar, avatarSource);
+    }
+
+    @Override
+    public void updateUserStatus(Long userId, Integer status) {
+        userDao.updateUserStatus(userId, status);
     }
 
     private String buildWechatUsername(String authKey) {
@@ -217,10 +242,16 @@ public class LoginReposity implements ILoginRepository {
 
         boolean weixinBound = null != wechatAuth;
         String weixinName = "";
+        String weixinImageUrl = "";
         if (weixinBound) {
             WeixinUserEntity weixinUser = queryWeixinUserByOpenId(wechatAuth.getAuthKey());
-            if (null != weixinUser && StringUtils.isNotBlank(weixinUser.getWeixinName())) {
-                weixinName = weixinUser.getWeixinName();
+            if (null != weixinUser) {
+                if (StringUtils.isNotBlank(weixinUser.getWeixinName())) {
+                    weixinName = weixinUser.getWeixinName();
+                }
+                if (StringUtils.isNotBlank(weixinUser.getWeixinImageUrl())) {
+                    weixinImageUrl = weixinUser.getWeixinImageUrl();
+                }
             }
         }
 
@@ -231,16 +262,34 @@ public class LoginReposity implements ILoginRepository {
             loginType = AuthType.EMAIL.getCode();
         }
 
-        return CurrentUserResponseDTO.builder()
+CurrentUserResponseDTO response = CurrentUserResponseDTO.builder()
                 .id(user.getId())
                 .username(user.getUsername())
                 .displayName(user.getDisplayName())
-                .avatar(user.getAvatar())
                 .loginType(loginType)
                 .roles(roles)
+                .status(mapUserStatus(user.getStatus()))
                 .weixinBound(weixinBound)
                 .weixinName(weixinName)
+                .createdAt(user.getCreateTime())
+                .updatedAt(user.getUpdateTime())
                 .build();
+
+        return UserAvatarAdminService.applyCurrentUserAvatarFields(
+                response,
+                user.getAvatar(),
+                user.getAvatarSource(),
+                weixinImageUrl
+        );
+    }
+
+    private String mapUserStatus(Integer status) {
+        if (null == status) return "active";
+        switch (status) {
+            case 0: return "disabled";
+            case 2: return "deleted";
+            default: return "active";
+        }
     }
 
 

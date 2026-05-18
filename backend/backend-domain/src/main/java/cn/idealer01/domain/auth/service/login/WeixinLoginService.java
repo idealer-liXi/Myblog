@@ -131,8 +131,9 @@ public class WeixinLoginService implements IWeixinLoginService {
             throw new AppException(ResponseCode.LOGIN_ERROR);
         }
 
+        CurrentUserResponseDTO currentUser = loginReposity.queryCurrentUser(request.getUsername());
+        loginReposity.bindAuthToUser(currentUser.getId(), AuthType.WECHAT.getCode(), openId);
         CurrentUserResponseDTO profile = loginReposity.queryCurrentUser(request.getUsername());
-        loginReposity.bindAuthToUser(profile.getId(), AuthType.WECHAT.getCode(), openId);
 
         WeixinUserEntity weixinUser = loginReposity.queryWeixinUserByOpenId(openId);
         profile.setLoginType(AuthType.WECHAT.getCode());

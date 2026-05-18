@@ -1,6 +1,6 @@
-package cn.idealer01.domain.article.adapter.repository;
+package cn.idealer01.domain.project.adapter.repository;
 
-import cn.idealer01.domain.article.model.entity.ProjectEntity;
+import cn.idealer01.domain.project.model.entity.ProjectEntity;
 
 import java.util.List;
 

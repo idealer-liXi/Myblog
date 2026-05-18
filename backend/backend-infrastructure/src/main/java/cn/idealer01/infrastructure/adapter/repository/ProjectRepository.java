@@ -1,7 +1,7 @@
 package cn.idealer01.infrastructure.adapter.repository;
 
-import cn.idealer01.domain.article.adapter.repository.IProjectRepository;
-import cn.idealer01.domain.article.model.entity.ProjectEntity;
+import cn.idealer01.domain.project.adapter.repository.IProjectRepository;
+import cn.idealer01.domain.project.model.entity.ProjectEntity;
 import cn.idealer01.infrastructure.dao.IProjectDao;
 import cn.idealer01.infrastructure.dao.po.Project;
 import org.springframework.stereotype.Service;

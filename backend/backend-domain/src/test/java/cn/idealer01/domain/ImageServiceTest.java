@@ -1,10 +1,10 @@
 package cn.idealer01.domain;
 
-import cn.idealer01.domain.article.adapter.repository.IImageRepository;
-import cn.idealer01.domain.article.adapter.repository.IImageStorageRepository;
-import cn.idealer01.domain.article.adapter.repository.IProjectRepository;
-import cn.idealer01.domain.article.model.entity.ProjectEntity;
-import cn.idealer01.domain.article.service.ImageService;
+import cn.idealer01.domain.image.adapter.repository.IImageRepository;
+import cn.idealer01.domain.image.adapter.repository.IImageStorageRepository;
+import cn.idealer01.domain.project.adapter.repository.IProjectRepository;
+import cn.idealer01.domain.project.model.entity.ProjectEntity;
+import cn.idealer01.domain.image.service.ImageService;
 import cn.idealer01.types.enums.ResponseCode;
 import cn.idealer01.types.exception.AppException;
 import org.junit.jupiter.api.Test;

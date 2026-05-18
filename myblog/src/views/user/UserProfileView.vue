@@ -5,7 +5,7 @@
         <aside class="profile-aside">
           <div class="avatar-block">
             <div class="avatar-ring">
-              <img v-if="profile.avatar" :src="profile.avatar" :alt="profile.displayName" class="avatar-img" />
+              <img v-if="profile.effectiveAvatar" :src="profile.effectiveAvatar" :alt="profile.displayName" class="avatar-img" />
               <div v-else class="avatar-blank">{{ profile.initial }}</div>
             </div>
             <div class="avatar-meta">
@@ -67,8 +67,12 @@
               </span>
             </div>
             <div class="field-cell span-2">
+              <label class="field-label">当前头像来源</label>
+              <span class="field-body">{{ profile.avatarSourceLabel }}</span>
+            </div>
+            <div class="field-cell span-2">
               <label class="field-label">头像地址</label>
-              <span class="field-body mono">{{ profile.avatar || '—' }}</span>
+              <span class="field-body mono">{{ profile.effectiveAvatar || '—' }}</span>
             </div>
             <div class="field-cell span-2">
               <label class="field-label">微信绑定</label>
@@ -135,6 +139,8 @@ const profile = computed(() => {
   const username = storeUser.value.username || ''
   const weixinName = storeUser.value.weixinName || ''
   const avatar = storeUser.value.avatar || ''
+  const effectiveAvatar = storeUser.value.effectiveAvatar || avatar || ''
+  const avatarSource = storeUser.value.avatarSource || 'DEFAULT'
   const loginType = storeUser.value.loginType || 'password'
   const displayName = storeUser.value.displayName || weixinName || username || '未命名用户'
   const roles = Array.isArray(storeUser.value.roles) && storeUser.value.roles.length > 0
@@ -145,6 +151,8 @@ const profile = computed(() => {
     username,
     weixinName,
     avatar,
+    effectiveAvatar,
+    avatarSource,
     roles,
     displayName,
     initial: displayName.slice(0, 1).toUpperCase(),
@@ -154,6 +162,7 @@ const profile = computed(() => {
     description: loginType === 'weixin' ? '已通过微信扫码登录到统一账户' : '已通过用户名密码登录到统一账户',
     jwtStatus: hasValidSession() ? '有效' : '未检测到或已过期',
     weixinBound: Boolean(storeUser.value.weixinBound),
+    avatarSourceLabel: avatarSource === 'UPLOAD' ? '上传头像' : avatarSource === 'WECHAT' ? '微信头像' : '默认头像',
   }
 })
 

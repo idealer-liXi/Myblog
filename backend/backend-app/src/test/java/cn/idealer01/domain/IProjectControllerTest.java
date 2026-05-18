@@ -2,7 +2,7 @@ package cn.idealer01.domain;
 
 import cn.idealer01.api.dto.ProjectAdminResponseDTO;
 import cn.idealer01.api.dto.ProjectPublicResponseDTO;
-import cn.idealer01.domain.article.service.IProjectService;
+import cn.idealer01.domain.project.service.IProjectService;
 import cn.idealer01.trigger.http.ProjectAdminController;
 import cn.idealer01.trigger.http.ProjectPublicController;
 import org.junit.Before;

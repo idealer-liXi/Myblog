@@ -9,6 +9,7 @@ import cn.idealer01.infrastructure.dao.po.Role;
 import cn.idealer01.infrastructure.dao.po.User;
 import cn.idealer01.infrastructure.dao.po.UserAuth;
 import cn.idealer01.infrastructure.dao.po.UserRole;
+import cn.idealer01.domain.auth.service.UserAvatarAdminService;
 import cn.idealer01.types.enums.AuthType;
 import cn.idealer01.types.enums.ResponseCode;
 import cn.idealer01.types.exception.AppException;
@@ -44,7 +45,8 @@ public class RegisterRepository implements IRegisterRepository {
         User user = User.builder()
                 .username(username)
                 .displayName(username)
-                .avatar("/images/default-avatar.png")
+                .avatar("")
+                .avatarSource(UserAvatarAdminService.AVATAR_SOURCE_DEFAULT)
                 .status(1)
                 .build();
         userDao.insertUser(user);

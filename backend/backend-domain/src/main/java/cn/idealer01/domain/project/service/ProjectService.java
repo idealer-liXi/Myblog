@@ -1,10 +1,10 @@
-package cn.idealer01.domain.article.service;
+package cn.idealer01.domain.project.service;
 
 import cn.idealer01.api.dto.ProjectAdminResponseDTO;
 import cn.idealer01.api.dto.ProjectPublicResponseDTO;
 import cn.idealer01.api.dto.ProjectRequestDTO;
-import cn.idealer01.domain.article.adapter.repository.IProjectRepository;
-import cn.idealer01.domain.article.model.entity.ProjectEntity;
+import cn.idealer01.domain.project.adapter.repository.IProjectRepository;
+import cn.idealer01.domain.project.model.entity.ProjectEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

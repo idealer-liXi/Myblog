@@ -7,26 +7,56 @@
         <result column="username" property="username"/>
         <result column="display_name" property="displayName"/>
         <result column="avatar" property="avatar"/>
+        <result column="avatar_source" property="avatarSource"/>
         <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <insert id="insertUser" parameterType="cn.idealer01.infrastructure.dao.po.User" useGeneratedKeys="true" keyProperty="id">
-        insert into user(username, display_name, avatar, status)
-        values(#{username}, #{displayName}, #{avatar}, #{status})
+        insert into user(username, display_name, avatar, avatar_source, status)
+        values(#{username}, #{displayName}, #{avatar}, #{avatarSource}, #{status})
     </insert>
 
     <select id="queryUserByUserName" parameterType="java.lang.String" resultMap="dataMap">
-        select id, username, display_name, avatar, status, create_time, update_time
+        select id, username, display_name, avatar, avatar_source, status, create_time, update_time
         from user
         where username = #{username};
     </select>
 
     <select id="queryUserById" parameterType="java.lang.Long" resultMap="dataMap">
-        select id, username, display_name, avatar, status, create_time, update_time
+        select id, username, display_name, avatar, avatar_source, status, create_time, update_time
         from user
         where id = #{userId};
     </select>
+
+    <select id="queryAllUsers" resultMap="dataMap">
+        select id, username, display_name, avatar, avatar_source, status, create_time, update_time
+        from user
+        order by id desc
+    </select>
+
+    <select id="queryWechatOpenIdByUserId" parameterType="java.lang.Long" resultType="java.lang.String">
+        select auth_key
+        from user_auth
+        where user_id = #{userId}
+          and auth_type = 'wechat'
+        limit 1
+    </select>
+
+<update id="updateUserAvatar">
+        update user
+        set avatar = #{avatar},
+            avatar_source = #{avatarSource},
+            update_time = CURRENT_TIMESTAMP
+        where id = #{userId}
+    </update>
+
+    <update id="updateUserStatus">
+        update user
+        set status = #{status},
+            update_time = CURRENT_TIMESTAMP
+        where id = #{userId}
+    </update>
 
 </mapper>

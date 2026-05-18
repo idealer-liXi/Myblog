@@ -1,4 +1,4 @@
-package cn.idealer01.domain.article.adapter.repository;
+package cn.idealer01.domain.image.adapter.repository;
 
 import java.util.List;
 import java.util.Map;

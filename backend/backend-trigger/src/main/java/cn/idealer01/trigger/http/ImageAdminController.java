@@ -3,7 +3,7 @@ package cn.idealer01.trigger.http;
 import cn.idealer01.api.IImageAdminController;
 import cn.idealer01.api.dto.CurrentUserResponseDTO;
 import cn.idealer01.api.response.Response;
-import cn.idealer01.domain.article.service.IImageService;
+import cn.idealer01.domain.image.service.IImageService;
 import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
 import cn.idealer01.types.enums.ResponseCode;
 import cn.idealer01.types.exception.AppException;

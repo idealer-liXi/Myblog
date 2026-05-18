@@ -1,6 +1,6 @@
 package cn.idealer01.config;
 
-import cn.idealer01.domain.article.adapter.repository.IImageStorageRepository;
+import cn.idealer01.domain.image.adapter.repository.IImageStorageRepository;
 import cn.idealer01.infrastructure.adapter.repository.AliyunOssStorageRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -16,6 +16,7 @@ public class User {
     private String username;
     private String displayName;
     private String avatar;
+    private String avatarSource;
     private Integer status;
     private Date createTime;
     private Date updateTime;

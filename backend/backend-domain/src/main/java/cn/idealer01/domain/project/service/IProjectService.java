@@ -1,4 +1,4 @@
-package cn.idealer01.domain.article.service;
+package cn.idealer01.domain.project.service;
 
 import cn.idealer01.api.dto.ProjectAdminResponseDTO;
 import cn.idealer01.api.dto.ProjectPublicResponseDTO;

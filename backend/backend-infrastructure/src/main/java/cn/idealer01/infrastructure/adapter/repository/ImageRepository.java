@@ -1,6 +1,6 @@
 package cn.idealer01.infrastructure.adapter.repository;
 
-import cn.idealer01.domain.article.adapter.repository.IImageRepository;
+import cn.idealer01.domain.image.adapter.repository.IImageRepository;
 import cn.idealer01.infrastructure.dao.IImageRecordDao;
 import cn.idealer01.infrastructure.dao.po.ImageRecord;
 import org.springframework.stereotype.Service;

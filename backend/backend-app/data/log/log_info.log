@@ -1,21 +1,218 @@
-26-05-12.19:24:18.954 [main            ] INFO  ApiTest                - Starting ApiTest using Java 1.8.0_422 on XiaoLI with PID 7108 (started by 27550 in D:\projects\Myblog\backend\backend-app)
-26-05-12.19:24:18.955 [main            ] INFO  ApiTest                - The following 1 profile is active: "dev"
-26-05-12.19:24:20.119 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-05-12.19:24:20.124 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-05-12.19:24:20.193 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 0 Redis repository interfaces.
-26-05-12.19:24:25.396 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2dd1086, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6b8d54da, org.springframework.security.web.context.SecurityContextPersistenceFilter@2abafa97, org.springframework.security.web.header.HeaderWriterFilter@37e0056e, org.springframework.web.filter.CorsFilter@79957f11, org.springframework.security.web.authentication.logout.LogoutFilter@4b55ff0a, cn.idealer01.config.utils.JwtAuthenticationFilter@217235f5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@40717ed, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@565aa4ac, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4b41587d, org.springframework.security.web.session.SessionManagementFilter@100aa331, org.springframework.security.web.access.ExceptionTranslationFilter@1ef31f71, org.springframework.security.web.access.intercept.AuthorizationFilter@626e0c86]
-26-05-12.19:24:27.613 [main            ] INFO  ApiTest                - Started ApiTest in 9.55 seconds (JVM running for 12.175)
-26-05-12.19:25:19.164 [main            ] INFO  ApiTest                - Starting ApiTest using Java 1.8.0_422 on XiaoLI with PID 21640 (started by 27550 in D:\projects\Myblog\backend\backend-app)
-26-05-12.19:25:19.166 [main            ] INFO  ApiTest                - The following 1 profile is active: "dev"
-26-05-12.19:25:20.271 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-05-12.19:25:20.278 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-05-12.19:25:20.352 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 0 Redis repository interfaces.
-26-05-12.19:25:24.470 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@28ee0a3c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2dd1086, org.springframework.security.web.context.SecurityContextPersistenceFilter@724bf25f, org.springframework.security.web.header.HeaderWriterFilter@27976390, org.springframework.web.filter.CorsFilter@6b8d54da, org.springframework.security.web.authentication.logout.LogoutFilter@5e1a986c, cn.idealer01.config.utils.JwtAuthenticationFilter@79957f11, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6f6cc7da, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@613f7eb7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@217235f5, org.springframework.security.web.session.SessionManagementFilter@5e50df2e, org.springframework.security.web.access.ExceptionTranslationFilter@1310fcb0, org.springframework.security.web.access.intercept.AuthorizationFilter@78d23d6a]
-26-05-12.19:25:26.865 [main            ] INFO  ApiTest                - Started ApiTest in 8.508 seconds (JVM running for 10.709)
-26-05-12.19:40:35.709 [main            ] INFO  ApiTest                - Starting ApiTest using Java 1.8.0_422 on XiaoLI with PID 24220 (started by 27550 in D:\projects\Myblog\backend\backend-app)
-26-05-12.19:40:35.710 [main            ] INFO  ApiTest                - The following 1 profile is active: "dev"
-26-05-12.19:40:36.501 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-26-05-12.19:40:36.504 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-26-05-12.19:40:36.551 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 0 Redis repository interfaces.
-26-05-12.19:40:39.675 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@433ea2ac, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7f977fba, org.springframework.security.web.context.SecurityContextPersistenceFilter@43d65a81, org.springframework.security.web.header.HeaderWriterFilter@3a1b36a1, org.springframework.web.filter.CorsFilter@446e7065, org.springframework.security.web.authentication.logout.LogoutFilter@1f536481, cn.idealer01.config.utils.JwtAuthenticationFilter@d653e41, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7418d76e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@51cab489, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b78c683, org.springframework.security.web.session.SessionManagementFilter@44f0ff2b, org.springframework.security.web.access.ExceptionTranslationFilter@39549f33, org.springframework.security.web.access.intercept.AuthorizationFilter@12952aff]
-26-05-12.19:40:41.854 [main            ] INFO  ApiTest                - Started ApiTest in 6.652 seconds (JVM running for 7.899)
+26-05-16.15:08:06.627 [main            ] INFO  ApiTest                - Starting ApiTest using Java 17.0.7 on XiaoLI with PID 6768 (started by 27550 in D:\projects\Myblog\backend\backend-app)
+26-05-16.15:08:06.628 [main            ] INFO  ApiTest                - The following 1 profile is active: "dev"
+26-05-16.15:08:07.657 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-05-16.15:08:07.661 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-05-16.15:08:07.746 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 0 Redis repository interfaces.
+26-05-16.15:08:10.766 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@671da0f9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4d2f9e3c, org.springframework.security.web.context.SecurityContextPersistenceFilter@26f75d9c, org.springframework.security.web.header.HeaderWriterFilter@63326a3a, org.springframework.web.filter.CorsFilter@686b1e2d, org.springframework.security.web.authentication.logout.LogoutFilter@6c2883b1, cn.idealer01.config.utils.JwtAuthenticationFilter@6e7e0259, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@28b5662d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@f76872f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@646e6d07, org.springframework.security.web.session.SessionManagementFilter@269c7104, org.springframework.security.web.access.ExceptionTranslationFilter@365e65bb, org.springframework.security.web.access.intercept.AuthorizationFilter@3f9f8d23]
+26-05-16.15:08:12.061 [main            ] INFO  ApiTest                - Started ApiTest in 6.004 seconds (JVM running for 6.919)
+26-05-16.15:08:12.736 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:12.736 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:12.737 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 1 ms
+26-05-16.15:08:12.744 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:12.744 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:12.744 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:12.888 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:12.888 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:12.888 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:12.895 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:12.897 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:12.897 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:12.909 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:12.909 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:12.909 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:12.917 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:12.917 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:12.918 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 1 ms
+26-05-16.15:08:12.979 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:12.979 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:12.979 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:12.987 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:12.987 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:12.987 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.002 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.002 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.002 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.009 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.010 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.010 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.026 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.026 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.027 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.036 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.036 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.036 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.051 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.051 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.051 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.060 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.060 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.060 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.074 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.074 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.074 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.083 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.083 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.083 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.117 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.117 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.118 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 1 ms
+26-05-16.15:08:13.135 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.136 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.136 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.152 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.152 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.152 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:08:13.165 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:08:13.165 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:08:13.165 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:45.745 [main            ] INFO  ApiTest                - Starting ApiTest using Java 17.0.7 on XiaoLI with PID 380 (started by 27550 in D:\projects\Myblog\backend\backend-app)
+26-05-16.15:32:45.745 [main            ] INFO  ApiTest                - The following 1 profile is active: "dev"
+26-05-16.15:32:46.600 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-05-16.15:32:46.603 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-05-16.15:32:46.661 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 0 Redis repository interfaces.
+26-05-16.15:32:48.835 [main            ] INFO  DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@fdf029a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@63896cf7, org.springframework.security.web.context.SecurityContextPersistenceFilter@351d726c, org.springframework.security.web.header.HeaderWriterFilter@71891d6b, org.springframework.web.filter.CorsFilter@3f838072, org.springframework.security.web.authentication.logout.LogoutFilter@55d8f6bb, cn.idealer01.config.utils.JwtAuthenticationFilter@46c9ee28, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@28d7bd6b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@42ac309, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@31f5ffb9, org.springframework.security.web.session.SessionManagementFilter@57806346, org.springframework.security.web.access.ExceptionTranslationFilter@4b74a67a, org.springframework.security.web.access.intercept.AuthorizationFilter@6d4f266]
+26-05-16.15:32:49.860 [main            ] INFO  ApiTest                - Started ApiTest in 4.496 seconds (JVM running for 6.568)
+26-05-16.15:32:50.065 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.065 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.065 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.075 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.075 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.081 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 6 ms
+26-05-16.15:32:50.089 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.089 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.089 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.097 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.097 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.097 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.106 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.106 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.106 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.117 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.117 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.117 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.117 [main            ] INFO  RegularUserController  - 网站用户:admin，请求获取token
+26-05-16.15:32:50.127 [main            ] INFO  RegularUserController  - 网站用户:admin, 获取token成功
+26-05-16.15:32:50.139 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.139 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.139 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.148 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.148 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.148 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.157 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.157 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.157 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.167 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.167 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.167 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.174 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.178 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.178 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.182 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.182 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.182 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.198 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.198 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.198 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.208 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.208 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.208 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.218 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.218 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.218 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.234 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.234 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.234 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.243 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.243 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.243 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.254 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.254 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.254 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.260 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.260 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.260 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.276 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.276 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.276 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.282 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.282 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.282 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.291 [main            ] INFO  WeixinLoginController  - 扫码检测登录结果 ticket:mock-ticket result:ThirdPartyPendingLoginResponseDTO(status=PENDING_DECISION, pendingToken=mock-ticket, authType=wechat, authKey=openid_xxx, displayName=微信昵称, avatar=https://wx.qlogo.cn/mock.png, weixinName=微信昵称)
+26-05-16.15:32:50.322 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.322 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.322 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.322 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.322 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.322 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.338 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.338 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.338 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.343 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.343 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.343 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.353 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.353 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.353 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.369 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.369 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.369 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.385 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.385 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.385 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.394 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.394 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.394 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.404 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.404 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.404 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.414 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.414 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.414 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.424 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.424 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.424 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.433 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.435 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.435 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.445 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.445 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.445 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.448 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.448 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.448 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.466 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.466 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.466 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.476 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.476 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.476 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.497 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.497 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.497 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.512 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.517 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.518 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 1 ms
+26-05-16.15:32:50.528 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.528 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.528 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.538 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.538 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.538 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.568 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.568 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.568 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.582 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.582 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.582 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.596 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.596 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.596 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.600 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.600 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.600 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.620 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.622 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.622 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms
+26-05-16.15:32:50.631 [main            ] INFO  MockServletContext     - Initializing Spring TestDispatcherServlet ''
+26-05-16.15:32:50.631 [main            ] INFO  TestDispatcherServlet  - Initializing Servlet ''
+26-05-16.15:32:50.631 [main            ] INFO  TestDispatcherServlet  - Completed initialization in 0 ms

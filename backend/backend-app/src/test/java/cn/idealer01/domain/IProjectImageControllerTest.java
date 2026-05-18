@@ -1,6 +1,6 @@
 package cn.idealer01.domain;
 
-import cn.idealer01.domain.article.service.IImageService;
+import cn.idealer01.domain.image.service.IImageService;
 import cn.idealer01.trigger.http.ImageAdminController;
 import org.junit.Before;
 import org.junit.Test;

@@ -82,12 +82,13 @@
         <label class="form-label">文章内容 <span class="required">*</span></label>
         <div class="editor-wrapper" :class="{ 'is-error': errors.content }">
           <MdEditor
+            ref="editorRef"
             v-model="form.content"
+            :onUploadImg="handleUploadImg"
             :theme="editorTheme"
             :preview="true"
             language="zh-CN"
             placeholder="请输入文章内容（支持 Markdown）"
-            @onUploadImg="handleUploadImg"
           />
         </div>
         <p class="editor-tip">
@@ -113,7 +114,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getArticleById, createArticle, updateArticle } from '@/services/articleService.js'
 import { uploadImage } from '@/services/uploadService.js'
@@ -149,6 +150,63 @@ const submitError = ref('')
 const coverUploading = ref(false)
 const coverDragover = ref(false)
 const coverInput = ref(null)
+const editorRef = ref(null)
+
+const editorDomHandlers = {
+  paste(event, view) {
+    const clipboardData = event.clipboardData
+    if (!clipboardData) return false
+
+    const text = clipboardData.getData('text/plain')
+    if (text) {
+      const debugChars = Array.from(text).map((char, index) => ({
+        index,
+        char,
+        codePoint: `U+${char.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}`
+      }))
+      console.groupCollapsed('[ArticleForm] pasted text diagnostics')
+      console.log('raw text:', text)
+      console.log('normalized preview:', text.replace(/\u00A0/g, ' '))
+      console.table(debugChars)
+      console.groupEnd()
+
+      event.preventDefault()
+      const normalized = text.replace(/\u00A0/g, ' ')
+      if (view) {
+        const sel = view.state.selection.main
+        const from = sel.from
+        const to = sel.to
+        const prefix = from > 0 && view.state.doc.sliceString(from - 1, from) !== '\n' ? '\n' : ''
+        const insert = prefix + normalized + '\n'
+        view.dispatch({
+          changes: { from, to, insert },
+          selection: { anchor: from + insert.length }
+        })
+      } else {
+        const current = form.value.content || ''
+        const prefix = current && !current.endsWith('\n') ? '\n' : ''
+        form.value.content = current + prefix + normalized + '\n'
+      }
+      return true
+    }
+
+    return false
+  }
+}
+
+const insertMarkdownAtSelection = (markdown) => {
+  const editorView = editorRef.value?.getEditorView?.()
+  if (!editorView) {
+    const current = form.value.content || ''
+    const prefix = current && !current.endsWith('\n') ? '\n' : ''
+    form.value.content = `${current}${prefix}${markdown}\n`
+    return
+  }
+
+  const transaction = editorView.state.replaceSelection(markdown)
+  editorView.dispatch(transaction)
+  editorView.focus()
+}
 
 const triggerCoverUpload = () => {
   coverInput.value.click()
@@ -205,7 +263,7 @@ const buildDocumentDirectory = () => {
   return `documents/${encodeURIComponent(rawTitle)}`
 }
 
-const handleUploadImg = async (files, callback) => {
+const handleUploadImg = async (files) => {
   const urls = []
   for (const file of files) {
     try {
@@ -217,7 +275,13 @@ const handleUploadImg = async (files, callback) => {
       submitError.value = '图片上传失败，请稍后重试'
     }
   }
-  callback(urls)
+  if (!urls.length) return
+
+  const markdown = urls
+    .map((url, index) => `![${files[index]?.name || 'image'}](${url})`)
+    .join('\n')
+
+  insertMarkdownAtSelection(markdown)
 }
 
 const validate = () => {
@@ -258,6 +322,9 @@ const handleSubmit = async () => {
 }
 
 onMounted(async () => {
+  await nextTick()
+  editorRef.value?.domEventHandlers?.(editorDomHandlers)
+
   try {
     const data = await getThemes()
     themes.value = data.map(t => t.name)

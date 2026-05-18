@@ -45,13 +45,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in paginatedUsers" :key="user.id">
+          <tr v-for="user in users" :key="user.id">
             <td class="col-id">{{ user.id }}</td>
             <td class="col-user">
               <div class="user-cell">
                 <img
-                  v-if="user.weixinImageUrl || user.avatar"
-                  :src="user.weixinImageUrl || user.avatar"
+                  v-if="user.effectiveAvatar"
+                  :src="user.effectiveAvatar"
                   :alt="user.displayName"
                   class="user-avatar"
                 />
@@ -77,10 +77,15 @@
             </td>
             <td class="col-date">{{ formatDate(user.createdAt) }}</td>
             <td class="col-actions">
+              <button class="btn-action btn-detail" @click="openDetail(user)">
+                <i class="bi bi-eye"></i>
+                详情
+              </button>
               <button
                 class="btn-action"
                 :class="user.status === 'active' ? 'btn-disable' : 'btn-enable'"
                 @click="toggleUserStatus(user)"
+                :disabled="user.status === 'deleted'"
               >
                 <i :class="user.status === 'active' ? 'bi bi-lock' : 'bi bi-unlock'"></i>
                 {{ user.status === 'active' ? '禁用' : '启用' }}
@@ -126,14 +131,47 @@
         </div>
       </div>
     </div>
+
+    <div v-if="showDetailModal" class="modal-overlay" @click.self="closeDetail">
+      <div class="modal-content detail-modal">
+        <div class="modal-header">
+          <i class="bi bi-person-vcard modal-icon info"></i>
+          <h3>用户详情</h3>
+        </div>
+        <div v-if="detailLoading" class="modal-body">加载中...</div>
+        <div v-else-if="detailUser" class="detail-grid">
+          <div class="detail-avatar-wrap">
+            <img v-if="detailUser.effectiveAvatar" :src="detailUser.effectiveAvatar" :alt="detailUser.displayName" class="detail-avatar" />
+            <div v-else class="user-avatar-placeholder large">{{ (detailUser.displayName || detailUser.username || '?')[0].toUpperCase() }}</div>
+          </div>
+          <div class="detail-fields">
+            <div class="detail-row"><span>用户ID</span><strong>{{ detailUser.id }}</strong></div>
+            <div class="detail-row"><span>用户名</span><strong>{{ detailUser.username || '—' }}</strong></div>
+            <div class="detail-row"><span>显示名</span><strong>{{ detailUser.displayName || '—' }}</strong></div>
+            <div class="detail-row"><span>登录方式</span><strong>{{ detailUser.loginType === 'weixin' ? '微信登录' : '密码登录' }}</strong></div>
+            <div class="detail-row"><span>角色</span><strong>{{ (detailUser.roles || []).join(', ') || '—' }}</strong></div>
+            <div class="detail-row"><span>状态</span><strong>{{ detailUser.status || '—' }}</strong></div>
+            <div class="detail-row"><span>头像来源</span><strong>{{ detailUser.avatarSource || 'DEFAULT' }}</strong></div>
+            <div class="detail-row"><span>微信昵称</span><strong>{{ detailUser.weixinName || '—' }}</strong></div>
+            <div class="detail-row"><span>微信绑定</span><strong>{{ detailUser.weixinBound ? '已绑定' : '未绑定' }}</strong></div>
+            <div class="detail-row"><span>创建时间</span><strong>{{ formatDate(detailUser.createdAt) }}</strong></div>
+            <div class="detail-row"><span>更新时间</span><strong>{{ formatDate(detailUser.updatedAt) }}</strong></div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" @click="closeDetail">关闭</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { getUsers, updateUserStatus, deleteUser } from '@/services/userService.js'
+import { getUsers, updateUserStatus, deleteUser, getUserById } from '@/services/userService.js'
 
 const users = ref([])
+const total = ref(0)
 const loading = ref(false)
 const searchKeyword = ref('')
 const filterLoginType = ref('')
@@ -142,36 +180,14 @@ const currentPage = ref(1)
 const pageSize = 10
 const showDeleteModal = ref(false)
 const deleteTarget = ref(null)
+const showDetailModal = ref(false)
+const detailLoading = ref(false)
+const detailUser = ref(null)
 
-const totalUsers = computed(() => users.value.length)
+const totalUsers = computed(() => total.value)
 const activeCount = computed(() => users.value.filter(u => u.status === 'active').length)
 const disabledCount = computed(() => users.value.filter(u => u.status === 'disabled').length)
-
-const filteredUsers = computed(() => {
-  let result = users.value
-  if (searchKeyword.value) {
-    const kw = searchKeyword.value.toLowerCase()
-    result = result.filter(u =>
-      (u.username || '').toLowerCase().includes(kw) ||
-      (u.displayName || '').toLowerCase().includes(kw) ||
-      (u.weixinName || '').toLowerCase().includes(kw)
-    )
-  }
-  if (filterLoginType.value) {
-    result = result.filter(u => u.loginType === filterLoginType.value)
-  }
-  if (filterStatus.value) {
-    result = result.filter(u => u.status === filterStatus.value)
-  }
-  return result
-})
-
-const totalPages = computed(() => Math.ceil(filteredUsers.value.length / pageSize))
-
-const paginatedUsers = computed(() => {
-  const start = (currentPage.value - 1) * pageSize
-  return filteredUsers.value.slice(start, start + pageSize)
-})
+const totalPages = computed(() => Math.max(1, Math.ceil(total.value / pageSize)))
 
 const displayedPages = computed(() => {
   const pages = []
@@ -188,15 +204,28 @@ const displayedPages = computed(() => {
 
 watch([searchKeyword, filterLoginType, filterStatus], () => {
   currentPage.value = 1
+  fetchUsers()
+})
+
+watch(currentPage, () => {
+  fetchUsers()
 })
 
 const fetchUsers = async () => {
   loading.value = true
   try {
-    const res = await getUsers()
-    users.value = res.data.users || res.data || []
+    const res = await getUsers({
+      keyword: searchKeyword.value || undefined,
+      loginType: filterLoginType.value || undefined,
+      status: filterStatus.value || undefined,
+      page: currentPage.value,
+      pageSize
+    })
+    users.value = res.data?.users || []
+    total.value = Number(res.data?.total || 0)
   } catch {
     users.value = []
+    total.value = 0
   } finally {
     loading.value = false
   }
@@ -212,6 +241,25 @@ const toggleUserStatus = async (user) => {
   }
 }
 
+const openDetail = async (user) => {
+  detailLoading.value = true
+  showDetailModal.value = true
+  detailUser.value = null
+  try {
+    const res = await getUserById(user.id)
+    detailUser.value = res.data || null
+  } catch {
+    detailUser.value = null
+  } finally {
+    detailLoading.value = false
+  }
+}
+
+const closeDetail = () => {
+  showDetailModal.value = false
+  detailUser.value = null
+}
+
 const confirmDelete = (user) => {
   deleteTarget.value = user
   showDeleteModal.value = true
@@ -222,6 +270,7 @@ const handleDelete = async () => {
   try {
     await deleteUser(deleteTarget.value.id)
     users.value = users.value.filter(u => u.id !== deleteTarget.value.id)
+    total.value = Math.max(0, total.value - 1)
     showDeleteModal.value = false
     deleteTarget.value = null
   } catch {
@@ -542,6 +591,17 @@ onMounted(() => {
   margin-right: 4px;
 }
 
+.btn-detail {
+  background: rgba(108, 117, 125, 0.08);
+  color: #495057;
+  border: 1px solid rgba(108, 117, 125, 0.2);
+}
+
+.btn-detail:hover {
+  background: #495057;
+  color: white;
+}
+
 .btn-disable {
   background: rgba(255, 193, 7, 0.1);
   color: #e0a800;
@@ -702,6 +762,69 @@ onMounted(() => {
   background: #c82333;
 }
 
+.detail-modal {
+  width: 720px;
+  max-width: 92vw;
+}
+
+.modal-icon.info {
+  color: #007bff;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 20px;
+  margin-bottom: 12px;
+}
+
+.detail-avatar-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.detail-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.user-avatar-placeholder.large {
+  width: 120px;
+  height: 120px;
+  font-size: 2rem;
+}
+
+.detail-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.detail-row span {
+  color: #777;
+  font-size: 0.88rem;
+}
+
+.detail-row strong {
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: right;
+}
+
 @media (max-width: 768px) {
   .list-header {
     flex-direction: column;
@@ -734,6 +857,23 @@ onMounted(() => {
   .btn-action {
     padding: 4px 8px;
     font-size: 0.75rem;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-avatar-wrap {
+    justify-content: flex-start;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .detail-row strong {
+    text-align: left;
   }
 }
 .user-management {

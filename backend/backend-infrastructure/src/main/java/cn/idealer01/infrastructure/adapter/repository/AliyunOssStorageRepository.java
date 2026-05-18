@@ -1,6 +1,6 @@
 package cn.idealer01.infrastructure.adapter.repository;
 
-import cn.idealer01.domain.article.adapter.repository.IImageStorageRepository;
+import cn.idealer01.domain.image.adapter.repository.IImageStorageRepository;
 import cn.idealer01.types.enums.ResponseCode;
 import cn.idealer01.types.exception.AppException;
 import com.aliyun.oss.OSS;

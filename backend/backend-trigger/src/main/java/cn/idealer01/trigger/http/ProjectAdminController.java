@@ -4,7 +4,7 @@ import cn.idealer01.api.IProjectAdminController;
 import cn.idealer01.api.dto.ProjectAdminResponseDTO;
 import cn.idealer01.api.dto.ProjectRequestDTO;
 import cn.idealer01.api.response.Response;
-import cn.idealer01.domain.article.service.IProjectService;
+import cn.idealer01.domain.project.service.IProjectService;
 import cn.idealer01.types.enums.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,4 +1,4 @@
-package cn.idealer01.domain.article.model.entity;
+package cn.idealer01.domain.project.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

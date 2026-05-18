@@ -1,4 +1,4 @@
-package cn.idealer01.domain.article.service;
+package cn.idealer01.domain.image.service;
 
 import java.util.List;
 import java.util.Map;

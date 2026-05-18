@@ -13,11 +13,25 @@ function getAuthHeaders() {
 }
 
 function normalizeUser(payloadUser = {}, fallback = {}) {
+  const avatarSource = payloadUser.avatarSource || fallback.avatarSource || 'DEFAULT'
+  const avatar = payloadUser.avatar || fallback.avatar || ''
+  const weixinImageUrl = payloadUser.weixinImageUrl || fallback.weixinImageUrl || payloadUser.weixinImageUrl || ''
+  const defaultAvatar = payloadUser.defaultAvatar || fallback.defaultAvatar || ''
+  const effectiveAvatar = payloadUser.effectiveAvatar || fallback.effectiveAvatar || (
+    avatarSource === 'UPLOAD' && avatar ? avatar
+      : avatarSource === 'WECHAT' && weixinImageUrl ? weixinImageUrl
+        : defaultAvatar
+  )
+
   return {
     id: payloadUser.id ?? fallback.id ?? null,
     username: payloadUser.username || fallback.username || '',
     displayName: payloadUser.displayName || fallback.displayName || payloadUser.weixinName || fallback.weixinName || payloadUser.username || fallback.username || '用户',
-    avatar: payloadUser.avatar || fallback.avatar || payloadUser.weixinImageUrl || fallback.weixinImageUrl || '',
+    avatar,
+    avatarSource,
+    effectiveAvatar,
+    defaultAvatar,
+    weixinImageUrl,
     loginType: payloadUser.loginType || fallback.loginType || 'password',
     roles: Array.isArray(payloadUser.roles) ? payloadUser.roles : (fallback.roles || []),
     weixinBound: typeof payloadUser.weixinBound === 'boolean' ? payloadUser.weixinBound : Boolean(fallback.weixinBound),
