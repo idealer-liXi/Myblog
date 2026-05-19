@@ -55,6 +55,10 @@
         <i class="bi bi-disc"></i>
         <span>音乐管理</span>
       </router-link>
+      <router-link :to="{ name: 'backend-messages' }" class="sidebar-item" :class="{ active: $route.name === 'backend-messages' }">
+        <i class="bi bi-chat-left-text"></i>
+        <span>留言管理</span>
+      </router-link>
 <div class="sidebar-group">
         <div class="sidebar-item sidebar-parent" :class="{ active: isImageActive }" @click="imageExpanded = !imageExpanded">
           <i class="bi bi-image"></i>

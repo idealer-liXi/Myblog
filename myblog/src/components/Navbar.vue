@@ -34,6 +34,12 @@
               <span>GitHub项目</span>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link :class="route_value === 'message-board' ? 'nav-link active' : 'nav-link'" :to="{ name: 'message-board' }">
+              <i class="bi bi-chat-left-text"></i>
+              <span>留言板</span>
+            </router-link>
+          </li>
           <li v-if="isAdmin" class="nav-item">
             <router-link :class="$route.path.startsWith('/backend')?'nav-link active':'nav-link'" :to="{name: 'backend'}">
               <i class="bi bi-gear"></i>

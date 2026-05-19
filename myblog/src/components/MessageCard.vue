@@ -4,41 +4,52 @@
       <i class="bi bi-chat-left-text-fill"></i>
       <span>留言板</span>
     </div>
-    <div class="message-list">
+
+    <div v-if="loading" class="message-state">正在加载留言...</div>
+    <div v-else-if="error" class="message-state message-error">{{ error }}</div>
+    <div v-else-if="messages.length === 0" class="message-state">还没有已发布留言</div>
+    <div v-else class="message-list">
       <div class="message-item" v-for="message in messages" :key="message.id">
-        <div class="message-author">{{ message.author }}</div>
+        <div class="message-author">{{ message.username || '用户' }}</div>
         <div class="message-content">{{ message.content }}</div>
-        <div class="message-time">{{ message.time }}</div>
+        <div class="message-time">{{ formatDate(message.createdAt) }}</div>
       </div>
     </div>
-    <div class="message-form">
-      <textarea v-model="newMessage" placeholder="留下你的足迹..." class="message-input"></textarea>
-      <button @click="addMessage" class="submit-btn">发表</button>
+
+    <div class="message-actions">
+      <router-link :to="{ name: 'message-board' }" class="message-link">去留言板</router-link>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue'
+import { getPublicMessages } from '@/services/messageService.js'
 
-const messages = ref([
-  { id: 1, author: 'Alice', content: '这个博客真棒！', time: '2024-07-20' },
-  { id: 2, author: 'Bob', content: '学到了很多东西，感谢博主！', time: '2024-07-21' },
-]);
+const messages = ref([])
+const loading = ref(false)
+const error = ref('')
 
-const newMessage = ref('');
-
-const addMessage = () => {
-  if (newMessage.value.trim()) {
-    messages.value.push({
-      id: Date.now(),
-      author: 'Guest', // In a real app, this would be the logged-in user
-      content: newMessage.value,
-      time: new Date().toLocaleDateString(),
-    });
-    newMessage.value = '';
+const loadMessages = async () => {
+  loading.value = true
+  error.value = ''
+  try {
+    const page = await getPublicMessages({ latestOnly: true, limit: 5, page: 1, pageSize: 5 })
+    messages.value = page.items || []
+  } catch (err) {
+    messages.value = []
+    error.value = err?.message || '加载留言失败'
+  } finally {
+    loading.value = false
   }
-};
+}
+
+const formatDate = (value) => {
+  if (!value) return ''
+  return value.slice(0, 10)
+}
+
+onMounted(loadMessages)
 </script>
 
 <style scoped>
@@ -66,20 +77,21 @@ const addMessage = () => {
 }
 
 .message-list {
-  max-height: 120px; /* Reduced height */
+  max-height: 160px;
   overflow-y: auto;
   margin-bottom: 10px;
-  padding-right: 5px; /* For scrollbar */
+  padding-right: 5px;
 }
 
-/* Simple scrollbar styling */
 .message-list::-webkit-scrollbar {
   width: 5px;
 }
+
 .message-list::-webkit-scrollbar-thumb {
   background: #e0e0e0;
   border-radius: 10px;
 }
+
 .message-list::-webkit-scrollbar-track {
   background: #f7f7f7;
 }
@@ -87,6 +99,10 @@ const addMessage = () => {
 .message-item {
   border-bottom: 1px solid #f5f5f5;
   padding: 8px 0;
+}
+
+.message-item:last-child {
+  border-bottom: none;
 }
 
 .message-author {
@@ -109,35 +125,33 @@ const addMessage = () => {
   margin-top: 4px;
 }
 
-.message-form {
+.message-state {
+  min-height: 72px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 0.82rem;
+  text-align: center;
 }
 
-.message-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  resize: vertical;
-  min-height: 40px; /* Reduced height */
-  margin-bottom: 8px;
+.message-error {
+  color: #b91c1c;
+}
+
+.message-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.message-link {
+  text-decoration: none;
+  color: #007bff;
   font-size: 0.85rem;
+  font-weight: 600;
 }
 
-.submit-btn {
-  align-self: flex-end;
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: opacity 0.3s;
-  font-size: 0.85rem;
-}
-
-.submit-btn:hover {
-  opacity: 0.9;
+.message-link:hover {
+  opacity: 0.85;
 }
 </style>

@@ -54,7 +54,6 @@
     </div>
 
     <div v-if="error" class="music-error">{{ error }}</div>
-    <div v-else-if="!hasMusic" class="music-empty">暂无可播放音乐</div>
 
     <Transition name="playlist">
       <div v-if="showPlaylist && hasMusic" class="playlist-panel">
@@ -471,23 +470,14 @@ const formatTime = (seconds) => {
   cursor: not-allowed;
 }
 
-.music-error,
-.music-empty {
+.music-error {
   margin-top: 10px;
   padding: 10px 12px;
   border-radius: 10px;
   font-size: 0.82rem;
   text-align: center;
-}
-
-.music-error {
   background: rgba(239, 68, 68, 0.1);
   color: #b91c1c;
-}
-
-.music-empty {
-  background: rgba(148, 163, 184, 0.12);
-  color: #64748b;
 }
 
 .playlist-panel {

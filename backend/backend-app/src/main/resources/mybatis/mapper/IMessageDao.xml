@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.idealer01.infrastructure.dao.IMessageDao">
+
+    <resultMap id="dataMap" type="cn.idealer01.infrastructure.dao.po.MessageRecord">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="content" property="content"/>
+        <result column="status" property="status"/>
+        <result column="sentiment" property="sentiment"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="cn.idealer01.infrastructure.dao.po.MessageRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into message(user_id, username, content, status, sentiment)
+        values (#{userId}, #{username}, #{content}, #{status}, #{sentiment})
+    </insert>
+
+    <update id="update" parameterType="cn.idealer01.infrastructure.dao.po.MessageRecord">
+        update message
+        <set>
+            <if test="content != null">content = #{content},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="sentiment != null">sentiment = #{sentiment},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="queryById" parameterType="java.lang.Long" resultMap="dataMap">
+        select * from message where id = #{id}
+    </select>
+
+    <select id="queryPublishedPage" resultMap="dataMap">
+        select * from message where status = 'PUBLISHED' order by create_time desc limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="countPublished" resultType="java.lang.Long">
+        select count(*) from message where status = 'PUBLISHED'
+    </select>
+
+    <select id="queryByUserId" parameterType="java.lang.Long" resultMap="dataMap">
+        select * from message where user_id = #{userId} order by create_time desc
+    </select>
+
+    <select id="queryAdminPage" resultMap="dataMap">
+        select * from message
+        <where>
+            <if test="status != null and status != ''">status = #{status}</if>
+        </where>
+        order by create_time desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="countAdminPage" resultType="java.lang.Long">
+        select count(*) from message
+        <where>
+            <if test="status != null and status != ''">status = #{status}</if>
+        </where>
+    </select>
+
+</mapper>
