@@ -38,7 +38,7 @@ public class MessageUserController implements IMessageUserController {
             return Response.<MessageResponseDTO>builder()
                     .code(ResponseCode.SUCCESS.getCode())
                     .info(ResponseCode.SUCCESS.getInfo())
-                    .data(messageService.createMessage(getCurrentUserId(), getCurrentUsername(), request))
+                    .data(messageService.createMessage(getCurrentUserId(), getCurrentDisplayName(), request))
                     .build();
         } catch (AppException e) {
             return Response.<MessageResponseDTO>builder()
@@ -81,7 +81,12 @@ public class MessageUserController implements IMessageUserController {
         return currentUser == null ? null : currentUser.getId();
     }
 
-    private String getCurrentUsername() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    private String getCurrentDisplayName() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        CurrentUserResponseDTO currentUser = loginRepository.queryCurrentUser(username);
+        if (currentUser == null || currentUser.getDisplayName() == null || currentUser.getDisplayName().trim().isEmpty()) {
+            return username;
+        }
+        return currentUser.getDisplayName();
     }
 }

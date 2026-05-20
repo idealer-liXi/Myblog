@@ -12,13 +12,15 @@ import GitHubStarView from "@/views/github/GitHubStarView.vue";
 import DashboardPanel from "@/components/backend/DashboardPanel.vue";
 import ArticleList from "@/components/backend/ArticleList.vue";
 import ArticleForm from "@/components/backend/ArticleForm.vue";
+import ProfileManagement from "@/components/backend/ProfileManagement.vue";
 import MessageManagement from "@/components/backend/MessageManagement.vue";
 import ThemeManagement from "@/components/backend/ThemeManagement.vue";
 import ProjectManagement from "@/components/backend/ProjectManagement.vue";
 import ImageManagement from "@/components/backend/ImageManagement.vue";
 import MusicManagement from "@/components/backend/MusicManagement.vue";
 import UserManagement from "@/components/backend/UserManagement.vue";
-import { clearSession, hasValidSession } from '@/utils/authSession'
+import { clearSession, hasValidSession, readSession } from '@/utils/authSession'
+import { resolveNavigationGuard } from '@/router/accessControl'
 
 const routes = [
   {
@@ -73,7 +75,7 @@ const routes = [
     path: '/backend',
     name: 'backend',
     component: BackendView,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
     redirect: { name: 'backend-dashboard' },
     children: [
       {
@@ -115,6 +117,11 @@ const routes = [
         path: 'messages',
         name: 'backend-messages',
         component: MessageManagement,
+      },
+      {
+        path: 'profile',
+        name: 'backend-profile',
+        component: ProfileManagement,
       },
       {
         path: 'images',
@@ -160,18 +167,21 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!to.meta.requiresAuth) {
-    next()
+  const decision = resolveNavigationGuard(to, {
+    isValid: hasValidSession(),
+    user: readSession().user
+  })
+
+  if (decision.clearSession) {
+    clearSession()
+  }
+
+  if (!decision.allow) {
+    next(decision.redirect)
     return
   }
 
-  if (hasValidSession()) {
-    next()
-    return
-  }
-
-  clearSession()
-  next({ name: 'login', query: { redirect: to.fullPath } })
+  next()
 })
 
 export default router

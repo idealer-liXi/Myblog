@@ -468,18 +468,26 @@ onMounted(loadMusic)
   letter-spacing: 0.04em;
 }
 
-.cover-thumb-frame,
-.cover-thumb-image {
+.cover-thumb-frame {
   width: 56px;
   height: 56px;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+}
+
+.cover-thumb-frame :deep(.wrapper-root) {
+  width: 100%;
+  height: 100%;
+}
+
+.cover-thumb-frame :deep(img) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 14px;
 }
 
-.cover-thumb-image {
-  object-fit: cover;
-}
-
-.cover-placeholder {
+.cover-thumb-frame :deep(.image-initial-fallback) {
   border-radius: 14px;
 }
 
@@ -674,18 +682,26 @@ onMounted(loadMusic)
   margin-top: 12px;
 }
 
-.music-cover-preview-frame,
-.music-cover-preview-image {
+.music-cover-preview-frame {
   width: 120px;
   height: 120px;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+}
+
+.music-cover-preview-frame :deep(.wrapper-root) {
+  width: 100%;
+  height: 100%;
+}
+
+.music-cover-preview-frame :deep(img) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 18px;
 }
 
-.music-cover-preview-image {
-  object-fit: cover;
-}
-
-.music-cover-preview-fallback {
+.music-cover-preview-frame :deep(.image-initial-fallback) {
   border-radius: 18px;
 }
 

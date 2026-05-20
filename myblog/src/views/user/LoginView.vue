@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-body">
 
-            <form @submit.prevent="getToken" v-if="!showQRCode">
+            <form @submit.prevent="getToken" v-if="viewMode === 'password'">
               <div class="mb-3">
                 <label for="username" class="form-label">用户名</label>
                 <input type="text" class="form-control" id="username" placeholder="请输入用户名" v-model="username">
@@ -25,11 +25,11 @@
 
               <div class="mb-1">使用其他方式登录</div>
               <button type="button" class="btn btn-outline-secondary mb-1" disabled>使用QQ登录</button>
-              <button type="button" class="btn btn-outline-secondary mb-1" @click="getWechatQRCode" :disabled="isSubmitting">使用微信登录</button>
+              <button data-testid="wechat-start-login" type="button" class="btn btn-outline-secondary mb-1" @click="getWechatQRCode" :disabled="isSubmitting">使用微信登录</button>
               <button type="button" class="btn btn-outline-secondary mb-1" @click="onlyGuestLogin">仅游客登录</button>
             </form>
 
-            <div v-else class="text-center p-4">
+            <div v-else-if="viewMode === 'wechat_qrcode'" class="text-center p-4">
               <h5>微信扫码登录</h5>
               <div v-if="qrCodeUrl" class="qr-container my-3">
                 <img :src="qrCodeUrl" alt="微信登录二维码" class="qr-image"/>
@@ -66,7 +66,56 @@
                 </div>
               </transition>
 
-              <button @click="cancelWechatLogin" class="btn btn-secondary mt-3">返回</button>
+              <button data-testid="wechat-cancel-login" @click="cancelWechatLogin" class="btn btn-secondary mt-3">返回</button>
+            </div>
+
+            <div v-else class="text-center p-4 wechat-decision-panel">
+              <h5>完成微信登录</h5>
+              <img
+                v-if="pendingWechatLogin?.avatar"
+                :src="pendingWechatLogin.avatar"
+                alt="微信头像"
+                class="wechat-avatar my-3"
+              />
+              <p class="mb-1 fw-semibold">{{ pendingWechatLogin?.weixinName || pendingWechatLogin?.displayName || '微信用户' }}</p>
+              <p class="decision-tip">该微信尚未绑定站内账号，请完成以下二选一操作</p>
+
+              <transition name="error-fade">
+                <div class="error_message mb-3" v-if="error_message">
+                  <i class="bi bi-exclamation-circle-fill"></i>
+                  <span>{{ error_message }}</span>
+                </div>
+              </transition>
+
+              <button
+                data-testid="wechat-create-account"
+                type="button"
+                class="btn btn-primary mb-3"
+                :disabled="isDecisionSubmitting"
+                @click="handleCreateWechatAccount"
+              >
+                {{ isDecisionSubmitting ? '处理中...' : '创建新账号' }}
+              </button>
+
+              <div class="bind-panel text-start">
+                <div class="bind-title mb-2">绑定已有账号</div>
+                <div class="mb-2">
+                  <input v-model="bindUsername" type="text" class="form-control" placeholder="请输入已有用户名" />
+                </div>
+                <div class="mb-3">
+                  <input v-model="bindPassword" type="password" class="form-control" placeholder="请输入已有密码" />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  :disabled="isDecisionSubmitting"
+                  @click="handleBindExistingAccount"
+                >
+                  {{ isDecisionSubmitting ? '处理中...' : '绑定已有账号' }}
+                </button>
+              </div>
+
+              <button data-testid="wechat-cancel-login" @click="cancelWechatLogin" class="btn btn-secondary mt-3">返回</button>
             </div>
 
           </div>
@@ -84,7 +133,13 @@
 import { onBeforeUnmount, ref } from 'vue'
 import router from '@/router'
 import { useStore } from 'vuex'
-import { checkWechatLogin, fetchWechatLoginTicket, loginWithPassword } from '@/services/authService'
+import {
+  bindWechatExistingAccount,
+  checkWechatLogin,
+  createWechatAccount,
+  fetchWechatLoginTicket,
+  loginWithPassword
+} from '@/services/authService'
 
 export default {
   setup(){
@@ -92,15 +147,32 @@ export default {
     const username = ref('')
     const password = ref('')
     const error_message = ref('')
-    const showQRCode = ref(false)
+    const viewMode = ref('password')
     const qrCodeUrl = ref('')
     const isSubmitting = ref(false)
+    const isDecisionSubmitting = ref(false)
+    const pendingWechatLogin = ref(null)
+    const bindUsername = ref('')
+    const bindPassword = ref('')
     let pollTimer = null
 
     const stopPolling = () => {
       if (pollTimer) {
         clearInterval(pollTimer)
         pollTimer = null
+      }
+    }
+
+    const resetWechatState = ({ keepError = false } = {}) => {
+      stopPolling()
+      viewMode.value = 'password'
+      qrCodeUrl.value = ''
+      pendingWechatLogin.value = null
+      bindUsername.value = ''
+      bindPassword.value = ''
+      isDecisionSubmitting.value = false
+      if (!keepError) {
+        error_message.value = ''
       }
     }
 
@@ -140,8 +212,9 @@ export default {
 
     const getWechatQRCode = async () => {
       error_message.value = ''
-      showQRCode.value = true
+      viewMode.value = 'wechat_qrcode'
       qrCodeUrl.value = ''
+      pendingWechatLogin.value = null
       stopPolling()
 
       try {
@@ -149,45 +222,111 @@ export default {
         qrCodeUrl.value = `https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=${ticket}`
         pollTimer = setInterval(async () => {
           try {
-            const session = await checkWechatLogin(ticket)
-            if (!session) return
+            const result = await checkWechatLogin(ticket)
+            if (!result) return
+
+            if (result.type === 'pending') {
+              stopPolling()
+              pendingWechatLogin.value = result.pending
+              bindUsername.value = ''
+              bindPassword.value = ''
+              qrCodeUrl.value = ''
+              viewMode.value = 'wechat_decision'
+              return
+            }
 
             stopPolling()
-            await finishLogin(session)
+            await finishLogin(result.session)
           } catch (error) {
-            stopPolling()
+            resetWechatState({ keepError: true })
             error_message.value = error.message || '微信登录失败'
-            showQRCode.value = false
           }
         }, 3000)
       } catch (error) {
+        resetWechatState({ keepError: true })
         error_message.value = error.message || '获取微信登录二维码失败'
-        showQRCode.value = false
       }
     }
 
     const cancelWechatLogin = () => {
-      stopPolling()
-      showQRCode.value = false
-      qrCodeUrl.value = ''
+      resetWechatState()
+    }
+
+    const handleCreateWechatAccount = async () => {
+      if (!pendingWechatLogin.value?.pendingToken) {
+        resetWechatState({ keepError: true })
+        error_message.value = '微信登录状态已失效，请重新扫码'
+        return
+      }
+
       error_message.value = ''
+      isDecisionSubmitting.value = true
+
+      try {
+        const session = await createWechatAccount(pendingWechatLogin.value.pendingToken)
+        await finishLogin(session)
+      } catch (error) {
+        error_message.value = error.message || '创建新账号失败'
+      } finally {
+        isDecisionSubmitting.value = false
+      }
+    }
+
+    const handleBindExistingAccount = async () => {
+      if (!bindUsername.value.trim()) {
+        error_message.value = '请输入用户名'
+        return
+      }
+
+      if (!bindPassword.value.trim()) {
+        error_message.value = '请输入密码'
+        return
+      }
+
+      if (!pendingWechatLogin.value?.pendingToken) {
+        resetWechatState({ keepError: true })
+        error_message.value = '微信登录状态已失效，请重新扫码'
+        return
+      }
+
+      error_message.value = ''
+      isDecisionSubmitting.value = true
+
+      try {
+        const session = await bindWechatExistingAccount({
+          pendingToken: pendingWechatLogin.value.pendingToken,
+          username: bindUsername.value.trim(),
+          password: bindPassword.value
+        })
+        await finishLogin(session)
+      } catch (error) {
+        error_message.value = error.message || '绑定已有账号失败'
+      } finally {
+        isDecisionSubmitting.value = false
+      }
     }
 
     const onlyGuestLogin = () => router.push({name: 'home'})
 
     onBeforeUnmount(() => {
-      stopPolling()
+      resetWechatState()
     })
 
     return {
       username,
       password,
       error_message,
-      showQRCode,
+      viewMode,
       qrCodeUrl,
       isSubmitting,
+      isDecisionSubmitting,
+      pendingWechatLogin,
+      bindUsername,
+      bindPassword,
       getWechatQRCode,
       cancelWechatLogin,
+      handleCreateWechatAccount,
+      handleBindExistingAccount,
       onlyGuestLogin,
       getToken
     }
@@ -218,6 +357,38 @@ export default {
   height: 200px;
   border: 1px solid #ddd;
   padding: 5px;
+}
+
+.wechat-decision-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wechat-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.decision-tip {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.bind-panel {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid rgba(13, 110, 253, 0.12);
+  border-radius: 12px;
+  background: rgba(13, 110, 253, 0.04);
+}
+
+.bind-title {
+  font-weight: 600;
 }
 
 .error_message {

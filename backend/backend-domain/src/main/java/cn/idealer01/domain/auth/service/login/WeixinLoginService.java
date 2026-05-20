@@ -60,18 +60,25 @@ public class WeixinLoginService implements IWeixinLoginService {
 
         if (null != userId) {
             CurrentUserResponseDTO profile = loginReposity.queryCurrentUserByUserId(userId);
-            profile.setLoginType(AuthType.WECHAT.getCode());
-            profile.setWeixinBound(Boolean.TRUE);
-            if (null != weixinUser && StringUtils.isNotBlank(weixinUser.getWeixinName())) {
-                profile.setWeixinName(weixinUser.getWeixinName());
+            if ("disabled".equalsIgnoreCase(profile.getStatus())) {
+                throw new AppException(ResponseCode.LOGIN_ERROR.getCode(), "账号已被禁用");
+            }
+            if (!"deleted".equalsIgnoreCase(profile.getStatus())) {
+                profile.setLoginType(AuthType.WECHAT.getCode());
+                profile.setWeixinBound(Boolean.TRUE);
+                if (null != weixinUser && StringUtils.isNotBlank(weixinUser.getWeixinName())) {
+                    profile.setWeixinName(weixinUser.getWeixinName());
+                }
+
+                String token = JwtUtil.generateToken(profile.getUsername());
+                return LoginResponseDTO.builder()
+                        .token(token)
+                        .expiresAt(jwtUtil.extractExpirationTime(token))
+                        .user(profile)
+                        .build();
             }
 
-            String token = JwtUtil.generateToken(profile.getUsername());
-            return LoginResponseDTO.builder()
-                    .token(token)
-                    .expiresAt(jwtUtil.extractExpirationTime(token))
-                    .user(profile)
-                    .build();
+            loginReposity.unbindAuthFromUser(userId, AuthType.WECHAT.getCode());
         }
 
         return ThirdPartyPendingLoginResponseDTO.builder()

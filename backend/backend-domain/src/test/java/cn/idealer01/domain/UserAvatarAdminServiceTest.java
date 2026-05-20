@@ -3,6 +3,7 @@ package cn.idealer01.domain;
 import cn.idealer01.api.dto.BindExistingAccountRequestDTO;
 import cn.idealer01.api.dto.CurrentUserResponseDTO;
 import cn.idealer01.api.dto.LoginResponseDTO;
+import cn.idealer01.api.dto.ThirdPartyPendingLoginResponseDTO;
 import cn.idealer01.api.dto.UserAvatarRequestDTO;
 import cn.idealer01.domain.auth.service.UserAvatarAdminService;
 import cn.idealer01.domain.auth.service.login.WeixinLoginService;
@@ -186,5 +187,54 @@ public class UserAvatarAdminServiceTest {
         Assertions.assertEquals(Boolean.TRUE, result.getUser().getWeixinBound());
         verify(loginRepository).bindAuthToUser(1L, "wechat", "openid-1");
         verify(loginRepository, times(2)).queryCurrentUser("admin");
+    }
+
+    @Test
+    public void checkLogin_shouldUnbindDeletedWechatUserAndReturnPendingDecision() {
+        WeixinLoginService service = new WeixinLoginService();
+        ReflectionTestUtils.setField(service, "loginReposity", loginRepository);
+
+        when(loginRepository.checkLogin("mock-ticket")).thenReturn("openid-1");
+        when(loginRepository.queryUserIdByAuthTypeAndAuthKey("wechat", "openid-1")).thenReturn(9L);
+        when(loginRepository.queryCurrentUserByUserId(9L)).thenReturn(CurrentUserResponseDTO.builder()
+                .id(9L)
+                .username("wx_openid-1")
+                .status("deleted")
+                .build());
+        when(loginRepository.queryWeixinUserByOpenId("openid-1")).thenReturn(WeixinUserEntity.builder()
+                .weixinName("微信昵称")
+                .weixinImageUrl("https://wx.example.com/avatar.png")
+                .build());
+
+        Object result = service.checkLogin("mock-ticket");
+
+        Assertions.assertInstanceOf(ThirdPartyPendingLoginResponseDTO.class, result);
+        ThirdPartyPendingLoginResponseDTO pending = (ThirdPartyPendingLoginResponseDTO) result;
+        Assertions.assertEquals("PENDING_DECISION", pending.getStatus());
+        Assertions.assertEquals("mock-ticket", pending.getPendingToken());
+        Assertions.assertEquals("openid-1", pending.getAuthKey());
+        verify(loginRepository).unbindAuthFromUser(9L, "wechat");
+    }
+
+    @Test
+    public void checkLogin_shouldRejectDisabledWechatUser() {
+        WeixinLoginService service = new WeixinLoginService();
+        ReflectionTestUtils.setField(service, "loginReposity", loginRepository);
+
+        when(loginRepository.checkLogin("mock-ticket")).thenReturn("openid-1");
+        when(loginRepository.queryUserIdByAuthTypeAndAuthKey("wechat", "openid-1")).thenReturn(9L);
+        when(loginRepository.queryCurrentUserByUserId(9L)).thenReturn(CurrentUserResponseDTO.builder()
+                .id(9L)
+                .username("wx_openid-1")
+                .status("disabled")
+                .build());
+        when(loginRepository.queryWeixinUserByOpenId("openid-1")).thenReturn(WeixinUserEntity.builder()
+                .weixinName("微信昵称")
+                .weixinImageUrl("https://wx.example.com/avatar.png")
+                .build());
+
+        AppException exception = Assertions.assertThrows(AppException.class, () -> service.checkLogin("mock-ticket"));
+
+        Assertions.assertEquals(ResponseCode.LOGIN_ERROR.getCode(), exception.getCode());
     }
 }

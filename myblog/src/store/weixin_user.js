@@ -86,7 +86,11 @@ const weixin_user = {
   getters: {
     getLoginStatus: (state) => state.isLoggedIn,
     getUserInfo: (state) => state.userInfo,
-    getDisplayName: (state) => state.userInfo.displayName || state.userInfo.username || state.userInfo.weixinName || '访客',
+    getDisplayName: (state) => {
+      const dn = state.userInfo.displayName
+      if (dn) return dn
+      return state.userInfo.username || state.userInfo.weixinName || '访客'
+    },
     getAvatar: (state) => state.userInfo.effectiveAvatar || state.userInfo.avatar || '',
     getRoles: (state) => state.userInfo.roles || [],
   },

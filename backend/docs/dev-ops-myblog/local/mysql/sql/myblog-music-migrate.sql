@@ -1,15 +1,3 @@
-/*
-  为已初始化的 myblog 数据库补充 music 表。
-
-  适用场景：
-  - 当前数据库已经存在 theme / article / image_record / project 等表
-  - 现在只想增量补上 music 表
-
-  注意：
-  - 该脚本不会删除任何已有表
-  - 若 music 表已经存在，则本脚本不会重复创建
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -29,5 +17,9 @@ CREATE TABLE IF NOT EXISTS `music` (
   PRIMARY KEY (`id`),
   KEY `idx_music_enabled_sort` (`enabled`, `sort_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='音乐表';
+
+INSERT IGNORE INTO `music` (`id`, `name`, `artist`, `audio_url`, `cover_image`, `sort_order`, `enabled`, `create_time`, `update_time`) VALUES
+(1, '红色高跟鞋', '蔡健雅', 'https://idealer-blog.oss-cn-beijing.aliyuncs.com/blog-images/music/audio/eb27460d-1379-4cf1-a272-e09bb9f40412.flac', 'https://idealer-blog.oss-cn-beijing.aliyuncs.com/blog-images/music/cover/3391b3a7-b620-4e68-8e9a-8501b70e781b.jpg', 0, 1, '2026-05-20 16:44:51', '2026-05-20 16:44:51'),
+(2, '起风了', '买辣椒也用劵', 'https://idealer-blog.oss-cn-beijing.aliyuncs.com/blog-images/music/audio/6231c7c6-340e-4db4-9f35-2d3d4e56214b.mp3', 'https://idealer-blog.oss-cn-beijing.aliyuncs.com/blog-images/music/cover/75d108ce-b589-45a9-8328-8e626e68a8dc.jpg', 0, 1, '2026-05-20 20:49:56', '2026-05-20 20:49:56');
 
 SET FOREIGN_KEY_CHECKS = 1;

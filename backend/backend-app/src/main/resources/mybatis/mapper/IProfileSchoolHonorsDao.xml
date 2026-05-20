@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.idealer01.infrastructure.dao.IProfileSchoolHonorsDao">
+
+    <resultMap id="dataMap" type="cn.idealer01.infrastructure.dao.po.ProfileSchoolHonorsRecord">
+        <id column="id" property="id"/>
+        <result column="school_key" property="schoolKey"/>
+        <result column="honors" property="honors"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryAll" resultMap="dataMap">
+        select * from profile_school_honors order by id asc
+    </select>
+
+    <select id="queryBySchoolKey" parameterType="java.lang.String" resultMap="dataMap">
+        select * from profile_school_honors where school_key = #{schoolKey} limit 1
+    </select>
+
+    <insert id="insert" parameterType="cn.idealer01.infrastructure.dao.po.ProfileSchoolHonorsRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into profile_school_honors(school_key, honors)
+        values (#{schoolKey}, #{honors})
+    </insert>
+
+    <update id="update" parameterType="cn.idealer01.infrastructure.dao.po.ProfileSchoolHonorsRecord">
+        update profile_school_honors
+        set honors = #{honors}, update_time = CURRENT_TIMESTAMP
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -2,6 +2,7 @@ package cn.idealer01.domain.auth.service;
 
 import cn.idealer01.api.dto.CurrentUserResponseDTO;
 import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
+import cn.idealer01.types.enums.AuthType;
 import cn.idealer01.types.enums.ResponseCode;
 import cn.idealer01.types.exception.AppException;
 import org.apache.commons.lang3.StringUtils;
@@ -65,7 +66,10 @@ public class UserAdminService implements IUserAdminService {
 
     @Override
     public void deleteUser(Long userId) {
-        loginRepository.queryCurrentUserByUserId(userId);
+        CurrentUserResponseDTO user = loginRepository.queryCurrentUserByUserId(userId);
+        if (Boolean.TRUE.equals(user.getWeixinBound())) {
+            loginRepository.unbindAuthFromUser(userId, AuthType.WECHAT.getCode());
+        }
         loginRepository.updateUserStatus(userId, 2);
     }
 

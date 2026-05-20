@@ -166,7 +166,7 @@ public class LoginReposity implements ILoginRepository {
             throw new AppException(ResponseCode.ROLE_NOT_EXIST);
         }
 
-        String generatedUsername = buildWechatUsername(authKey);
+        String generatedUsername = buildAvailableWechatUsername(authKey);
         User user = User.builder()
                 .username(generatedUsername)
                 .displayName(StringUtils.isBlank(displayName) ? generatedUsername : displayName)
@@ -199,9 +199,14 @@ public class LoginReposity implements ILoginRepository {
         userAuthDao.deleteUserAuthByTypeAndUserId(authType, userId);
     }
 
-@Override
+    @Override
     public void updateUserAvatar(Long userId, String avatar, String avatarSource) {
         userDao.updateUserAvatar(userId, avatar, avatarSource);
+    }
+
+    @Override
+    public void updateUserDisplayName(Long userId, String displayName) {
+        userDao.updateUserDisplayName(userId, displayName);
     }
 
     @Override
@@ -216,6 +221,24 @@ public class LoginReposity implements ILoginRepository {
         }
 
         return baseUsername.substring(0, 64);
+    }
+
+    private String buildAvailableWechatUsername(String authKey) {
+        String baseUsername = buildWechatUsername(authKey);
+        String candidate = baseUsername;
+        int suffix = 2;
+
+        while (userDao.queryUserByUserName(candidate) != null) {
+            String suffixText = "_" + suffix;
+            int maxBaseLength = 64 - suffixText.length();
+            String trimmedBase = baseUsername.length() <= maxBaseLength
+                    ? baseUsername
+                    : baseUsername.substring(0, maxBaseLength);
+            candidate = trimmedBase + suffixText;
+            suffix++;
+        }
+
+        return candidate;
     }
 
     private CurrentUserResponseDTO buildCurrentUserResponse(User user) {

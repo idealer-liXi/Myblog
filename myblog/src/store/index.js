@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import weixin_user from './weixin_user'
+import music from './music'
 
 export default createStore({
   state: {
@@ -11,6 +12,7 @@ export default createStore({
   actions: {
   },
   modules: {
-    weixin_user
+    weixin_user,
+    music
   }
 })

@@ -1,61 +1,44 @@
 <template>
   <div class="me-container">
     <div class="profile-card">
-      <!-- Profile content remains the same -->
       <div class="profile-header">
-        <img class="avatar" src="@/assets/images/avatar.jpg" alt="个人头像" />
+        <img class="avatar" :src="profile.avatar" alt="个人头像" />
         <div class="profile-info">
-          <h2 class="name">Idealer</h2>
-          <p class="bio">Java开发工程师 | 大模型应用开发工程师 | 大模型算法工程师</p>
+          <h2 class="name">{{ profile.name }}</h2>
+          <p class="bio">{{ profile.bio }}</p>
         </div>
       </div>
       <div class="profile-body">
         <section class="section">
           <h3>联系方式</h3>
           <ul class="contact-list">
-            <li><i class="bi bi-envelope"></i> 邮箱：2755027635@qq.com</li>
-            <li><i class="bi bi-github"></i> GitHub：<a href="https://github.com/idealer-liXi" target="_blank">idealer-liXi</a></li>
-            <li><i class="bi bi-geo-alt"></i> 地点：辽宁-沈阳</li>
+            <li><i class="bi bi-envelope"></i> 邮箱：{{ profile.email }}</li>
+            <li><i class="bi bi-github"></i> GitHub：<a :href="profile.githubUrl" target="_blank">{{ profile.githubName }}</a></li>
+            <li><i class="bi bi-geo-alt"></i> 地点：{{ profile.location }}</li>
           </ul>
         </section>
         <section class="section">
           <h3>个人简介</h3>
-          <p>
-            具备扎实的前端、后端开发能力，熟悉Vue、SpringBoot等主流框架，热爱开源和技术分享。喜欢设计美观、体验流畅的Web应用，追求代码的优雅与高效。乐于团队协作，善于沟通，持续学习新技术。
-          </p>
+          <p>{{ profile.introduction }}</p>
         </section>
         <section class="section">
           <h3>兴趣爱好</h3>
           <ul class="hobby-list">
-            <li>编程与算法</li>
-            <li>开源社区</li>
-            <li>技术分享</li>
-            <li>音乐与吉他</li>
-            <li>美食探索</li>
+            <li v-for="hobby in profile.hobbies" :key="hobby">{{ hobby }}</li>
           </ul>
         </section>
       </div>
     </div>
     <div class="schools-container">
-      <SchoolCard>
-        <template #image><img src="@/assets/images/school1.jpeg" alt="本科院校"></template>
-        <template #name>安徽理工大学</template>
-        <template #tags><span class="tag">省部共建</span> <span class="tag">中西部高校基础能力建设工程</span></template>
-        <template #description>坐落于安徽省淮南市，是安徽省高等教育振兴计划‘地方特色高水平大学建设’项目立项建设高校。</template>
+      <SchoolCard v-for="school in profile.schools" :key="school.schoolKey">
+        <template #image><img :src="school.image" :alt="school.name"></template>
+        <template #name>{{ school.name }}</template>
+        <template #tags><span class="tag" v-for="tag in school.tags" :key="tag">{{ tag }}</span></template>
+        <template #description>{{ school.description }}</template>
         <template #honors>
           <ul>
-            <li>国家级大学生创新创业训练计划</li>
-            <li>全国大学生数学建模竞赛一等奖</li>
+            <li v-for="honor in school.honors" :key="honor">{{ honor }}</li>
           </ul>
-        </template>
-      </SchoolCard>
-      <SchoolCard>
-        <template #image><img src="@/assets/images/school2.jpeg" alt="研究生院校"></template>
-        <template #name>东北大学</template>
-        <template #tags><span class="tag">985</span> <span class="tag">211</span> <span class="tag">双一流</span></template>
-        <template #description>坐落于辽宁省沈阳市，是教育部直属的全国重点大学，由教育部、国防科工局、辽宁省、沈阳市共建。</template>
-        <template #honors>
-          暂无~~
         </template>
       </SchoolCard>
     </div>
@@ -63,7 +46,21 @@
 </template>
 
 <script setup>
-import SchoolCard from '@/components/SchoolCard.vue';
+import { onMounted, ref } from 'vue'
+import SchoolCard from '@/components/SchoolCard.vue'
+import { DEFAULT_PROFILE, getPublicProfile } from '@/services/profileService.js'
+
+const profile = ref(DEFAULT_PROFILE)
+
+const loadProfile = async () => {
+  try {
+    profile.value = await getPublicProfile()
+  } catch {
+    profile.value = DEFAULT_PROFILE
+  }
+}
+
+onMounted(loadProfile)
 </script>
 
 <style scoped>

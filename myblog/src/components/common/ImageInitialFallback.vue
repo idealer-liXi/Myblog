@@ -1,5 +1,5 @@
 <template>
-  <div :class="wrapperClass">
+  <div :class="[wrapperClass, 'wrapper-root']">
     <img
       v-if="showImage"
       :src="normalizedSrc"
@@ -67,6 +67,12 @@ const handleError = () => {
 </script>
 
 <style scoped>
+.wrapper-root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .image-initial-fallback {
   width: 100%;
   height: 100%;
@@ -76,6 +82,12 @@ const handleError = () => {
   background: linear-gradient(135deg, rgba(226, 232, 240, 0.95) 0%, rgba(203, 213, 225, 0.95) 100%);
   color: #334155;
   user-select: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .fallback-text {

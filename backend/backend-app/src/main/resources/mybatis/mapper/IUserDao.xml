@@ -44,10 +44,17 @@
         limit 1
     </select>
 
-<update id="updateUserAvatar">
+    <update id="updateUserAvatar">
         update user
         set avatar = #{avatar},
             avatar_source = #{avatarSource},
+            update_time = CURRENT_TIMESTAMP
+        where id = #{userId}
+    </update>
+
+    <update id="updateUserDisplayName">
+        update user
+        set display_name = #{displayName},
             update_time = CURRENT_TIMESTAMP
         where id = #{userId}
     </update>

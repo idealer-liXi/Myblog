@@ -55,7 +55,11 @@ public class IMessageControllerTest {
         adminMockMvc = MockMvcBuilders.standaloneSetup(adminController).build();
 
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("tester", null, Collections.emptyList()));
-        when(loginRepository.queryCurrentUser("tester")).thenReturn(CurrentUserResponseDTO.builder().id(7L).username("tester").build());
+        when(loginRepository.queryCurrentUser("tester")).thenReturn(CurrentUserResponseDTO.builder()
+                .id(7L)
+                .username("tester")
+                .displayName("展示名称")
+                .build());
     }
 
     @After
@@ -80,7 +84,7 @@ public class IMessageControllerTest {
 
     @Test
     public void createMessage_shouldWrapCreatedPayload() throws Exception {
-        when(messageService.createMessage(eq(7L), eq("tester"), any())).thenReturn(
+        when(messageService.createMessage(eq(7L), eq("展示名称"), any())).thenReturn(
                 MessageResponseDTO.builder().id(2L).content("新留言").status("PENDING").build()
         );
 

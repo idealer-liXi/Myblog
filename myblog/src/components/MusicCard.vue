@@ -35,7 +35,7 @@
     </div>
 
 <div class="music-controls">
-      <button class="control-btn prev-btn" @click="previousTrack" :disabled="!hasMusic || currentIndex === 0">
+      <button class="control-btn prev-btn" @click="previousTrack" :disabled="!hasMusic || currentTrackIndex === 0">
         <i class="bi bi-skip-backward-fill"></i>
       </button>
 
@@ -44,7 +44,7 @@
         <i v-else class="bi bi-play-circle-fill"></i>
       </button>
 
-      <button class="control-btn next-btn" @click="nextTrack" :disabled="!hasMusic || currentIndex === musicList.length - 1">
+      <button class="control-btn next-btn" @click="nextTrack" :disabled="!hasMusic || currentTrackIndex === musicList.length - 1">
         <i class="bi bi-skip-forward-fill"></i>
       </button>
 
@@ -62,20 +62,11 @@
           :key="music.id"
           type="button"
           class="playlist-item"
-          :class="{ active: index === currentIndex }"
-          @click="selectTrack(index, true)"
+          :class="{ active: index === currentTrackIndex }"
+          @click="selectTrack(index)"
         >
-          <ImageInitialFallback
-            :src="music.coverImage || ''"
-            :name="music.name || '音乐'"
-            :alt="music.name || '音乐封面'"
-            wrapperClass="playlist-cover-frame"
-            imageClass="playlist-cover-image"
-            fallbackClass="playlist-cover-fallback"
-          />
           <span class="playlist-main">
-            <strong>{{ music.name }}</strong>
-            <small>{{ music.artist }}</small>
+            {{ music.name }} - {{ music.artist }}
           </span>
         </button>
       </div>
@@ -84,127 +75,52 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
 import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
 import { getPublicMusicList } from '@/services/musicService.js'
+import audioPlayer from '@/services/audioPlayer.js'
 
-const musicList = ref([])
-const currentIndex = ref(0)
-const isPlaying = ref(false)
-const currentTime = ref(0)
-const duration = ref(0)
-const audio = ref(null)
+const store = useStore()
+
+const musicList = computed(() => store.getters['music/musicList'])
+const currentTrackIndex = computed(() => store.getters['music/currentTrackIndex'])
+const isPlaying = computed(() => store.getters['music/isPlaying'])
+const currentTime = computed(() => store.getters['music/currentTime'])
+const duration = computed(() => store.getters['music/duration'])
+const hasMusic = computed(() => store.getters['music/hasMusic'])
+const currentMusic = computed(() => store.getters['music/currentMusic'] || {})
+const progress = computed(() => (duration.value > 0 ? (currentTime.value / duration.value) * 100 : 0))
+
 const showPlaylist = ref(false)
 const error = ref('')
 
-const hasMusic = computed(() => musicList.value.length > 0)
-const currentMusic = computed(() => musicList.value[currentIndex.value] || {})
-const progress = computed(() => (duration.value > 0 ? (currentTime.value / duration.value) * 100 : 0))
-
-const togglePlay = async () => {
-  if (!audio.value || !hasMusic.value) return
-
-  if (isPlaying.value) {
-    audio.value.pause()
-    isPlaying.value = false
-    return
-  }
-
-  try {
-    await audio.value.play()
-    isPlaying.value = true
-  } catch {
-    isPlaying.value = false
-  }
+const togglePlay = () => {
+  audioPlayer.togglePlay()
 }
 
-const loadTrack = async (autoPlay = false) => {
-  if (!audio.value || !hasMusic.value) return
-
-  audio.value.src = currentMusic.value.audioUrl || ''
-  audio.value.load()
-  currentTime.value = 0
-  duration.value = 0
-  isPlaying.value = false
-
-  if (autoPlay) {
-    try {
-      await audio.value.play()
-      isPlaying.value = true
-    } catch {
-      isPlaying.value = false
-    }
-  }
-}
-
-const selectTrack = async (index, autoPlay = false) => {
-  if (index < 0 || index >= musicList.value.length) return
-  currentIndex.value = index
-  await loadTrack(autoPlay)
+const selectTrack = (index) => {
+  audioPlayer.playTrack(index, true)
 }
 
 const previousTrack = () => {
-  if (currentIndex.value > 0) {
-    selectTrack(currentIndex.value - 1, isPlaying.value)
-  }
+  audioPlayer.previous()
 }
 
 const nextTrack = () => {
-  if (currentIndex.value < musicList.value.length - 1) {
-    selectTrack(currentIndex.value + 1, isPlaying.value)
-  }
-}
-
-const loadMusic = async () => {
-  try {
-    error.value = ''
-    musicList.value = await getPublicMusicList()
-    currentIndex.value = 0
-    if (musicList.value.length > 0) {
-      await loadTrack(false)
-    } else {
-      showPlaylist.value = false
-    }
-  } catch (err) {
-    musicList.value = []
-    error.value = err?.message || '加载音乐失败'
-    showPlaylist.value = false
-  }
-}
-
-const handleTimeUpdate = () => {
-  if (audio.value) {
-    currentTime.value = audio.value.currentTime
-  }
-}
-
-const handleLoadedMetadata = () => {
-  if (audio.value) {
-    duration.value = Number.isFinite(audio.value.duration) ? audio.value.duration : 0
-  }
-}
-
-const handleEnded = () => {
-  isPlaying.value = false
-  if (currentIndex.value < musicList.value.length - 1) {
-    selectTrack(currentIndex.value + 1, true)
-  }
+  audioPlayer.next()
 }
 
 onMounted(async () => {
-  audio.value = new Audio()
-  audio.value.addEventListener('timeupdate', handleTimeUpdate)
-  audio.value.addEventListener('loadedmetadata', handleLoadedMetadata)
-  audio.value.addEventListener('ended', handleEnded)
-  await loadMusic()
-})
-
-onUnmounted(() => {
-  if (audio.value) {
-    audio.value.removeEventListener('timeupdate', handleTimeUpdate)
-    audio.value.removeEventListener('loadedmetadata', handleLoadedMetadata)
-    audio.value.removeEventListener('ended', handleEnded)
-    audio.value.pause()
+  if (musicList.value.length === 0) {
+    try {
+      error.value = ''
+      const list = await getPublicMusicList()
+      store.dispatch('music/setMusicList', list)
+      store.dispatch('music/setTrackIndex', 0)
+    } catch (err) {
+      error.value = err?.message || '加载音乐失败'
+    }
   }
 })
 
@@ -225,8 +141,6 @@ const formatTime = (seconds) => {
   padding: 15px;
   color: #333;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 0 auto;
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
@@ -239,7 +153,7 @@ const formatTime = (seconds) => {
 .music-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   padding: 5px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.5);
@@ -250,27 +164,28 @@ const formatTime = (seconds) => {
   position: relative;
   width: 70px;
   height: 70px;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
-.music-cover-frame,
-.music-cover-image {
+.music-cover :deep(.wrapper-root) {
   width: 100%;
   height: 100%;
 }
 
-.music-cover-image {
+.music-cover :deep(img) {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-.music-cover-fallback {
+.music-cover :deep(.image-initial-fallback) {
   border-radius: 15px;
 }
-
-
 
 .play-overlay {
   position: absolute;
@@ -301,10 +216,10 @@ const formatTime = (seconds) => {
 
 .music-details {
   flex: 1;
-  margin-left: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
   transition: all 0.3s ease;
 }
 
@@ -533,65 +448,34 @@ const formatTime = (seconds) => {
   max-height: 260px;
 }
 
-.playlist-cover-frame,
-.playlist-cover-image {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-}
-
-.playlist-cover-image {
-  object-fit: cover;
-}
-
-.playlist-cover-fallback {
-  border-radius: 12px;
-}
-
 .playlist-main {
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.playlist-main strong,
-.playlist-main small {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.playlist-main strong {
   font-size: 0.85rem;
   color: #334155;
 }
 
-.playlist-main small {
-  margin-top: 2px;
-  font-size: 0.76rem;
-  color: #64748b;
-}
-
-/* 响应式设计 */
 @media (max-width: 768px) {
   .music-card {
     padding: 12px;
     max-width: 450px;
   }
-  
+
   .music-info {
     padding: 3px;
     margin-bottom: 10px;
   }
-  
+
   .music-title {
     font-size: 1rem;
   }
-  
+
   .music-artist {
     font-size: 0.8rem;
   }
-  
+
 .music-controls {
     gap: 12px;
     margin-top: 5px;
@@ -600,13 +484,13 @@ const formatTime = (seconds) => {
   .playlist-panel {
     max-height: 220px;
   }
-  
+
   .prev-btn, .next-btn {
     width: 28px;
     height: 28px;
     font-size: 0.9rem;
   }
-  
+
   .play-btn {
     width: 34px;
     height: 34px;
@@ -626,7 +510,7 @@ const formatTime = (seconds) => {
     margin: 10px;
     max-width: 100%;
   }
-  
+
   .music-cover {
     width: 55px;
     height: 55px;
@@ -636,22 +520,16 @@ const formatTime = (seconds) => {
     padding: 7px;
   }
 
-  .playlist-cover-frame,
-  .playlist-cover-image {
-    width: 40px;
-    height: 40px;
-  }
-  
   .music-title {
     font-size: 1.1rem;
   }
-  
+
   .play-btn {
     font-size: 1.2rem;
     width: 35px;
     height: 35px;
   }
-  
+
   .prev-btn, .next-btn {
     font-size: 0.8rem;
     width: 25px;

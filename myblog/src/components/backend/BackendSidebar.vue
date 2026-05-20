@@ -59,6 +59,10 @@
         <i class="bi bi-chat-left-text"></i>
         <span>留言管理</span>
       </router-link>
+      <router-link :to="{ name: 'backend-profile' }" class="sidebar-item" :class="{ active: $route.name === 'backend-profile' }">
+        <i class="bi bi-person-vcard"></i>
+        <span>站主介绍管理</span>
+      </router-link>
 <div class="sidebar-group">
         <div class="sidebar-item sidebar-parent" :class="{ active: isImageActive }" @click="imageExpanded = !imageExpanded">
           <i class="bi bi-image"></i>
@@ -108,9 +112,9 @@ const store = useStore()
 const userInfo = computed(() => store.getters['weixin_user/getUserInfo'] || {})
 const username = computed(() => userInfo.value.displayName || userInfo.value.username || userInfo.value.weixinName || '管理员')
 
-const articleExpanded = ref(true)
-const projectExpanded = ref(true)
-const imageExpanded = ref(true)
+const articleExpanded = ref(false)
+const projectExpanded = ref(false)
+const imageExpanded = ref(false)
 
 const isArticleActive = computed(() => [
   'backend-articles',

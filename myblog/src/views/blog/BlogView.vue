@@ -3,6 +3,7 @@
     <div class="container">
       <div class="row main">
         <div class="left-projects d-none d-md-block col-md-3 col-lg-2">
+          <WeatherCard/>
           <div class="sidebar-section">
             <div class="section-header">
               <i class="bi bi-folder2-open"></i>
@@ -27,6 +28,7 @@
 <script setup>
 import MainBlog from '@/components/MainBlog.vue';
 import ProjectsCard from "@/components/ProjectsCard.vue";
+import WeatherCard from "@/components/WeatherCard.vue";
 import MusicCard from "@/components/MusicCard.vue";
 import CalendarCard from "@/components/CalendarCard.vue";
 import MessageCard from "@/components/MessageCard.vue";
@@ -55,17 +57,28 @@ import MessageCard from "@/components/MessageCard.vue";
 .left-projects {
   height: calc(100vh - 76px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   position: sticky;
   top: 76px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.22) transparent;
 }
 
 .left-projects::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
+}
+
+.left-projects::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .left-projects::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.18);
+  border-radius: 10px;
+}
+
+.left-projects::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.32);
 }
 
 .sidebar-section {
@@ -82,6 +95,10 @@ import MessageCard from "@/components/MessageCard.vue";
 .sidebar-section:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-section > *:not(:last-child) {
+  margin-bottom: 12px;
 }
 
 .section-header {
@@ -107,23 +124,54 @@ import MessageCard from "@/components/MessageCard.vue";
 .main-blog {
   height: calc(100vh - 76px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   transition: all 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.22) transparent;
 }
 
 .main-blog::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
+}
+
+.main-blog::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .main-blog::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.18);
+  border-radius: 10px;
+}
+
+.main-blog::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.32);
 }
 
 .right-message {
   height: calc(100vh - 76px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   position: sticky;
   top: 76px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.22) transparent;
+}
+
+.right-message::-webkit-scrollbar {
+  width: 5px;
+}
+
+.right-message::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.right-message::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.18);
+  border-radius: 10px;
+}
+
+.right-message::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.32);
 }
 
 .right-message > * {

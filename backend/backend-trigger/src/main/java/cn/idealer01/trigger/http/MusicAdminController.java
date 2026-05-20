@@ -29,7 +29,7 @@ import java.util.Map;
 @RequestMapping("/api/admin/music")
 public class MusicAdminController implements IMusicAdminController {
 
-    private static final long MAX_AUDIO_FILE_SIZE = 20 * 1024 * 1024;
+    private static final long MAX_AUDIO_FILE_SIZE = 50 * 1024 * 1024;
     private static final long MAX_IMAGE_FILE_SIZE = 5 * 1024 * 1024;
 
     @Resource
@@ -165,7 +165,7 @@ public class MusicAdminController implements IMusicAdminController {
         if (file.getSize() > MAX_AUDIO_FILE_SIZE) {
             return Response.<Map<String, String>>builder()
                     .code(ResponseCode.ILLEGAL_PARAMETER.getCode())
-                    .info("音频文件大小不能超过20MB")
+                    .info("音频文件大小不能超过50MB")
                     .build();
         }
         if (!isAllowedAudio(file.getContentType(), file.getOriginalFilename())) {

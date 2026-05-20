@@ -32,7 +32,9 @@ public interface ILoginRepository {
 
     void unbindAuthFromUser(Long userId, String authType);
 
-void updateUserAvatar(Long userId, String avatar, String avatarSource);
+    void updateUserAvatar(Long userId, String avatar, String avatarSource);
+
+    void updateUserDisplayName(Long userId, String displayName);
 
     void updateUserStatus(Long userId, Integer status);
 }

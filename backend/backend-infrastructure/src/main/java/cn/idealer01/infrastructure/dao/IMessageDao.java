@@ -2,6 +2,7 @@ package cn.idealer01.infrastructure.dao;
 
 import cn.idealer01.infrastructure.dao.po.MessageRecord;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,13 +14,15 @@ public interface IMessageDao {
 
     MessageRecord queryById(Long id);
 
-    List<MessageRecord> queryPublishedPage(int offset, int pageSize);
+    List<MessageRecord> queryPublishedPage(@Param("offset") int offset, @Param("pageSize") int pageSize);
 
     Long countPublished();
 
     List<MessageRecord> queryByUserId(Long userId);
 
-    List<MessageRecord> queryAdminPage(String status, int offset, int pageSize);
+    List<MessageRecord> queryAdminPage(@Param("status") String status,
+                                       @Param("offset") int offset,
+                                       @Param("pageSize") int pageSize);
 
-    Long countAdminPage(String status);
+    Long countAdminPage(@Param("status") String status);
 }

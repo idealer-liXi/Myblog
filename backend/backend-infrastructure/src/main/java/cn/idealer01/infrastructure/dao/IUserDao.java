@@ -19,7 +19,9 @@ public interface IUserDao {
 
     String queryWechatOpenIdByUserId(Long userId);
 
-void updateUserAvatar(@Param("userId") Long userId, @Param("avatar") String avatar, @Param("avatarSource") String avatarSource);
+    void updateUserAvatar(@Param("userId") Long userId, @Param("avatar") String avatar, @Param("avatarSource") String avatarSource);
+
+    void updateUserDisplayName(@Param("userId") Long userId, @Param("displayName") String displayName);
 
     void updateUserStatus(@Param("userId") Long userId, @Param("status") Integer status);
 }

@@ -146,11 +146,17 @@ public class UserAdminServiceTest {
 
     @Test
     public void deleteUser_shouldSoftDeleteBySettingDeletedStatus() {
-        CurrentUserResponseDTO user = CurrentUserResponseDTO.builder().id(9L).status("active").build();
+        CurrentUserResponseDTO user = CurrentUserResponseDTO.builder()
+                .id(9L)
+                .status("active")
+                .loginType("wechat")
+                .weixinBound(Boolean.TRUE)
+                .build();
         when(loginRepository.queryCurrentUserByUserId(9L)).thenReturn(user);
 
         userAdminService.deleteUser(9L);
 
+        verify(loginRepository).unbindAuthFromUser(9L, "wechat");
         verify(loginRepository).updateUserStatus(9L, 2);
     }
 }

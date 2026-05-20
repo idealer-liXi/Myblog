@@ -2,26 +2,39 @@
   <Navbar></Navbar>
   <router-view/>
   <Footer></Footer>
+  <ConfirmModal ref="confirmModal" />
 </template>
 
 <script>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+import ConfirmModal from '@/components/common/ConfirmModal.vue'
 import router from '@/router'
 import { useStore } from 'vuex'
 import { clearSession, hasValidSession, readSession } from '@/utils/authSession'
 import { fetchCurrentUser } from '@/services/authService'
+import audioPlayer from '@/services/audioPlayer.js'
 
 export default {
   components: {
     Navbar,
     Footer,
+    ConfirmModal,
   },
   setup() {
     const store = useStore()
+    const confirmModal = ref(null)
 
     onMounted(async () => {
+      audioPlayer.bindStore(store)
+
+      audioPlayer.onConfirm(async () => {
+        const result = await confirmModal.value.show()
+        if (result) store.dispatch('music/confirmPlay')
+        return result
+      })
+
       if (!hasValidSession()) {
         store.dispatch('weixin_user/logout')
         return
@@ -46,7 +59,7 @@ export default {
       }
     })
 
-    return {}
+    return { confirmModal }
   }
 }
 </script>

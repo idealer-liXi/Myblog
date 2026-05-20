@@ -6,23 +6,31 @@ import cn.idealer01.api.dto.RegularUserRequestDTO;
 import cn.idealer01.api.dto.ThirdPartyPendingLoginResponseDTO;
 import cn.idealer01.domain.auth.adapter.repository.ILoginRepository;
 import cn.idealer01.domain.auth.service.IRegularUserLoginService;
+import cn.idealer01.domain.auth.service.IUserAvatarAdminService;
 import cn.idealer01.domain.auth.service.IWeixinLoginService;
+import cn.idealer01.domain.image.service.IImageService;
 import cn.idealer01.trigger.http.RegularUserController;
 import cn.idealer01.trigger.http.UserProfileController;
 import cn.idealer01.trigger.http.WeixinLoginController;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +42,8 @@ public class ILoginControllerTest {
     private IRegularUserLoginService loginService;
     private ILoginRepository loginRepository;
     private IWeixinLoginService weixinLoginService;
+    private IUserAvatarAdminService userAvatarAdminService;
+    private IImageService imageService;
 
     @Before
     public void setUp() {
@@ -43,9 +53,13 @@ public class ILoginControllerTest {
         loginService = mock(IRegularUserLoginService.class);
         loginRepository = mock(ILoginRepository.class);
         weixinLoginService = mock(IWeixinLoginService.class);
+        userAvatarAdminService = mock(IUserAvatarAdminService.class);
+        imageService = mock(IImageService.class);
         ReflectionTestUtils.setField(controller, "loginService", loginService);
         ReflectionTestUtils.setField(userProfileController, "loginRepository", loginRepository);
         ReflectionTestUtils.setField(userProfileController, "weixinLoginService", weixinLoginService);
+        ReflectionTestUtils.setField(userProfileController, "userAvatarAdminService", userAvatarAdminService);
+        ReflectionTestUtils.setField(userProfileController, "imageService", imageService);
         ReflectionTestUtils.setField(weixinLoginController, "loginService", weixinLoginService);
         loginMockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         profileMockMvc = MockMvcBuilders.standaloneSetup(userProfileController).build();
@@ -185,5 +199,92 @@ public class ILoginControllerTest {
                         .principal(new TestingAuthenticationToken("admin", null)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value("0000"));
+    }
+
+    @Test
+    public void testUpdateCurrentUserProfile() throws Exception {
+        when(loginRepository.queryCurrentUser("wx_user"))
+                .thenReturn(CurrentUserResponseDTO.builder()
+                        .id(2L)
+                        .username("wx_user")
+                        .displayName("旧昵称")
+                        .loginType("weixin")
+                        .roles(java.util.Collections.singletonList("USER"))
+                        .build())
+                .thenReturn(CurrentUserResponseDTO.builder()
+                        .id(2L)
+                        .username("wx_user")
+                        .displayName("新昵称")
+                        .loginType("weixin")
+                        .roles(java.util.Collections.singletonList("USER"))
+                        .avatarSource("WECHAT")
+                        .build());
+
+        profileMockMvc.perform(put("/api/user/me/profile")
+                        .principal(new TestingAuthenticationToken("wx_user", null))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"displayName\":\"新昵称\",\"avatarSource\":\"WECHAT\",\"avatar\":\"\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("0000"))
+                .andExpect(jsonPath("$.data.displayName").value("新昵称"))
+                .andExpect(jsonPath("$.data.loginType").value("weixin"));
+
+        verify(loginRepository).updateUserDisplayName(2L, "新昵称");
+        verify(userAvatarAdminService).updateUserAvatar(eq(2L), any());
+    }
+
+    @Test
+    public void testUploadCurrentUserAvatar() throws Exception {
+        when(loginRepository.queryCurrentUser("wx_user")).thenReturn(CurrentUserResponseDTO.builder()
+                .id(2L)
+                .username("wx_user")
+                .build());
+        when(imageService.uploadImage(any(), eq("avatar.png"), eq(2L), eq("user-avatars/2")))
+                .thenReturn(java.util.Collections.singletonMap("url", "https://cdn.example.com/user-avatars/2/avatar.png"));
+
+        MockMultipartFile file = new MockMultipartFile("file", "avatar.png", "image/png", "png".getBytes());
+
+        profileMockMvc.perform(multipart("/api/user/me/avatar/upload")
+                        .file(file)
+                        .principal(new TestingAuthenticationToken("wx_user", null)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("0000"))
+                .andExpect(jsonPath("$.data.url").value("https://cdn.example.com/user-avatars/2/avatar.png"));
+    }
+
+    @Test
+    public void testUploadCurrentUserAvatarShouldRejectEmptyFile() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "avatar.png", "image/png", new byte[0]);
+
+        profileMockMvc.perform(multipart("/api/user/me/avatar/upload")
+                        .file(file)
+                        .principal(new TestingAuthenticationToken("wx_user", null)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("0002"))
+                .andExpect(jsonPath("$.info").value("文件不能为空"));
+    }
+
+    @Test
+    public void testUploadCurrentUserAvatarShouldRejectNonImageFile() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "avatar.txt", "text/plain", "hello".getBytes());
+
+        profileMockMvc.perform(multipart("/api/user/me/avatar/upload")
+                        .file(file)
+                        .principal(new TestingAuthenticationToken("wx_user", null)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("0002"))
+                .andExpect(jsonPath("$.info").value("仅支持图片文件"));
+    }
+
+    @Test
+    public void testUploadCurrentUserAvatarShouldRejectOversizedFile() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "avatar.png", "image/png", new byte[5 * 1024 * 1024 + 1]);
+
+        profileMockMvc.perform(multipart("/api/user/me/avatar/upload")
+                        .file(file)
+                        .principal(new TestingAuthenticationToken("wx_user", null)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("0002"))
+                .andExpect(jsonPath("$.info").value("文件大小不能超过5MB"));
     }
 }

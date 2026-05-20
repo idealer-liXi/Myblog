@@ -25,7 +25,7 @@
           <li class="nav-item">
             <router-link :class="route_value === 'me'?'nav-link active':'nav-link'" :to="{name: 'me'}">
               <i class="bi bi-person"></i>
-              <span>个人介绍</span>
+              <span>站主介绍</span>
             </router-link>
           </li>
           <li class="nav-item">
@@ -47,6 +47,26 @@
             </router-link>
           </li>
         </ul>
+
+        <button v-if="hasMusic && !isPlaying" class="nav-music-btn" @click="togglePlay" title="播放音乐">
+          <i class="bi bi-music-note"></i>
+        </button>
+
+        <div v-if="hasMusic && isPlaying" class="nav-mini-player nav-mini-player-playing">
+          <button class="mini-player-prev" @click="prevTrack" :disabled="currentTrackIndex === 0" title="上一首">
+            <i class="bi bi-skip-backward-fill"></i>
+          </button>
+          <button class="mini-player-toggle" @click="togglePlay" title="暂停">
+            <i class="bi bi-pause-fill"></i>
+          </button>
+          <button class="mini-player-next" @click="nextTrack" :disabled="currentTrackIndex === musicList.length - 1" title="下一首">
+            <i class="bi bi-skip-forward-fill"></i>
+          </button>
+          <span class="mini-player-info">
+            <span class="mini-player-name">{{ currentMusicName }}</span>
+            <span class="mini-player-artist">{{ currentMusicArtist }}</span>
+          </span>
+        </div>
 
         <ul v-if="!isLoggedIn" class="navbar-nav auth-section ms-auto">
           <li class="nav-item">
@@ -91,6 +111,7 @@ import { useRoute } from "vue-router";
 import { computed } from "vue";
 import router from "@/router";
 import { useStore } from "vuex";
+import audioPlayer from "@/services/audioPlayer.js";
 
 export default {
   setup() {
@@ -104,6 +125,26 @@ export default {
     const displayName = computed(() => store.getters['weixin_user/getDisplayName'])
     const avatarSrc = computed(() => store.getters['weixin_user/getAvatar'])
     const userInitial = computed(() => displayName.value.slice(0, 1).toUpperCase())
+
+    const hasMusic = computed(() => store.getters['music/hasMusic'])
+    const isPlaying = computed(() => store.getters['music/isPlaying'])
+    const currentTrackIndex = computed(() => store.getters['music/currentTrackIndex'])
+    const musicList = computed(() => store.getters['music/musicList'])
+    const currentMusic = computed(() => store.getters['music/currentMusic'] || {})
+    const currentMusicName = computed(() => currentMusic.value?.name || '')
+    const currentMusicArtist = computed(() => currentMusic.value?.artist || '')
+
+    const togglePlay = () => {
+      audioPlayer.togglePlay()
+    }
+
+    const prevTrack = () => {
+      audioPlayer.previous()
+    }
+
+    const nextTrack = () => {
+      audioPlayer.next()
+    }
 
     const login = () => {
       router.push({ name: "login" });
@@ -130,6 +171,16 @@ export default {
       displayName,
       avatarSrc,
       userInitial,
+      hasMusic,
+      isPlaying,
+      currentTrackIndex,
+      musicList,
+      currentMusic,
+      currentMusicName,
+      currentMusicArtist,
+      togglePlay,
+      prevTrack,
+      nextTrack,
       login,
       register,
       logout,
@@ -292,6 +343,130 @@ export default {
 
 .navbar-toggler:focus {
   box-shadow: none;
+}
+
+/* Music button (collapsed state) */
+.nav-music-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(168, 237, 234, 0.35);
+  color: #4a86e8;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+}
+
+.nav-music-btn:hover {
+  background: rgba(168, 237, 234, 0.6);
+  transform: scale(1.1);
+}
+
+/* Mini player (expanded state) */
+.nav-mini-player {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 10px 4px 6px;
+  border-radius: 999px;
+  background: rgba(168, 237, 234, 0.35);
+  border: 1px solid rgba(74, 134, 232, 0.15);
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+  animation: mini-player-in 0.3s ease forwards;
+}
+
+@keyframes mini-player-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.mini-player-prev,
+.mini-player-toggle,
+.mini-player-next {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4a86e8;
+  padding: 0;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.mini-player-prev,
+.mini-player-next {
+  width: 24px;
+  height: 24px;
+  font-size: 0.75rem;
+  border-radius: 50%;
+}
+
+.mini-player-prev:hover:not(:disabled),
+.mini-player-next:hover:not(:disabled) {
+  background: rgba(74, 134, 232, 0.12);
+}
+
+.mini-player-prev:disabled,
+.mini-player-next:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.mini-player-toggle {
+  width: 28px;
+  height: 28px;
+  font-size: 0.95rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a8edea, #fed6e3);
+}
+
+.mini-player-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.mini-player-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  max-width: 160px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  color: #475569;
+  margin-left: 4px;
+}
+
+.mini-player-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-player-artist {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-player-artist::before {
+  content: '-';
+  margin: 0 2px;
 }
 
 .auth-section {
@@ -511,6 +686,12 @@ export default {
   .nav-link::after {
     display: none;
   }
+
+  .nav-mini-player {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    align-self: flex-start;
+  }
 }
 
 @media (max-width: 576px) {
@@ -564,6 +745,10 @@ export default {
 
   .user-name {
     font-size: 0.85rem;
+  }
+
+  .mini-player-info {
+    max-width: 100px;
   }
 }
 </style>
