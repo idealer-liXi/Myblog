@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,6 +20,7 @@ public class ProjectAdminResponseDTO {
     private String githubUrl;
     private String previewUrl;
     private String coverImage;
+    private List<String> showcaseImages;
     private String status;
     private Integer sortOrder;
     private String startDate;

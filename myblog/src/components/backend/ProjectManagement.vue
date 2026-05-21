@@ -132,6 +132,41 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label">项目轮播图</label>
+            <div class="showcase-toolbar">
+              <button type="button" class="btn-upload-secondary" @click="triggerShowcaseUpload">
+                <i class="bi bi-images"></i>
+                上传多图
+              </button>
+              <span class="showcase-tip">用于项目展示页轮播图，封面图仍单独维护</span>
+            </div>
+
+            <div v-if="form.showcaseImages.length" class="showcase-grid">
+              <div v-for="(image, index) in form.showcaseImages" :key="`${image}-${index}`" class="showcase-card">
+                <img :src="image" alt="项目轮播图" class="showcase-card-image" />
+                <div class="showcase-card-actions">
+                  <button type="button" class="showcase-action" @click="moveShowcaseImageLeft(index)" :disabled="index === 0">左移</button>
+                  <button type="button" class="showcase-action" @click="moveShowcaseImageRight(index)" :disabled="index === form.showcaseImages.length - 1">右移</button>
+                  <button type="button" class="showcase-action showcase-action-danger" @click="removeShowcaseImage(index)">删除</button>
+                </div>
+              </div>
+            </div>
+
+            <div v-else class="showcase-empty">暂未上传轮播图</div>
+
+            <div v-if="showcaseUploading" class="showcase-uploading">轮播图上传中...</div>
+
+            <input
+              ref="showcaseInput"
+              type="file"
+              class="cover-hidden-input"
+              accept="image/*"
+              multiple
+              @change="handleShowcaseFileSelect"
+            />
+          </div>
+
+          <div class="form-group">
             <label class="form-label">技术栈</label>
             <input type="text" v-model="form.techStack" class="form-input" placeholder="例如：Vue 3, Node.js, MongoDB（逗号分隔）" />
           </div>
@@ -220,8 +255,10 @@ const saving = ref(false)
 const formError = ref('')
 const deleteTarget = ref(null)
 const coverUploading = ref(false)
+const showcaseUploading = ref(false)
 const coverDragover = ref(false)
 const coverInput = ref(null)
+const showcaseInput = ref(null)
 
 const form = ref({
   id: null,
@@ -232,6 +269,7 @@ const form = ref({
   githubUrl: '',
   previewUrl: '',
   coverImage: '',
+  showcaseImages: [],
   status: '进行中',
   sortOrder: 0,
   startDate: '',
@@ -279,6 +317,7 @@ const openCreateModal = () => {
     githubUrl: '',
     previewUrl: '',
     coverImage: '',
+    showcaseImages: [],
     status: '进行中',
     sortOrder: 0,
     startDate: '',
@@ -292,7 +331,10 @@ const openCreateModal = () => {
 
 const openEditModal = (proj) => {
   isEditing.value = true
-  form.value = { ...proj }
+  form.value = {
+    ...proj,
+    showcaseImages: Array.isArray(proj.showcaseImages) ? [...proj.showcaseImages] : []
+  }
   formErrors.value = { name: '' }
   formError.value = ''
   showModal.value = true
@@ -306,8 +348,20 @@ const triggerCoverUpload = () => {
   coverInput.value.click()
 }
 
+const triggerShowcaseUpload = () => {
+  showcaseInput.value.click()
+}
+
 const removeCover = () => {
   form.value.coverImage = ''
+}
+
+const appendShowcaseImage = (url) => {
+  if (!url) return
+  if (!Array.isArray(form.value.showcaseImages)) {
+    form.value.showcaseImages = []
+  }
+  form.value.showcaseImages.push(url)
 }
 
 const uploadCoverFile = async (file) => {
@@ -350,6 +404,46 @@ const handleCoverDrop = (event) => {
   if (file && file.type.startsWith('image/')) {
     uploadCoverFile(file)
   }
+}
+
+const uploadShowcaseFiles = async (files) => {
+  const imageFiles = Array.from(files || []).filter((file) => file.type.startsWith('image/'))
+  if (!imageFiles.length) return
+
+  showcaseUploading.value = true
+  try {
+    for (const file of imageFiles) {
+      const url = await uploadImage(file, {
+        directory: 'projects'
+      })
+      appendShowcaseImage(url)
+    }
+  } catch {
+    formError.value = '项目轮播图上传失败，请稍后重试'
+  } finally {
+    showcaseUploading.value = false
+  }
+}
+
+const handleShowcaseFileSelect = (event) => {
+  uploadShowcaseFiles(event.target.files)
+  event.target.value = ''
+}
+
+const removeShowcaseImage = (index) => {
+  form.value.showcaseImages.splice(index, 1)
+}
+
+const moveShowcaseImageLeft = (index) => {
+  if (index <= 0) return
+  const list = form.value.showcaseImages
+  ;[list[index - 1], list[index]] = [list[index], list[index - 1]]
+}
+
+const moveShowcaseImageRight = (index) => {
+  const list = form.value.showcaseImages
+  if (index >= list.length - 1) return
+  ;[list[index + 1], list[index]] = [list[index], list[index + 1]]
 }
 
 const validateForm = () => {
@@ -1009,6 +1103,89 @@ loadProjects()
 
 .cover-hidden-input {
   display: none;
+}
+
+.showcase-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.btn-upload-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid rgba(0, 123, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(0, 123, 255, 0.06);
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.showcase-tip {
+  font-size: 0.78rem;
+  color: #7b8794;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.showcase-card {
+  border: 1px solid rgba(128, 145, 184, 0.16);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.showcase-card-image {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+}
+
+.showcase-card-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 8px;
+}
+
+.showcase-action {
+  border: 1px solid rgba(128, 145, 184, 0.18);
+  border-radius: 8px;
+  background: #fff;
+  color: #475569;
+  font-size: 0.74rem;
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+.showcase-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.showcase-action-danger {
+  color: #dc3545;
+  border-color: rgba(220, 53, 69, 0.18);
+}
+
+.showcase-empty,
+.showcase-uploading {
+  padding: 12px 14px;
+  border: 1px dashed rgba(128, 145, 184, 0.2);
+  border-radius: 12px;
+  font-size: 0.82rem;
+  color: #7b8794;
+  background: rgba(255, 255, 255, 0.55);
 }
 
 .btn-confirm-delete {

@@ -1,48 +1,52 @@
-const QWEATHER_API_BASE = 'https://devapi.qweather.com/v7'
-const QWEATHER_WEB_API_BASE = 'https://geoapi.qweather.com/v2'
+const WEATHER_PROXY_URL = 'http://localhost:8080/api/public/weather/current'
+const CACHE_KEY = 'weather_cache'
+const CACHE_DURATION = 30 * 60 * 1000 // 30分钟，单位毫秒
 
-function getApiKey() {
-  return localStorage.getItem('qweather_key') || ''
-}
-
-export async function getWeatherByIP() {
-  const key = getApiKey()
-  if (!key) return null
-
+function getCachedWeather() {
   try {
-    const locRes = await fetch(`${QWEATHER_WEB_API_BASE}/city/lookup?location=auto&key=${key}&lang=zh`)
-    const locData = await locRes.json()
-    if (locData.code !== '200' || !locData.location?.[0]) return null
+    const cached = localStorage.getItem(CACHE_KEY)
+    if (!cached) return null
 
-    const loc = locData.location[0]
-    const weatherRes = await fetch(`${QWEATHER_API_BASE}/weather/now?location=${loc.id}&key=${key}&lang=zh`)
-    const weatherData = await weatherRes.json()
-    if (weatherData.code !== '200' || !weatherData.now) return null
-
-    return {
-      city: loc.name,
-      temp: weatherData.now.temp,
-      text: weatherData.now.text,
-      icon: weatherData.now.icon,
-      windDir: weatherData.now.windDir,
-      windScale: weatherData.now.windScale,
-      humidity: weatherData.now.humidity,
-      feelsLike: weatherData.now.feelsLike,
-      updateTime: weatherData.updateTime
+    const { data, timestamp } = JSON.parse(cached)
+    if (Date.now() - timestamp > CACHE_DURATION) {
+      // 缓存已过期，清除
+      localStorage.removeItem(CACHE_KEY)
+      return null
     }
+    return data
   } catch {
     return null
   }
 }
 
-export function setApiKey(key) {
-  if (key) {
-    localStorage.setItem('qweather_key', key)
-  } else {
-    localStorage.removeItem('qweather_key')
+function setCachedWeather(data) {
+  try {
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({ data, timestamp: Date.now() })
+    )
+  } catch {
+    // localStorage 可能已满，忽略错误
   }
 }
 
-export function hasApiKey() {
-  return !!getApiKey()
+export async function getWeatherByIP() {
+  // 先尝试读取缓存
+  const cached = getCachedWeather()
+  if (cached) {
+    return cached
+  }
+
+  try {
+    const response = await fetch(WEATHER_PROXY_URL)
+    if (!response.ok) return null
+
+    const data = await response.json()
+    if (data) {
+      setCachedWeather(data)
+    }
+    return data
+  } catch {
+    return null
+  }
 }

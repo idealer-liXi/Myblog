@@ -93,6 +93,7 @@ CREATE TABLE `project` (
   `enabled` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否启用',
   `access_type` varchar(32) NOT NULL DEFAULT 'public' COMMENT '访问类型',
   `allowed_roles` varchar(255) NOT NULL DEFAULT '' COMMENT '允许角色列表',
+  `showcase_images` TEXT NULL COMMENT '项目展示轮播图 URL JSON 数组',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),

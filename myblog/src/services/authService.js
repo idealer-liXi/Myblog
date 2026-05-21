@@ -195,6 +195,8 @@ export async function bindWechatExistingAccount({ pendingToken, username, passwo
 }
 
 export async function fetchCurrentUser() {
+  const { user } = readSession()
+
   try {
     const response = await request({
       method: 'get',
@@ -206,9 +208,8 @@ export async function fetchCurrentUser() {
       throw new Error(response.data.info || '获取当前用户失败')
     }
 
-    return normalizeUser(response.data.data)
+    return normalizeUser(response.data.data, user || {})
   } catch (error) {
-    const { user } = readSession()
     if (user && error.status !== 401 && error.status !== 403) {
       return normalizeUser(user)
     }

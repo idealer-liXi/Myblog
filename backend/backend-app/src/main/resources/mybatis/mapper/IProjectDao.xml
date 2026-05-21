@@ -11,6 +11,7 @@
         <result column="github_url" property="githubUrl"/>
         <result column="preview_url" property="previewUrl"/>
         <result column="cover_image" property="coverImage"/>
+        <result column="showcase_images" property="showcaseImages"/>
         <result column="status" property="status"/>
         <result column="sort_order" property="sortOrder"/>
         <result column="start_date" property="startDate"/>
@@ -43,8 +44,8 @@
     </select>
 
     <insert id="insert" parameterType="cn.idealer01.infrastructure.dao.po.Project" useGeneratedKeys="true" keyProperty="id">
-        insert into project(name, description, tech_stack, project_url, github_url, preview_url, cover_image, status, sort_order, start_date, end_date, is_public, enabled, access_type, allowed_roles)
-        values (#{name}, #{description}, #{techStack}, #{projectUrl}, #{githubUrl}, #{previewUrl}, #{coverImage}, #{status}, #{sortOrder}, #{startDate}, #{endDate}, #{isPublic}, #{enabled}, #{accessType}, #{allowedRoles})
+        insert into project(name, description, tech_stack, project_url, github_url, preview_url, cover_image, showcase_images, status, sort_order, start_date, end_date, is_public, enabled, access_type, allowed_roles)
+        values (#{name}, #{description}, #{techStack}, #{projectUrl}, #{githubUrl}, #{previewUrl}, #{coverImage}, #{showcaseImages}, #{status}, #{sortOrder}, #{startDate}, #{endDate}, #{isPublic}, #{enabled}, #{accessType}, #{allowedRoles})
     </insert>
 
     <update id="update" parameterType="cn.idealer01.infrastructure.dao.po.Project">
@@ -57,6 +58,7 @@
             <if test="githubUrl != null">github_url = #{githubUrl},</if>
             <if test="previewUrl != null">preview_url = #{previewUrl},</if>
             <if test="coverImage != null">cover_image = #{coverImage},</if>
+            <if test="showcaseImages != null">showcase_images = #{showcaseImages},</if>
             <if test="status != null">status = #{status},</if>
             <if test="sortOrder != null">sort_order = #{sortOrder},</if>
             <if test="startDate != null">start_date = #{startDate},</if>

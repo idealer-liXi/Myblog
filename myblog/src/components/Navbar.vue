@@ -35,6 +35,12 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link :class="$route.path.startsWith('/projects') ? 'nav-link active' : 'nav-link'" :to="{ name: 'projects' }">
+              <i class="bi bi-kanban"></i>
+              <span>项目展示</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link :class="route_value === 'message-board' ? 'nav-link active' : 'nav-link'" :to="{ name: 'message-board' }">
               <i class="bi bi-chat-left-text"></i>
               <span>留言板</span>
@@ -248,7 +254,7 @@ export default {
 
 .nav-links {
   gap: 0.5rem;
-  margin-left: 1.5rem;
+  margin-left: 0.5rem;
 }
 
 .nav-item {

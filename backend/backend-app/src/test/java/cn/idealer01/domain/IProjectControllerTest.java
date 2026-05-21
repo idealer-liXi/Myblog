@@ -2,6 +2,7 @@ package cn.idealer01.domain;
 
 import cn.idealer01.api.dto.ProjectAdminResponseDTO;
 import cn.idealer01.api.dto.ProjectPublicResponseDTO;
+import cn.idealer01.api.dto.ProjectShowcasePublicResponseDTO;
 import cn.idealer01.domain.project.service.IProjectService;
 import cn.idealer01.trigger.http.ProjectAdminController;
 import cn.idealer01.trigger.http.ProjectPublicController;
@@ -61,6 +62,44 @@ public class IProjectControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("MyBlog"))
                 .andExpect(jsonPath("$[0].isPublic").value(true));
+    }
+
+    @Test
+    public void getProjectShowcase_shouldReturnFrontendReadyPublicList() throws Exception {
+        when(projectService.getPublicShowcaseProjects()).thenReturn(Collections.singletonList(
+                ProjectShowcasePublicResponseDTO.builder()
+                        .id("12")
+                        .name("IdealBlog 个人博客")
+                        .techStack(Collections.singletonList("Vue 3"))
+                        .images(Collections.singletonList("https://cdn.example.com/project-cover.png"))
+                        .build()
+        ));
+
+        publicMockMvc.perform(get("/api/projects/showcase"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value("12"))
+                .andExpect(jsonPath("$[0].name").value("IdealBlog 个人博客"))
+                .andExpect(jsonPath("$[0].techStack[0]").value("Vue 3"))
+                .andExpect(jsonPath("$[0].images[0]").value("https://cdn.example.com/project-cover.png"));
+    }
+
+    @Test
+    public void getProjectShowcase_shouldReturnMultipleImagesWhenPresent() throws Exception {
+        when(projectService.getPublicShowcaseProjects()).thenReturn(Collections.singletonList(
+                ProjectShowcasePublicResponseDTO.builder()
+                        .id("12")
+                        .name("IdealBlog 个人博客")
+                        .images(java.util.Arrays.asList(
+                                "https://cdn.example.com/a.png",
+                                "https://cdn.example.com/b.png"
+                        ))
+                        .build()
+        ));
+
+        publicMockMvc.perform(get("/api/projects/showcase"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].images[0]").value("https://cdn.example.com/a.png"))
+                .andExpect(jsonPath("$[0].images[1]").value("https://cdn.example.com/b.png"));
     }
 
     @Test

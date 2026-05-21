@@ -13,7 +13,7 @@
         <button
           type="button"
           class="btn btn-light btn-sm view-btn"
-          :disabled="!getProjectLink(project)"
+          :disabled="!hasProjectDetail(project)"
           @click="openProject(project)"
         >
           查看详情
@@ -36,6 +36,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import router from '@/router'
 import { getPublicProjects } from '@/services/projectService.js'
 import ImageInitialFallback from '@/components/common/ImageInitialFallback.vue'
 
@@ -51,14 +52,16 @@ function getProjectTags(techStack) {
     .slice(0, 3)
 }
 
-function getProjectLink(project) {
-  return project.previewUrl || project.projectUrl || project.githubUrl || ''
+function hasProjectDetail(project) {
+  return project?.id !== undefined && project?.id !== null && String(project.id).trim() !== ''
 }
 
 function openProject(project) {
-  const url = getProjectLink(project)
-  if (!url) return
-  window.open(url, '_blank', 'noopener,noreferrer')
+  if (!hasProjectDetail(project)) return
+  router.push({
+    name: 'project-detail',
+    params: { id: String(project.id) }
+  })
 }
 
 async function loadProjects() {
@@ -81,13 +84,7 @@ onMounted(loadProjects)
   overflow: hidden;
   margin-bottom: 20px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
   border: none;
-}
-
-.projects-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
 }
 
 .image-container {
@@ -106,12 +103,7 @@ onMounted(loadProjects)
 
 :deep(.project-cover-media) {
   object-fit: cover;
-  transition: transform 0.5s ease;
   background: rgba(71, 85, 105, 0.08);
-}
-
-.projects-card:hover :deep(.project-cover-media) {
-  transform: scale(1.1);
 }
 
 .image-overlay {
@@ -135,8 +127,6 @@ onMounted(loadProjects)
 .view-btn {
   padding: 6px 14px;
   font-weight: 500;
-  transform: translateY(20px);
-  transition: transform 0.3s ease;
 }
 
 .projects-card:hover .view-btn {

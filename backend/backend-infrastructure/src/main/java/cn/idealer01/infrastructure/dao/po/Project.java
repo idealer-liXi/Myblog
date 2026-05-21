@@ -20,6 +20,7 @@ public class Project {
     private String githubUrl;
     private String previewUrl;
     private String coverImage;
+    private String showcaseImages;
     private String status;
     private Integer sortOrder;
     private String startDate;

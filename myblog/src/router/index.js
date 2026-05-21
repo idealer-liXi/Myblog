@@ -6,6 +6,7 @@ import RegisterView from "@/views/user/RegisterView.vue";
 import UserProfileView from "@/views/user/UserProfileView.vue";
 import MessageBoardView from "@/views/message/MessageBoardView.vue";
 import BackendView from "@/views/backend/BackendView.vue";
+import ProjectsShowcaseView from '@/views/projects/ProjectsShowcaseView.vue'
 import ArticlePerform from "@/components/ArticlePerform.vue";
 import ArticleDetail from "@/components/ArticleDetail.vue";
 import GitHubStarView from "@/views/github/GitHubStarView.vue";
@@ -49,6 +50,16 @@ const routes = [
     path: '/me',
     name: 'me',
     component: MeView,
+  },
+  {
+    path: '/projects',
+    name: 'projects',
+    component: ProjectsShowcaseView,
+  },
+  {
+    path: '/projects/:id',
+    name: 'project-detail',
+    component: ProjectsShowcaseView,
   },
   {
     path: '/message',

@@ -3,12 +3,16 @@ package cn.idealer01.domain.project.service;
 import cn.idealer01.api.dto.ProjectAdminResponseDTO;
 import cn.idealer01.api.dto.ProjectPublicResponseDTO;
 import cn.idealer01.api.dto.ProjectRequestDTO;
+import cn.idealer01.api.dto.ProjectShowcasePublicResponseDTO;
+import com.alibaba.fastjson.JSON;
 import cn.idealer01.domain.project.adapter.repository.IProjectRepository;
 import cn.idealer01.domain.project.model.entity.ProjectEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -40,6 +44,15 @@ public class ProjectService implements IProjectService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProjectShowcasePublicResponseDTO> getPublicShowcaseProjects() {
+        return projectRepository.findPublicProjects().stream()
+                .filter(entity -> Boolean.TRUE.equals(entity.getIsPublic()))
+                .filter(entity -> Boolean.TRUE.equals(entity.getEnabled()))
+                .map(this::toShowcasePublicResponse)
+                .collect(Collectors.toList());
+    }
+
     public ProjectAdminResponseDTO createProject(ProjectRequestDTO request) {
         Date now = new Date();
         ProjectEntity entity = ProjectEntity.builder()
@@ -50,6 +63,7 @@ public class ProjectService implements IProjectService {
                 .githubUrl(defaultString(request.getGithubUrl()))
                 .previewUrl(defaultString(request.getPreviewUrl()))
                 .coverImage(defaultString(request.getCoverImage()))
+                .showcaseImages(serializeShowcaseImages(request.getShowcaseImages()))
                 .status(defaultString(request.getStatus(), "进行中"))
                 .sortOrder(request.getSortOrder() == null ? 0 : request.getSortOrder())
                 .startDate(defaultString(request.getStartDate()))
@@ -93,6 +107,9 @@ public class ProjectService implements IProjectService {
         }
         if (request.getCoverImage() != null) {
             entity.setCoverImage(request.getCoverImage());
+        }
+        if (request.getShowcaseImages() != null) {
+            entity.setShowcaseImages(serializeShowcaseImages(request.getShowcaseImages()));
         }
         if (request.getStatus() != null) {
             entity.setStatus(request.getStatus());
@@ -141,6 +158,7 @@ public class ProjectService implements IProjectService {
                 .githubUrl(entity.getGithubUrl())
                 .previewUrl(entity.getPreviewUrl())
                 .coverImage(entity.getCoverImage())
+                .showcaseImages(parseShowcaseImages(entity.getShowcaseImages()))
                 .status(entity.getStatus())
                 .sortOrder(entity.getSortOrder())
                 .startDate(entity.getStartDate())
@@ -172,6 +190,27 @@ public class ProjectService implements IProjectService {
                 .build();
     }
 
+    private ProjectShowcasePublicResponseDTO toShowcasePublicResponse(ProjectEntity entity) {
+        List<String> showcaseImages = parseShowcaseImages(entity.getShowcaseImages());
+        List<String> resolvedImages = showcaseImages.isEmpty()
+                ? toImageList(entity.getCoverImage())
+                : showcaseImages;
+
+        return ProjectShowcasePublicResponseDTO.builder()
+                .id(entity.getId() == null ? "" : String.valueOf(entity.getId()))
+                .name(entity.getName())
+                .description(entity.getDescription())
+                .techStack(splitTechStack(entity.getTechStack()))
+                .githubUrl(entity.getGithubUrl())
+                .previewUrl(entity.getPreviewUrl())
+                .coverImage(entity.getCoverImage())
+                .status(entity.getStatus())
+                .startDate(entity.getStartDate())
+                .endDate(entity.getEndDate())
+                .images(resolvedImages)
+                .build();
+    }
+
     private String formatDate(Date date, SimpleDateFormat formatter) {
         return date == null ? null : formatter.format(date);
     }
@@ -182,5 +221,54 @@ public class ProjectService implements IProjectService {
 
     private String defaultString(String value, String defaultValue) {
         return value == null || value.trim().isEmpty() ? defaultValue : value;
+    }
+
+    private String serializeShowcaseImages(List<String> showcaseImages) {
+        if (showcaseImages == null || showcaseImages.isEmpty()) {
+            return "[]";
+        }
+
+        return JSON.toJSONString(showcaseImages.stream()
+                .map(value -> value == null ? "" : value.trim())
+                .filter(value -> !value.isEmpty())
+                .collect(Collectors.toList()));
+    }
+
+    private List<String> parseShowcaseImages(String rawShowcaseImages) {
+        if (rawShowcaseImages == null || rawShowcaseImages.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        try {
+            List<String> parsed = JSON.parseArray(rawShowcaseImages, String.class);
+            if (parsed == null) {
+                return Collections.emptyList();
+            }
+            return parsed.stream()
+                    .map(value -> value == null ? "" : value.trim())
+                    .filter(value -> !value.isEmpty())
+                    .collect(Collectors.toList());
+        } catch (Exception ignored) {
+            return Collections.emptyList();
+        }
+    }
+
+    private List<String> splitTechStack(String techStack) {
+        if (techStack == null || techStack.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return Arrays.stream(techStack.split(","))
+                .map(String::trim)
+                .filter(value -> !value.isEmpty())
+                .collect(Collectors.toList());
+    }
+
+    private List<String> toImageList(String coverImage) {
+        if (coverImage == null || coverImage.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return Collections.singletonList(coverImage.trim());
     }
 }

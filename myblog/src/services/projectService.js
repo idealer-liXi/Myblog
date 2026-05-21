@@ -30,14 +30,38 @@ function normalizeOssUrl(url) {
 
 function normalizeProject(project) {
   if (!project) return null
+  const showcaseImages = Array.isArray(project.showcaseImages)
+    ? project.showcaseImages.map(normalizeOssUrl).filter(Boolean)
+    : []
+
   return {
     ...project,
     coverImage: normalizeOssUrl(project.coverImage || project.image || ''),
     image: normalizeOssUrl(project.coverImage || project.image || ''),
+    showcaseImages,
     isPublic: project.isPublic !== undefined ? project.isPublic : true,
     enabled: project.enabled !== undefined ? project.enabled : true,
     accessType: project.accessType || 'public',
     allowedRoles: project.allowedRoles || ''
+  }
+}
+
+function normalizeShowcaseProject(project) {
+  const normalized = normalizeProject(project)
+  if (!normalized) return null
+
+  return {
+    ...normalized,
+    id: String(project.id || ''),
+    techStack: Array.isArray(project.techStack)
+      ? project.techStack.filter(Boolean)
+      : String(project.techStack || '')
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter(Boolean),
+    images: Array.isArray(project.images)
+      ? project.images.map(normalizeOssUrl).filter(Boolean)
+      : []
   }
 }
 
@@ -57,6 +81,19 @@ export async function getPublicProjects() {
     return list.map(normalizeProject).filter(Boolean)
   } catch (error) {
     console.error('获取公开项目列表失败:', error)
+    throw error
+  }
+}
+
+export async function getPublicProjectShowcase() {
+  try {
+    const response = await axios.get(`${PUBLIC_BASE_URL}/projects/showcase`)
+    const list = Array.isArray(response.data)
+      ? response.data
+      : response.data.data || []
+    return list.map(normalizeShowcaseProject).filter(Boolean)
+  } catch (error) {
+    console.error('获取项目展示列表失败:', error)
     throw error
   }
 }

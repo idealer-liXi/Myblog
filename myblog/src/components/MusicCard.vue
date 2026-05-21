@@ -193,7 +193,6 @@ const formatTime = (seconds) => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(168, 237, 234, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,6 +201,7 @@ const formatTime = (seconds) => {
   opacity: 0;
   transition: opacity 0.3s ease;
   animation: pulse 2s infinite;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .music-card:hover .play-overlay,

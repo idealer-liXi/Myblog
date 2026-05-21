@@ -4,14 +4,11 @@ import {
   bindWechatExistingAccount,
   checkWechatLogin,
   createWechatAccount,
+  fetchCurrentUser,
   uploadCurrentUserAvatar
 } from '@/services/authService'
 
-vi.mock('axios', () => ({
-  default: vi.fn()
-}))
-
-vi.mock('@/utils/authSession', () => ({
+const { readSession } = vi.hoisted(() => ({
   readSession: vi.fn(() => ({
     token: 'stored-token',
     expiresAt: Date.now() + 60_000,
@@ -19,9 +16,23 @@ vi.mock('@/utils/authSession', () => ({
   }))
 }))
 
+vi.mock('axios', () => ({
+  default: vi.fn()
+}))
+
+vi.mock('@/utils/authSession', () => ({
+  readSession
+}))
+
 describe('authService WeChat login flow', () => {
   beforeEach(() => {
     axios.mockReset()
+    readSession.mockReset()
+    readSession.mockReturnValue({
+      token: 'stored-token',
+      expiresAt: Date.now() + 60_000,
+      user: {}
+    })
   })
 
   it('returns null while WeChat login is still pending scan', async () => {
@@ -187,5 +198,32 @@ describe('authService WeChat login flow', () => {
       })
     }))
     expect(url).toBe('https://cdn.example.com/user-avatars/2/avatar.png')
+  })
+
+  it('preserves the stored displayName when /me omits it', async () => {
+    readSession.mockReturnValue({
+      token: 'stored-token',
+      expiresAt: Date.now() + 60_000,
+      user: {
+        username: 'admin',
+        displayName: '理想',
+        roles: ['ADMIN']
+      }
+    })
+
+    axios.mockResolvedValueOnce({
+      data: {
+        code: '0000',
+        data: {
+          username: 'admin',
+          roles: ['ADMIN']
+        }
+      }
+    })
+
+    const user = await fetchCurrentUser()
+
+    expect(user.displayName).toBe('理想')
+    expect(user.username).toBe('admin')
   })
 })

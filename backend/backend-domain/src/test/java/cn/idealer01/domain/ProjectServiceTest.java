@@ -3,6 +3,7 @@ package cn.idealer01.domain;
 import cn.idealer01.api.dto.ProjectAdminResponseDTO;
 import cn.idealer01.api.dto.ProjectPublicResponseDTO;
 import cn.idealer01.api.dto.ProjectRequestDTO;
+import cn.idealer01.api.dto.ProjectShowcasePublicResponseDTO;
 import cn.idealer01.domain.project.adapter.repository.IProjectRepository;
 import cn.idealer01.domain.project.model.entity.ProjectEntity;
 import cn.idealer01.domain.project.service.ProjectService;
@@ -67,6 +68,114 @@ class ProjectServiceTest {
         Assertions.assertEquals("Second", result.get(0).getName());
         Assertions.assertEquals(Boolean.TRUE, result.get(0).getIsPublic());
         verify(projectRepository).findPublicProjects();
+    }
+
+    @Test
+    void getPublicShowcaseProjects_shouldFilterEnabledProjectsAndMapFrontendShape() {
+        ProjectService projectService = new ProjectService();
+        ReflectionTestUtils.setField(projectService, "projectRepository", projectRepository);
+
+        when(projectRepository.findPublicProjects()).thenReturn(java.util.Arrays.asList(
+                ProjectEntity.builder()
+                        .id(12L)
+                        .name("IdealBlog 个人博客")
+                        .description("个人博客、后台管理、音乐播放器和留言板整合在一个统一站点中。")
+                        .techStack("Vue 3, Spring Boot, MySQL")
+                        .githubUrl("https://github.com/ideal/example-blog")
+                        .previewUrl("https://demo.example.com/ideal-blog")
+                        .coverImage("https://cdn.example.com/project-cover.png")
+                        .status("进行中")
+                        .startDate("2026-01-01")
+                        .endDate("")
+                        .isPublic(Boolean.TRUE)
+                        .enabled(Boolean.TRUE)
+                        .build(),
+                ProjectEntity.builder()
+                        .id(13L)
+                        .name("Disabled Project")
+                        .isPublic(Boolean.TRUE)
+                        .enabled(Boolean.FALSE)
+                        .build()
+        ));
+
+        java.util.List<ProjectShowcasePublicResponseDTO> result = projectService.getPublicShowcaseProjects();
+
+        Assertions.assertEquals(1, result.size());
+        Assertions.assertEquals("12", result.get(0).getId());
+        Assertions.assertEquals("IdealBlog 个人博客", result.get(0).getName());
+        Assertions.assertEquals(java.util.Arrays.asList("Vue 3", "Spring Boot", "MySQL"), result.get(0).getTechStack());
+        Assertions.assertEquals(java.util.Collections.singletonList("https://cdn.example.com/project-cover.png"), result.get(0).getImages());
+        verify(projectRepository).findPublicProjects();
+    }
+
+    @Test
+    void getPublicShowcaseProjects_shouldReturnEmptyArraysForMissingOptionalVisualData() {
+        ProjectService projectService = new ProjectService();
+        ReflectionTestUtils.setField(projectService, "projectRepository", projectRepository);
+
+        when(projectRepository.findPublicProjects()).thenReturn(java.util.Collections.singletonList(
+                ProjectEntity.builder()
+                        .id(15L)
+                        .name("Minimal")
+                        .techStack("  ")
+                        .coverImage("  ")
+                        .isPublic(Boolean.TRUE)
+                        .enabled(Boolean.TRUE)
+                        .build()
+        ));
+
+        java.util.List<ProjectShowcasePublicResponseDTO> result = projectService.getPublicShowcaseProjects();
+
+        Assertions.assertTrue(result.get(0).getTechStack().isEmpty());
+        Assertions.assertTrue(result.get(0).getImages().isEmpty());
+    }
+
+    @Test
+    void getPublicShowcaseProjects_shouldPreferShowcaseImagesOverCoverImage() {
+        ProjectService projectService = new ProjectService();
+        ReflectionTestUtils.setField(projectService, "projectRepository", projectRepository);
+
+        when(projectRepository.findPublicProjects()).thenReturn(java.util.Collections.singletonList(
+                ProjectEntity.builder()
+                        .id(12L)
+                        .name("IdealBlog")
+                        .coverImage("https://cdn.example.com/cover.png")
+                        .showcaseImages("[\"https://cdn.example.com/a.png\",\"https://cdn.example.com/b.png\"]")
+                        .isPublic(Boolean.TRUE)
+                        .enabled(Boolean.TRUE)
+                        .build()
+        ));
+
+        java.util.List<ProjectShowcasePublicResponseDTO> result = projectService.getPublicShowcaseProjects();
+
+        Assertions.assertEquals(java.util.Arrays.asList(
+                "https://cdn.example.com/a.png",
+                "https://cdn.example.com/b.png"
+        ), result.get(0).getImages());
+    }
+
+    @Test
+    void createProject_shouldSerializeShowcaseImagesIntoPersistedJson() {
+        ProjectService projectService = new ProjectService();
+        ReflectionTestUtils.setField(projectService, "projectRepository", projectRepository);
+
+        ProjectRequestDTO request = new ProjectRequestDTO();
+        request.setName("MyBlog");
+        request.setShowcaseImages(java.util.Arrays.asList(
+                "https://cdn.example.com/1.png",
+                "https://cdn.example.com/2.png"
+        ));
+
+        when(projectRepository.save(any(ProjectEntity.class))).thenAnswer(invocation -> {
+            ProjectEntity entity = invocation.getArgument(0);
+            Assertions.assertEquals("[\"https://cdn.example.com/1.png\",\"https://cdn.example.com/2.png\"]", entity.getShowcaseImages());
+            entity.setId(9L);
+            return 9L;
+        });
+
+        ProjectAdminResponseDTO result = projectService.createProject(request);
+
+        Assertions.assertEquals(2, result.getShowcaseImages().size());
     }
 
     @Test
@@ -147,5 +256,24 @@ class ProjectServiceTest {
         Assertions.assertEquals(Long.valueOf(11L), result.getId());
         Assertions.assertEquals("Detail", result.getName());
         verify(projectRepository).findById(11L);
+    }
+
+    @Test
+    void getProjectById_shouldExposeShowcaseImagesForAdminEditing() {
+        ProjectService projectService = new ProjectService();
+        ReflectionTestUtils.setField(projectService, "projectRepository", projectRepository);
+
+        when(projectRepository.findById(21L)).thenReturn(
+                ProjectEntity.builder()
+                        .id(21L)
+                        .name("Showcase")
+                        .showcaseImages("[\"https://cdn.example.com/1.png\",\"https://cdn.example.com/2.png\"]")
+                        .build()
+        );
+
+        ProjectAdminResponseDTO result = projectService.getProjectById(21L);
+
+        Assertions.assertEquals(2, result.getShowcaseImages().size());
+        Assertions.assertEquals("https://cdn.example.com/1.png", result.getShowcaseImages().get(0));
     }
 }

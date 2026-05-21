@@ -3,6 +3,7 @@
   <router-view/>
   <Footer></Footer>
   <ConfirmModal ref="confirmModal" />
+  <FloatingEffects />
 </template>
 
 <script>
@@ -10,6 +11,7 @@ import { onMounted, ref } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import ConfirmModal from '@/components/common/ConfirmModal.vue'
+import FloatingEffects from '@/components/FloatingEffects.vue'
 import router from '@/router'
 import { useStore } from 'vuex'
 import { clearSession, hasValidSession, readSession } from '@/utils/authSession'
@@ -21,6 +23,7 @@ export default {
     Navbar,
     Footer,
     ConfirmModal,
+    FloatingEffects,
   },
   setup() {
     const store = useStore()

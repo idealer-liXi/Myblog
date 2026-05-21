@@ -3,7 +3,7 @@
     <template v-if="weather">
       <div class="weather-main">
         <div class="weather-icon-wrap">
-          <img :src="iconUrl" :alt="weather.text" class="weather-icon" />
+          <i :class="weatherIconClass" class="weather-icon-glyph" data-testid="weather-local-icon"></i>
         </div>
         <div class="weather-info">
           <span class="weather-temp">{{ weather.temp }}°</span>
@@ -13,7 +13,7 @@
       <div class="weather-details">
         <span class="weather-city"><i class="bi bi-geo-alt"></i> {{ weather.city }}</span>
         <span class="weather-detail-item"><i class="bi bi-droplet"></i> {{ weather.humidity }}%</span>
-        <span class="weather-detail-item"><i class="bi bi-wind"></i> {{ weather.windDir }} {{ weather.windScale }}级</span>
+        <span class="weather-detail-item"><i class="bi bi-wind"></i> {{ weather.windScale }}级</span>
       </div>
     </template>
     <template v-else-if="error">
@@ -33,21 +33,28 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { getWeatherByIP, hasApiKey } from '@/services/weatherService.js'
+import { getWeatherByIP } from '@/services/weatherService.js'
 
 const weather = ref(null)
 const error = ref('')
 
-const iconUrl = computed(() => {
-  if (!weather.value?.icon) return ''
-  return `https://a.hecdn.net/img/common/icon/202106/${weather.value.icon}.png`
+const weatherIconClass = computed(() => {
+  const icon = String(weather.value?.icon || '')
+  const iconMap = {
+    '100': 'bi-brightness-high-fill',
+    '101': 'bi-cloud-sun-fill',
+    '104': 'bi-clouds-fill',
+    '150': 'bi-moon-stars-fill',
+    '151': 'bi-cloud-moon-fill',
+    '302': 'bi-cloud-lightning-rain-fill',
+    '305': 'bi-cloud-rain-fill',
+    '400': 'bi-cloud-snow-fill',
+    '500': 'bi-cloud-fog2-fill'
+  }
+  return iconMap[icon] || 'bi-cloud-fill'
 })
 
 const loadWeather = async () => {
-  if (!hasApiKey()) {
-    error.value = '未配置天气密钥'
-    return
-  }
   try {
     error.value = ''
     const data = await getWeatherByIP()
@@ -73,16 +80,10 @@ onMounted(loadWeather)
   border-radius: 16px;
   padding: 12px 14px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-size: 0.85rem;
   color: #334155;
   flex-shrink: 0;
   margin-bottom: 12px;
-}
-
-.weather-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
 .weather-main {
@@ -101,15 +102,17 @@ onMounted(loadWeather)
   justify-content: center;
 }
 
-.weather-icon {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
+.weather-icon-glyph {
+  font-size: 2rem;
+  line-height: 1;
+  color: #4a86e8;
 }
 
 .weather-info {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px;
   min-width: 0;
 }
 
