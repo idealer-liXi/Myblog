@@ -1,2 +1,46 @@
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+*.iws
+*.ipr
+
+# Local worktrees/tool state
 .worktrees/
+**/.sisyphus/
+
+# Dependencies and build output
+**/node_modules/
+**/dist/
+**/target/
+**/coverage/
+
+# Logs and runtime data
+*.log
+backend/data/
+backend/**/data/
+
+# Environment files and local application config
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
 backend/backend-app/src/main/resources/application-dev.yml
+
+# Certificates and private keys
+*.key
+*.pem
+*.p12
+*.pfx
+域名ssl/
+deploy/prod/nginx/ssl/*
+!deploy/prod/nginx/ssl/.gitkeep
