@@ -15,6 +15,7 @@ Thumbs.db
 # Local worktrees/tool state
 .worktrees/
 **/.sisyphus/
+docs/superpowers/specs/
 
 # Dependencies and build output
 **/node_modules/
